@@ -12,10 +12,10 @@ export const calculateNutrients = (
 ) => {
   // If it's a piece/unit, we multiply amount by weightPerUnit to get total weight
   // If no weightPerUnit, we treat amount as a direct multiplier (backward compatibility)
-  const effectiveWeight = food.sizeType === 'UNIT' && food.weightPerUnit 
-    ? amount * food.weightPerUnit 
+  const effectiveWeight = food.sizeType === 'UNIT' && food.weightPerUnit
+    ? amount * food.weightPerUnit
     : (food.sizeType === 'UNIT' ? amount * 100 : amount);
-    
+
   const factor = effectiveWeight / 100;
   const cookingFactor = isRaw ? 1.2 : 1.0;
 
@@ -51,9 +51,9 @@ export const getHealthInsight = (calories: number) => {
  */
 export const calculateMealTotals = (items: any[]) => {
   return items.reduce((acc, curr) => ({
-    calories: acc.calories + curr.calories,
-    protein: acc.protein + curr.protein,
-    carbs: acc.carbs + curr.carbs,
-    fat: acc.fat + curr.fat,
+    calories: acc.calories + curr?.calories,
+    protein: acc.protein + curr?.protein,
+    carbs: acc.carbs + curr?.carbs,
+    fat: acc.fat + curr?.fat,
   }), { calories: 0, protein: 0, carbs: 0, fat: 0 });
 };

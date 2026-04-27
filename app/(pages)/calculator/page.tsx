@@ -1,6 +1,7 @@
 "use client";
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { category, Food } from '@/app/lib/data';
+
 // Components
 import CalculatorHeader from '@/app/components/calculator/Layout/CalculatorHeader';
 import FoodListSection from '@/app/components/calculator/Layout/FoodListSection';
@@ -9,17 +10,29 @@ import AddedFoodsSummary from '@/app/components/calculator/Layout/AddedFoodsSumm
 import QuickAdjustPanel from '@/app/components/calculator/Layout/QuickAdjustPanel';
 import ResultModal from '@/app/components/calculator/Layout/ResultModal';
 
-// Hooks
+// Hooks & Store
 import { useMealSummary } from '@/app/hooks/useMealSummary';
+import { usePlatesStore } from '@/app/store/usePlatesStore';
 
 export default function CalculatorPage() {
+  // --- Global Store ---
+  const plates = usePlatesStore((state) => state.plates);
+  console.log("plates", plates)
+  const addPlate = usePlatesStore((state) => state.addPlate);
+  const updatePlate = usePlatesStore((state) => state.updatePlate);
+  const clearPlates = usePlatesStore((state) => state.clearPlates);
+  const removePlate = usePlatesStore((state) => state.removePlate);
+
+  // --- Local UI State ---
   const [selectedCategory, setSelectedCategory] = useState(1);
-  const [selectedFoodList, setSelectedFoodList] = useState<any[]>([]);
+  // const [selectedFoodList, setSelectedFoodList] = useState<any[]>([]);
   const [activeFood, setActiveFood] = useState<Food | null>(null);
   const [resultItem, setResultItem] = useState<any | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [showMealSummary, setShowMealSummary] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
 
   const filteredFoods = useMemo(() => {
     if (searchQuery.trim()) {
@@ -32,34 +45,42 @@ export default function CalculatorPage() {
     return category.find(c => c.id === selectedCategory)?.foods ?? [];
   }, [selectedCategory, searchQuery]);
 
-  const { totals } = useMealSummary(selectedFoodList);
+  const { totals } = useMealSummary(plates);
 
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
-
+  // --- Handlers ---
   const showToast = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 3000);
   };
 
   const handleAddFood = (calculated: any) => {
+    if (!calculated) return;
+
     if (editingIndex !== null) {
-      setSelectedFoodList(prev => { const l = [...prev]; l[editingIndex] = calculated; return l; });
+
+      updatePlate(editingIndex, calculated);
       setEditingIndex(null);
       showToast(`Updated ${calculated.name}`);
     } else {
-      setSelectedFoodList(prev => [...prev, calculated]);
+      // Add new
+      // setSelectedFoodList(prev => [...prev, calculated]);
+      addPlate(calculated);
       showToast(`Added ${calculated.name} to plate`);
     }
     setActiveFood(null);
   };
 
   const handlePreviewFood = (calculated: any) => {
+    if (!calculated) return;
     setResultItem(calculated);
+
+    // Preview often implies adding to the session in this UI flow
     if (editingIndex !== null) {
-      setSelectedFoodList(prev => { const l = [...prev]; l[editingIndex] = calculated; return l; });
+
+      updatePlate(editingIndex, calculated);
       setEditingIndex(null);
     } else {
-      setSelectedFoodList(prev => [...prev, calculated]);
+      addPlate(calculated);
     }
     setActiveFood(null);
   };
@@ -70,11 +91,24 @@ export default function CalculatorPage() {
     if (baseFood) setActiveFood(baseFood);
   };
 
+  const handleClearAll = () => {
+    clearPlates();
+  };
+
+  const handleRemoveItem = (index: number) => {
+    const itemToRemove = plates[index];
+    if (itemToRemove?.id) {
+      removePlate(itemToRemove.id);
+    }
+    if (editingIndex === index) setEditingIndex(null);
+  };
+
+
+
   return (
     <div className='min-h-screen text-white selection:bg-primary selection:text-secondary'
       style={{ background: 'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(16,185,129,0.08) 0%, #080a0c 60%)' }}
     >
-      {/* Subtle grid overlay */}
       <div className="fixed inset-0 pointer-events-none"
         style={{
           backgroundImage: 'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)',
@@ -83,10 +117,8 @@ export default function CalculatorPage() {
       />
 
       <div className='relative container mx-auto px-4 max-w-2xl pb-44 pt-6'>
-
-        {/* ── Header ── */}
         <CalculatorHeader
-          selectedFoodListLength={selectedFoodList.length}
+          selectedFoodListLength={plates.length}
           setShowMealSummary={setShowMealSummary}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
@@ -94,7 +126,6 @@ export default function CalculatorPage() {
           setSelectedCategory={setSelectedCategory}
         />
 
-        {/* ── Food list ── */}
         <FoodListSection
           filteredFoods={filteredFoods}
           searchQuery={searchQuery}
@@ -102,37 +133,30 @@ export default function CalculatorPage() {
           setActiveFood={setActiveFood}
         />
 
-
-        {/* Added foods summary */}
-        {selectedFoodList.length > 0 && (
+        {plates.length > 0 && (
           <div className="mt-8">
             <div className="flex items-center gap-3 mb-4 px-1">
               <p className="text-[10px] font-black tracking-[0.2em] text-gray-600 uppercase">My Plate</p>
               <div className="flex-1 h-px bg-white/5" />
               <button
-                onClick={() => setSelectedFoodList([])}
+                onClick={handleClearAll}
                 className="text-[10px] font-black tracking-widest text-gray-600 hover:text-red-400 uppercase transition-colors"
               >
                 Clear all
               </button>
             </div>
             <AddedFoodsSummary
-              items={selectedFoodList}
-              onRemove={(i) => {
-                setSelectedFoodList(prev => prev.filter((_, idx) => idx !== i));
-                if (editingIndex === i) setEditingIndex(null);
-              }}
+              items={plates}
+              onRemove={handleRemoveItem}
               onEdit={handleEditItem}
-              onClearAll={() => setSelectedFoodList([])}
+              onClearAll={handleClearAll}
             />
           </div>
         )}
       </div>
 
-      {/* Sticky footer */}
       <TotalMacrosFooter totals={totals} onClick={() => setShowMealSummary(true)} />
 
-      {/* Panels & Modals */}
       {activeFood && (
         <QuickAdjustPanel
           food={activeFood}
@@ -141,9 +165,9 @@ export default function CalculatorPage() {
           onPreview={handlePreviewFood}
           isEditing={editingIndex !== null}
           initialValues={editingIndex !== null ? {
-            amount: selectedFoodList[editingIndex].selectedAmount,
-            isRaw: selectedFoodList[editingIndex].isRaw,
-            quantity: selectedFoodList[editingIndex].quantity,
+            amount: plates[editingIndex]?.selectedAmount,
+            isRaw: plates[editingIndex]?.isRaw,
+            quantity: plates[editingIndex]?.quantity,
             selectedSizeId: 'custom'
           } : undefined}
         />
@@ -158,14 +182,13 @@ export default function CalculatorPage() {
             name: "My Full Plate",
             nameAr: "وجبتي بالكامل",
             icon: "🍽️",
-            selectedAmount: selectedFoodList.length,
+            selectedAmount: plates.length,
             unit: "items"
           }}
           onClose={() => setShowMealSummary(false)}
         />
       )}
 
-      {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-top-10 fade-in duration-300">
           <div className="bg-primary text-secondary font-black px-6 py-3 rounded-full shadow-[0_10px_30px_rgba(16,185,129,0.3)] flex items-center gap-2 border border-primary/20">

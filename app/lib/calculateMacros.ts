@@ -18,10 +18,10 @@ export const calculateMacros = (
 ): CalculatedMacros => {
   // If it's a piece/unit, we multiply amount by weightPerUnit to get total weight
   // If no weightPerUnit, we treat amount as a direct multiplier
-  const effectiveWeight = food.sizeType === 'UNIT' && food.weightPerUnit 
-    ? amount * food.weightPerUnit 
+  const effectiveWeight = food.sizeType === 'UNIT' && food.weightPerUnit
+    ? amount * food.weightPerUnit
     : (food.sizeType === 'UNIT' ? amount * 100 : amount);
-    
+
   const factor = effectiveWeight / 100;
   const cookingFactor = isRaw ? 1.2 : 1.0;
 
@@ -39,9 +39,9 @@ export const calculateMacros = (
  */
 export const calculateMealTotals = (items: CalculatedMacros[]): CalculatedMacros => {
   return items.reduce((acc, curr) => ({
-    calories: Math.round(((acc.calories || 0) + (curr.calories || 0)) * 10) / 10 || 0,
-    protein: Math.round(((acc.protein || 0) + (curr.protein || 0)) * 10) / 10 || 0,
-    carbs: Math.round(((acc.carbs || 0) + (curr.carbs || 0)) * 10) / 10 || 0,
-    fat: Math.round(((acc.fat || 0) + (curr.fat || 0)) * 10) / 10 || 0,
+    calories: Math.round(((acc.calories || 0) + (curr?.calories || 0)) * 10) / 10 || 0,
+    protein: Math.round(((acc.protein || 0) + (curr?.protein || 0)) * 10) / 10 || 0,
+    carbs: Math.round(((acc.carbs || 0) + (curr?.carbs || 0)) * 10) / 10 || 0,
+    fat: Math.round(((acc.fat || 0) + (curr?.fat || 0)) * 10) / 10 || 0,
   }), { calories: 0, protein: 0, carbs: 0, fat: 0 });
 };

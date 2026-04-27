@@ -25,13 +25,13 @@ export default function FoodCategoryTabs({ selectedId, onSelect }: FoodCategoryT
         <div ref={scrollRef} className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide px-1">
           {category.map((item) => (
             <Buttons
-              key={item.id}
-              isSelected={selectedId === item.id}
-              onClick={() => onSelect(item.id)}
-              title={item.name}
-              icon={item.icon}
+              key={item?.id}
+              isSelected={selectedId === item?.id}
+              onClick={() => onSelect(item?.id)}
+              title={item?.name}
+              icon={item?.icon}
             >
-              {item.icon} {item.name}
+              {item?.icon} {item?.name}
             </Buttons>
           ))}
         </div>
