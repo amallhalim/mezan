@@ -8,6 +8,7 @@ import QuantitySelector from '@/app/components/calculator/PortionSelector/Quanti
 
 import MacroNutrientStats from '@/app/components/calculator/PortionSelector/MacroNutrientStats';
 import Button from '@/app/components/Common/Button';
+import WeightInput from '@/app/components/shared/WeightInput';
 
 interface QuickAdjustPanelProps {
   food: Food;
@@ -44,7 +45,7 @@ export default function QuickAdjustPanel({
 
   return (
     <div className="fixed inset-x-0 bottom-24 z-40 flex justify-center px-4 animate-in slide-in-from-bottom-10 duration-500">
-      <div className="bg-[#161B21]/95 backdrop-blur-2xl w-full max-w-md rounded-[2.5rem] p-6 border border-white/10 shadow-[0_20px_80px_rgba(0,0,0,0.8)] overflow-hidden">
+      <div className="bg-zinc-900/95 backdrop-blur-2xl w-full max-w-md rounded-[2.5rem] p-6 border border-white/10 shadow-[0_20px_80px_rgba(0,0,0,0.8)] overflow-hidden">
 
         {/* Pull Handle (Visual only) */}
         <div className="w-12 h-1 bg-white/10 rounded-full mx-auto mb-6" />
@@ -131,26 +132,15 @@ export default function QuickAdjustPanel({
           </div>
 
           {/* Compact Custom Input */}
-          <div className="flex-1 space-y-1.5">
-            <label className="text-[9px] font-black text-gray-500 uppercase tracking-[0.15em] ml-1">Custom</label>
-            <div className="relative h-10">
-              <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                <Scale className="size-3.5 text-gray-500" />
-              </div>
-              <input
-                type="number"
-                value={amount}
-                onChange={(e) => {
-                  setAmount(Number(e.target.value));
-                  setSelectedSizeId('custom');
-                }}
-                className="w-full h-full bg-white/5 border border-white/5 focus:border-primary/50 rounded-xl pl-9 pr-8 text-white font-bold text-xs outline-none transition-all"
-              />
-              <div className="absolute inset-y-0 right-3 flex items-center">
-                <span className="text-[9px] text-gray-500 font-bold uppercase">{calculated.unit}</span>
-              </div>
-            </div>
-          </div>
+          <WeightInput
+            amount={amount}
+            unit={calculated.unit}
+            label="Custom"
+            onChange={(val) => {
+              setAmount(val);
+              setSelectedSizeId('custom');
+            }}
+          />
         </div>
 
         {/* Action Buttons Row */}
