@@ -47,7 +47,7 @@ export default function SelectedPortionPreview({
   };
 
   return (
-    <div className="bg-[#161B21]/80 backdrop-blur-md rounded-[2rem] p-5 border border-white/10 flex items-center justify-between transition-all animate-in zoom-in-95 duration-300 relative group shadow-2xl">
+    <div className="bg-zinc-900/80 backdrop-blur-md rounded-[2rem] p-5 border border-white/10 flex items-center justify-between transition-all animate-in zoom-in-95 duration-300 relative group shadow-2xl">
       <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-[2.1rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
       
       <div className="flex items-center gap-4 relative z-10">

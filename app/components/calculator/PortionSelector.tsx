@@ -44,7 +44,7 @@ export default function PortionSelector({ food, onClose, onConfirm }: PortionSel
 
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-[#0B0E11] w-full max-w-lg rounded-t-3xl sm:rounded-3xl border border-white/10 shadow-2xl overflow-hidden animate-in slide-in-from-bottom duration-300">
+      <div className="bg-zinc-950 w-full max-w-lg rounded-t-3xl sm:rounded-3xl border border-white/10 shadow-2xl overflow-hidden animate-in slide-in-from-bottom duration-300">
 
         {/* Header */}
         <div className="relative p-6 border-b border-white/5 bg-white/5">

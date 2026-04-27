@@ -20,7 +20,7 @@ export default function ResultModal({ item, onClose }: ResultModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-300">
-      <div className="relative bg-[#0B0E11] w-full max-w-md rounded-[3rem] p-8 border border-white/10 shadow-[0_0_80px_rgba(16,185,129,0.15)] overflow-hidden animate-in zoom-in-95 duration-500">
+      <div className="relative bg-zinc-950 w-full max-w-md rounded-[3rem] p-8 border border-white/10 shadow-[0_0_80px_rgba(16,185,129,0.15)] overflow-hidden animate-in zoom-in-95 duration-500">
         
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-primary/10 blur-[120px] pointer-events-none" />
 

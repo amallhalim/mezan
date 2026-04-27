@@ -83,7 +83,7 @@ export default function UnifiedMacroChart({ protein, carbs, fat, size = 160 }: U
         
         {/* Center Text with Inner Shadow */}
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <div className="bg-[#0B0E11] rounded-full size-[75%] flex flex-col items-center justify-center border border-white/5 shadow-inner">
+          <div className="bg-zinc-950 rounded-full size-[75%] flex flex-col items-center justify-center border border-white/5 shadow-inner">
             <span className="text-[8px] font-black text-gray-500 uppercase tracking-[0.3em] leading-none mb-1">Balance</span>
             <div className="flex items-baseline gap-0.5">
               <span className="text-2xl font-black text-white tracking-tighter">100</span>
