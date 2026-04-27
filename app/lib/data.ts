@@ -94,6 +94,11 @@ export const FOODS: Food[] = [
     { id: "me14", categoryId: 4, name: "Dates", nameAr: "بلح / تمر", icon: "🌴", caloriesPer100: 280, proteinPer100: 2, carbsPer100: 75, fatPer100: 0.4, sizeType: "UNIT", weightPerUnit: 10 },
 
     // --- Desserts (Category 5) ---
+    { id: "me31", categoryId: 5, name: "Baklava", nameAr: "بقلاوة", icon: "🥮", caloriesPer100: 430, proteinPer100: 6, carbsPer100: 50, fatPer100: 25, sizeType: "FOOD" },
+
+
+
+
     { id: "me15", categoryId: 5, name: "Kunafa", nameAr: "كنافة", icon: "🍯", caloriesPer100: 450, proteinPer100: 5, carbsPer100: 60, fatPer100: 22, sizeType: "FOOD" },
     { id: "me16", categoryId: 5, name: "Basbousa", nameAr: "بسبوسة", icon: "🍰", caloriesPer100: 380, proteinPer100: 4, carbsPer100: 55, fatPer100: 18, sizeType: "FOOD" },
     { id: "me17", categoryId: 5, name: "Om Ali", nameAr: "أم علي", icon: "🥣", caloriesPer100: 320, proteinPer100: 8, carbsPer100: 35, fatPer100: 18, sizeType: "FOOD" },

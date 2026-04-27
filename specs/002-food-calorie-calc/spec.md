@@ -5,6 +5,15 @@
 **Status**: Draft
 **Input**: User description: "i want to built feateu allow user calcate food calory of food"
 
+## Clarifications
+
+### Session 2026-04-27
+- Q: Should the meal plate be saved? → A: Persistent Session (LocalStorage).
+- Q: Duplicate items on plate? → A: Merge with notification (inform user that quantity was added to existing row).
+- Q: Metric vs Imperial? → A: Strictly Grams (g).
+- Q: Selection behavior? → A: Explicit "Add to Plate" required.
+- Q: Mobile layout? → A: Sticky Summary (pinned to bottom).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Calculate Single Food Item (Priority: P1)
@@ -45,8 +54,12 @@ As a user planning a meal, I want to add multiple calculated food items together
 
 - **FR-001**: System MUST allow users to select a food item from a database or list.
 - **FR-002**: System MUST allow users to input a custom quantity/weight for the selected food.
-- **FR-003**: System MUST dynamically calculate and display total Calories, Protein, Carbohydrates, and Fat based on the input quantity.
-- **FR-004**: System MUST allow users to aggregate multiple food items into a "Meal" or "Plate" to view a combined total.
+- **FR-003**: System MUST provide an explicit "Add to Plate" button to confirm the addition of the current calculation to the aggregate total.
+- **FR-004**: System MUST dynamically calculate and display total Calories, Protein, Carbohydrates, and Fat based on the input quantity.
+- **FR-005**: System MUST allow users to aggregate multiple food items into a "Meal" or "Plate" to view a combined total.
+- **FR-006**: System MUST persist the current "Plate" items in LocalStorage to ensure data is not lost on page refresh.
+- **FR-007**: System MUST detect duplicate items being added to the plate; it should merge the quantities into a single row and notify the user via a UI message/toast.
+- **FR-008**: System MUST implement a sticky "Plate Summary" on mobile devices to ensure totals are always visible regardless of list length.
 
 ### Key Entities
 
@@ -64,4 +77,4 @@ As a user planning a meal, I want to add multiple calculated food items together
 ## Assumptions
 
 - Food base data (macros per 100g) is provided or fetched from an existing dataset.
-- The primary unit of measurement is grams (g), but standard servings (e.g., "1 cup", "1 piece") may also be supported if defined in the data.
+- The system is strictly gram-based (g); no Imperial (oz) or volume-based units are supported in this phase.
