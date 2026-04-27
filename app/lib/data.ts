@@ -69,6 +69,7 @@ export const FOODS: Food[] = [
     { id: "me3", categoryId: 1, name: "Grilled Fish", nameAr: "سمك مشوي", icon: "🐟", caloriesPer100: 150, proteinPer100: 22, carbsPer100: 0, fatPer100: 6, sizeType: "FOOD" },
     { id: "me4", categoryId: 1, name: "Lentil Soup", nameAr: "شوربة عدس", icon: "🥣", caloriesPer100: 85, proteinPer100: 6, carbsPer100: 14, fatPer100: 1, sizeType: "FOOD" },
     { id: "me5", categoryId: 1, name: "Liver (Alexandrian)", nameAr: "كبدة إسكندراني", icon: "🥘", caloriesPer100: 210, proteinPer100: 24, carbsPer100: 4, fatPer100: 10, sizeType: "FOOD" },
+    { id: "me23", categoryId: 1, name: "Tilapia Fish", nameAr: "سمك بلطي", icon: "🐟", caloriesPer100: 128, proteinPer100: 26, carbsPer100: 0, fatPer100: 3, sizeType: "FOOD", isRawCookedToggle: true },
 
     // --- Middle East Staples (Category 2) ---
     { id: "me6", categoryId: 2, name: "Ful Medames", nameAr: "فول مدمس", icon: "🥣", caloriesPer100: 110, proteinPer100: 8, carbsPer100: 20, fatPer100: 0.5, sizeType: "FOOD" },
@@ -103,6 +104,8 @@ export const FOODS: Food[] = [
     { id: "me16", categoryId: 5, name: "Basbousa", nameAr: "بسبوسة", icon: "🍰", caloriesPer100: 380, proteinPer100: 4, carbsPer100: 55, fatPer100: 18, sizeType: "FOOD" },
     { id: "me17", categoryId: 5, name: "Om Ali", nameAr: "أم علي", icon: "🥣", caloriesPer100: 320, proteinPer100: 8, carbsPer100: 35, fatPer100: 18, sizeType: "FOOD" },
     { id: "me18", categoryId: 5, name: "Rice Pudding", nameAr: "أرز باللبن", icon: "🥣", caloriesPer100: 140, proteinPer100: 4, carbsPer100: 22, fatPer100: 4, sizeType: "FOOD" },
+    { id: "me24", categoryId: 5, name: "Plain Chocolate", nameAr: "شوكلاتة سادة", icon: "🍫", caloriesPer100: 535, proteinPer100: 8, carbsPer100: 60, fatPer100: 30, sizeType: "FOOD" },
+    { id: "me25", categoryId: 5, name: "Dark Chocolate", nameAr: "شوكلاتة خام", icon: "🍫", caloriesPer100: 598, proteinPer100: 8, carbsPer100: 46, fatPer100: 43, sizeType: "FOOD" },
 
     // --- Drinks (Category 6) ---
     { id: "me19", categoryId: 6, name: "Hibiscus (Karkadeh)", nameAr: "كركديه", icon: "🌺", caloriesPer100: 35, proteinPer100: 0, carbsPer100: 9, fatPer100: 0, sizeType: "DRINK" },
