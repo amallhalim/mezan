@@ -119,7 +119,7 @@ export default function FoodCustomizerModal({ food, onClose, onConfirm }: FoodCu
 
           <button
             onClick={() => onConfirm(calculated)}
-            className="w-full bg-gradient-to-r from-primary to-[#059669] hover:from-[#10B981] hover:to-primary text-secondary font-black py-4 rounded-xl shadow-[0_10px_20px_rgba(16,185,129,0.2)] transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 group text-sm"
+            className="w-full bg-gradient-to-r from-primary to-emerald-600 hover:from-emerald-400 hover:to-primary text-secondary font-black py-4 rounded-xl shadow-[0_10px_20px_rgba(16,185,129,0.2)] transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 group text-sm"
           >
             ADD TO PLATE
             <div className="size-4 rounded-full bg-secondary/20 flex items-center justify-center group-hover:translate-x-0.5 transition-transform">

@@ -21,7 +21,7 @@ export default function Button({
 }: ButtonProps) {
   
   const variants = {
-    primary: "bg-gradient-to-r from-primary to-[#059669] hover:from-[#10B981] hover:to-primary text-secondary shadow-[0_10px_30px_rgba(16,185,129,0.3)]",
+    primary: "bg-gradient-to-r from-primary to-emerald-600 hover:from-emerald-400 hover:to-primary text-secondary shadow-[0_10px_30px_rgba(16,185,129,0.3)]",
     secondary: "bg-white/5 hover:bg-white/10 text-white border border-white/10",
     outline: "bg-transparent border-2 border-primary/50 text-primary hover:bg-primary/10",
     ghost: "bg-transparent hover:bg-white/5 text-gray-400 hover:text-white",

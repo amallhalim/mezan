@@ -1,0 +1,40 @@
+/* app/styles/dark.css */
+
+:root {
+  /* --- CORE LAYERS --- */
+  --background: var(--brand-dark);
+  --foreground: oklch(0.97 0.01 180);
+
+  --surface: oklch(0.22 0.04 200);
+  --surface-elevated: oklch(0.26 0.04 200);
+
+  --card: oklch(0.22 0.04 200 / 0.6);
+  --card-foreground: oklch(0.97 0.01 180);
+
+  /* --- GLASSMORPHISM TOKENS --- */
+  --glass-background: oklch(0.22 0.04 200 / 0.55);
+  --glass-border: oklch(0.4 0.05 180 / 0.2);
+
+  /* --- TYPOGRAPHY --- */
+  --text-heading: oklch(1 0 0);
+  --text-body: oklch(0.9 0.01 180);
+  --text-dim: oklch(0.7 0.02 200);
+
+  /* --- BRAND & ACTION --- */
+  --primary: var(--brand-emerald);
+  --primary-foreground: oklch(0.15 0.04 200);
+  --primary-glow: var(--brand-emerald-glow);
+
+  --secondary: oklch(0.28 0.04 200);
+  --muted: oklch(0.26 0.03 200);
+  --muted-foreground: var(--text-dim);
+
+  --accent: oklch(0.32 0.08 175);
+  --border: oklch(0.32 0.03 200 / 0.5);
+  
+  /* --- STATUS --- */
+  --success: var(--brand-emerald);
+  --warning: oklch(0.78 0.16 75);
+  --error: oklch(0.65 0.24 25);
+  --info: oklch(0.7 0.15 230);
+}

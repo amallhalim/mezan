@@ -1,27 +1,92 @@
 @import "tailwindcss";
-@import "./styles.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* 1. THEME IMPORTS 
+   Separated into logical files for better maintainability.
+*/
+@import "./styles/tokens.css";
+@import "./styles/dark.css";
+@import "./styles/light.css";
+@import "./styles/utilities.css";
 
+/* 2. DARK MODE DETECTION */
+@custom-variant dark (&:is(.dark *));
+
+/* 3. TAILWIND v4 THEME INTEGRATION 
+   Exposes all our CSS variables as Tailwind utility classes.
+*/
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* --- TYPOGRAPHY --- */
+  --font-sans: var(--font-sans);
+  --font-arabic: var(--font-arabic);
+
+  /* --- COLORS (Developer Guide) --- */
+  --color-background: var(--background);        /* Main page background (bg-background) */
+  --color-foreground: var(--foreground);        /* Standard fallback text color (text-foreground) */
+  
+  --color-text-heading: var(--text-heading);    /* Big titles and bold headings (text-text-heading) */
+  --color-text-body: var(--text-body);          /* Main paragraph reading text (text-text-body) */
+  --color-text-dim: var(--text-dim);            /* Captions and secondary info (text-text-dim) */
+  
+  --color-surface: var(--surface);              /* Card & section backgrounds (bg-surface) */
+  --color-surface-elevated: var(--surface-elevated); /* Floating dropdowns/popovers (bg-surface-elevated) */
+  --color-card: var(--card);                    /* Base for glass containers (bg-card) */
+  
+  --color-primary: var(--primary);              /* Main brand action color (bg-primary) */
+  --color-primary-glow: var(--primary-glow);    /* High-brightness neon highlights */
+  
+  --color-secondary: var(--secondary);          /* Secondary buttons/sections (bg-secondary) */
+  --color-muted: var(--muted);                  /* Disabled or ghost backgrounds (bg-muted) */
+  --color-muted-foreground: var(--muted-foreground); /* Soft text on muted areas */
+  
+  --color-accent: var(--accent);                /* Hover states & active highlights (bg-accent) */
+  --color-border: var(--border);                /* All dividers and outlines (border-border) */
+  
+  /* --- STATUS INDICATORS --- */
+  --color-success: var(--success);              /* Positive/Correct states (text-success) */
+  --color-warning: var(--warning);              /* Caution/Pending states (text-warning) */
+  --color-error: var(--error);                  /* Critical issues/Errors (text-error) */
+  --color-info: var(--info);                    /* General helpful info (text-info) */
+
+  /* --- SOCIAL BRANDING --- */
+  --color-twitter: var(--twitter);
+  --color-facebook: var(--facebook);
+  --color-whatsapp: var(--whatsapp);
+
+  /* --- SPACING (8px Base System) --- */
+  --spacing-xs: var(--spacing-xs);
+  --spacing-sm: var(--spacing-sm);
+  --spacing-md: var(--spacing-md);
+  --spacing-lg: var(--spacing-lg);
+  --spacing-xl: var(--spacing-xl);
+  --spacing-xxl: var(--spacing-xxl);
+
+  /* --- BORDER RADIUS --- */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+
+  /* --- SPECIAL EFFECTS --- */
+  --shadow-glow: 0 0 40px -10px var(--primary);
+  --shadow-glow-strong: 0 0 60px -5px var(--primary-glow);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* 4. GLOBAL BASE STYLES */
+@layer base {
+  * { border-color: var(--color-border); }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    
+    /* Premium background atmospheric glow */
+    background-image:
+      radial-gradient(at 20% 0%, oklch(0.72 0.18 165 / 0.08) 0px, transparent 50%),
+      radial-gradient(at 80% 100%, oklch(0.7 0.15 230 / 0.06) 0px, transparent 50%);
+    background-attachment: fixed;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  
+  /* Support for Right-to-Left (Arabic) font switching */
+  [dir="rtl"] body { font-family: var(--font-arabic); }
 }

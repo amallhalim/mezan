@@ -21,9 +21,9 @@ export default function UnifiedMacroChart({ protein, carbs, fat, size = 160 }: U
   const circumference = 2 * Math.PI * radius;
 
   const macros: Macro[] = [
-    { label: 'Protein', value: protein, color: '#10B981', percentage: (protein / total) * 100 },
-    { label: 'Carbs', value: carbs, color: '#F59E0B', percentage: (carbs / total) * 100 },
-    { label: 'Fat', value: fat, color: '#EF4444', percentage: (fat / total) * 100 },
+    { label: 'Protein', value: protein, color: 'var(--success)', percentage: (protein / total) * 100 },
+    { label: 'Carbs', value: carbs, color: 'var(--warning)', percentage: (carbs / total) * 100 },
+    { label: 'Fat', value: fat, color: 'var(--error)', percentage: (fat / total) * 100 },
   ];
 
   let currentOffset = 0;

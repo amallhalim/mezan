@@ -1,0 +1,40 @@
+/* app/styles/light.css */
+
+.light {
+  /* --- CORE LAYERS --- */
+  --background: oklch(0.98 0.005 180);
+  --foreground: oklch(0.18 0.04 200);
+
+  --surface: oklch(1 0 0);
+  --surface-elevated: oklch(0.99 0.005 180);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.04 200);
+
+  /* --- GLASSMORPHISM TOKENS --- */
+  --glass-background: oklch(1 0 0 / 0.6);   /* White glass for light mode */
+  --glass-border: oklch(0.88 0.01 180 / 0.4);
+
+  /* --- TYPOGRAPHY --- */
+  --text-heading: oklch(0.1 0.02 200);
+  --text-body: oklch(0.25 0.03 200);
+  --text-dim: oklch(0.5 0.02 200);
+
+  /* --- BRAND & ACTION --- */
+  --primary: oklch(0.55 0.18 165);
+  --primary-foreground: oklch(1 0 0);
+  --primary-glow: oklch(0.7 0.18 162);
+
+  --secondary: oklch(0.95 0.01 180);
+  --muted: oklch(0.95 0.01 180);
+  --muted-foreground: var(--text-dim);
+
+  --accent: oklch(0.92 0.04 165);
+  --border: oklch(0.88 0.01 180);
+
+  /* --- STATUS --- */
+  --success: oklch(0.55 0.18 165);
+  --warning: oklch(0.65 0.15 75);
+  --error: oklch(0.6 0.2 25);
+  --info: oklch(0.6 0.15 230);
+}

@@ -12,9 +12,9 @@ export default function ResultModal({ item, onClose }: ResultModalProps) {
   if (!item) return null;
 
   const shareOptions = [
-    { name: 'X', icon: <Send className="size-4" />, color: 'bg-[#1DA1F2]/10 text-[#1DA1F2]' },
-    { name: 'FB', icon: <Share2 className="size-4" />, color: 'bg-[#1877F2]/10 text-[#1877F2]' },
-    { name: 'WA', icon: <MessageSquare className="size-4" />, color: 'bg-[#25D366]/10 text-[#25D366]' },
+    { name: 'X', icon: <Send className="size-4" />, color: 'bg-twitter/10 text-twitter' },
+    { name: 'FB', icon: <Share2 className="size-4" />, color: 'bg-facebook/10 text-facebook' },
+    { name: 'WA', icon: <MessageSquare className="size-4" />, color: 'bg-whatsapp/10 text-whatsapp' },
     { name: 'Copy', icon: <Copy className="size-4" />, color: 'bg-white/10 text-white' },
   ];
 

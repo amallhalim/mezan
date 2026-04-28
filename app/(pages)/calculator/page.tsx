@@ -107,7 +107,7 @@ export default function CalculatorPage() {
 
   return (
     <div className='min-h-screen text-white selection:bg-primary selection:text-secondary'
-      style={{ background: 'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(16,185,129,0.08) 0%, #080a0c 60%)' }}
+      style={{ background: 'radial-gradient(ellipse 80% 60% at 50% -10%, var(--primary-glow) 0%, var(--background) 60%)', opacity: 0.15 }}
     >
       <div className="fixed inset-0 pointer-events-none"
         style={{

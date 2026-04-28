@@ -9,9 +9,9 @@ interface TotalMacrosFooterProps {
 const GOALS = { calories: 2500, protein: 150, carbs: 300, fat: 80 };
 
 const MACROS = [
-  { key: 'protein' as const, label: 'Protein', short: 'PRO', color: '#10b981', glow: 'rgba(16,185,129,0.35)', track: 'rgba(16,185,129,0.1)' },
-  { key: 'carbs' as const, label: 'Carbs', short: 'CRB', color: '#f59e0b', glow: 'rgba(245,158,11,0.35)', track: 'rgba(245,158,11,0.1)' },
-  { key: 'fat' as const, label: 'Fat', short: 'FAT', color: '#f43f5e', glow: 'rgba(244,63,94,0.35)', track: 'rgba(244,63,94,0.1)' },
+  { key: 'protein' as const, label: 'Protein', short: 'PRO', color: 'var(--success)', glow: 'var(--primary-glow)', track: 'oklch(from var(--success) l c h / 0.1)' },
+  { key: 'carbs' as const, label: 'Carbs', short: 'CRB', color: 'var(--warning)', glow: 'oklch(from var(--warning) l c h / 0.4)', track: 'oklch(from var(--warning) l c h / 0.1)' },
+  { key: 'fat' as const, label: 'Fat', short: 'FAT', color: 'var(--error)', glow: 'oklch(from var(--error) l c h / 0.4)', track: 'oklch(from var(--error) l c h / 0.1)' },
 ];
 
 function ArcRing({ percent, color, glow, size = 48, stroke = 3.5 }: {
@@ -41,8 +41,8 @@ export default function TotalMacrosFooter({ totals, onClick }: TotalMacrosFooter
   const isOver = totals.calories > GOALS.calories;
   const isNear = calPct >= 80 && !isOver;
 
-  const calColor = isOver ? '#f43f5e' : '#10b981';
-  const calGlow = isOver ? 'rgba(244,63,94,0.4)' : 'rgba(16,185,129,0.4)';
+  const calColor = isOver ? 'var(--error)' : 'var(--primary)';
+  const calGlow = isOver ? 'var(--error)' : 'var(--primary-glow)';
 
   // Donut arc for calories — big ring
   const R = 22, CIRC = 2 * Math.PI * R;
@@ -50,7 +50,7 @@ export default function TotalMacrosFooter({ totals, onClick }: TotalMacrosFooter
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 px-4 pb-5 pt-3"
-      style={{ background: 'linear-gradient(to top, #080a0c 60%, transparent)' }}
+      style={{ background: 'linear-gradient(to top, var(--background) 60%, transparent)' }}
     >
       <div className="container mx-auto max-w-2xl">
         <div
@@ -58,9 +58,9 @@ export default function TotalMacrosFooter({ totals, onClick }: TotalMacrosFooter
           className="relative overflow-hidden rounded-3xl cursor-pointer
             active:scale-[0.98] transition-transform duration-150 select-none"
           style={{
-            background: 'linear-gradient(135deg, #111518 0%, #0d1114 100%)',
-            border: '1px solid rgba(255,255,255,0.07)',
-            boxShadow: `0 0 0 1px rgba(255,255,255,0.03), 0 24px 48px rgba(0,0,0,0.6), 0 0 60px ${calGlow}22`,
+            background: 'linear-gradient(135deg, var(--surface) 0%, var(--surface-elevated) 100%)',
+            border: '1px solid var(--border)',
+            boxShadow: `0 0 0 1px var(--border), 0 24px 48px rgba(0,0,0,0.6), 0 0 60px oklch(from ${calGlow} l c h / 0.1)`,
           }}
         >
           {/* Top shimmer line */}
@@ -75,8 +75,8 @@ export default function TotalMacrosFooter({ totals, onClick }: TotalMacrosFooter
               style={{
                 width: `${calPct}%`,
                 background: isOver
-                  ? 'linear-gradient(90deg, #f43f5e, #fb7185)'
-                  : 'linear-gradient(90deg, #059669, #10b981)',
+                  ? 'linear-gradient(90deg, var(--error), var(--warning))'
+                  : 'linear-gradient(90deg, var(--primary), var(--primary-glow))',
                 boxShadow: `0 0 12px ${calColor}`,
               }}
             />
@@ -115,7 +115,7 @@ export default function TotalMacrosFooter({ totals, onClick }: TotalMacrosFooter
             {/* ── Calorie numbers ── */}
             <div className="flex flex-col shrink-0">
               <span className="text-[9px] font-black tracking-[0.22em] uppercase mb-0.5"
-                style={{ color: isOver ? '#f43f5e' : 'rgba(255,255,255,0.3)' }}>
+                style={{ color: isOver ? 'var(--color-rose-500)' : 'rgba(255,255,255,0.3)' }}>
                 {isOver ? '⚠ Over goal' : 'Calories'}
               </span>
               <div className="flex items-baseline gap-1">
