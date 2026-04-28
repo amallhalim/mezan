@@ -9,6 +9,7 @@ import QuantitySelector from '@/app/components/calculator/PortionSelector/Quanti
 import MacroNutrientStats from '@/app/components/calculator/PortionSelector/MacroNutrientStats';
 import Button from '@/app/components/Common/Button';
 import WeightInput from '@/app/components/shared/WeightInput';
+import SugarSelector from '@/app/components/calculator/PortionSelector/SugarSelector';
 
 interface QuickAdjustPanelProps {
   food: Food;
@@ -36,6 +37,10 @@ export default function QuickAdjustPanel({
     setIsRaw,
     quantity,
     setQuantity,
+    sugarCount,
+    setSugarCount,
+    sugarType,
+    setSugarType,
     presets,
     calculated,
     handleSizeSelect
@@ -131,8 +136,17 @@ export default function QuickAdjustPanel({
               </div>
             )}
 
-
           </div>
+
+          {/* Sugar Selection for Drinks */}
+          {food.sizeType === 'DRINK' && (
+            <SugarSelector
+              sugarCount={sugarCount}
+              setSugarCount={setSugarCount}
+              sugarType={sugarType}
+              setSugarType={setSugarType}
+            />
+          )}
 
           {/* Compact Custom Input */}
           <WeightInput

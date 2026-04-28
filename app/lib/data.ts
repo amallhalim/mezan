@@ -25,6 +25,11 @@ export const SIZE_PRESETS: Record<string, SizePreset[]> = {
         { id: 'one', label: "1 Unit", amount: 1, unit: "pc", icon: "1" },
         { id: 'two', label: "2 Units", amount: 2, unit: "pc", icon: "2" },
         { id: 'three', label: "3 Units", amount: 3, unit: "pc", icon: "3" },
+    ],
+    SUGAR: [
+        { id: 'one-spoon', label: "1 Spoon", amount: 1, unit: "pc", icon: "🥄" },
+        { id: 'two-spoons', label: "2 Spoons", amount: 2, unit: "pc", icon: "🥄" },
+        { id: 'three-spoons', label: "3 Spoons", amount: 3, unit: "pc", icon: "🥄" },
     ]
 };
 
@@ -45,7 +50,7 @@ export interface Food {
     proteinPer100: number;
     carbsPer100: number;
     fatPer100: number;
-    sizeType: 'FOOD' | 'DRINK' | 'UNIT';
+    sizeType: 'FOOD' | 'DRINK' | 'UNIT' | 'SUGAR';
     isRawCookedToggle?: boolean;
     weightPerUnit?: number; // Optional: grams per piece
 }
@@ -56,7 +61,8 @@ export const CATEGORIES: Category[] = [
     { id: 3, name: "Carbs", nameAr: "نشويات", icon: "🍚" },
     { id: 4, name: "Veggies & Fruits", nameAr: "خضروات وفاكهة", icon: "🥦" },
     { id: 5, name: "Desserts", nameAr: "حلويات", icon: "🥐" },
-    { id: 6, name: "Drinks", nameAr: "مشروبات", icon: "☕" }
+    { id: 6, name: "Drinks", nameAr: "مشروبات", icon: "☕" },
+    { id: 7, name: "Sauces & Extras", nameAr: "صوصات وإضافات", icon: "🍯" }
 ];
 
 export const FOODS: Food[] = [
@@ -96,10 +102,6 @@ export const FOODS: Food[] = [
 
     // --- Desserts (Category 5) ---
     { id: "me31", categoryId: 5, name: "Baklava", nameAr: "بقلاوة", icon: "🥮", caloriesPer100: 430, proteinPer100: 6, carbsPer100: 50, fatPer100: 25, sizeType: "FOOD" },
-
-
-
-
     { id: "me15", categoryId: 5, name: "Kunafa", nameAr: "كنافة", icon: "🍯", caloriesPer100: 450, proteinPer100: 5, carbsPer100: 60, fatPer100: 22, sizeType: "FOOD" },
     { id: "me16", categoryId: 5, name: "Basbousa", nameAr: "بسبوسة", icon: "🍰", caloriesPer100: 380, proteinPer100: 4, carbsPer100: 55, fatPer100: 18, sizeType: "FOOD" },
     { id: "me17", categoryId: 5, name: "Om Ali", nameAr: "أم علي", icon: "🥣", caloriesPer100: 320, proteinPer100: 8, carbsPer100: 35, fatPer100: 18, sizeType: "FOOD" },
@@ -113,6 +115,14 @@ export const FOODS: Food[] = [
     { id: "me21", categoryId: 6, name: "Turkish Coffee", nameAr: "قهوة تركي", icon: "☕", caloriesPer100: 5, proteinPer100: 0.5, carbsPer100: 0.5, fatPer100: 0, sizeType: "DRINK" },
     { id: "me22", categoryId: 6, name: "Mango Juice", nameAr: "عصير مانجو", icon: "🥭", caloriesPer100: 60, proteinPer100: 0.5, carbsPer100: 15, fatPer100: 0, sizeType: "DRINK" },
     { id: "d2", categoryId: 6, name: "Milk (Whole)", nameAr: "لبن كامل الدسم", icon: "🥛", caloriesPer100: 61, proteinPer100: 3.2, carbsPer100: 4.8, fatPer100: 3.3, sizeType: "DRINK" },
+
+    // --- Sauces & Extras (Category 7) ---
+    { id: "s1", categoryId: 7, name: "Sugar (Normal)", nameAr: "سكر عادي", icon: "🥄", caloriesPer100: 387, proteinPer100: 0, carbsPer100: 100, fatPer100: 0, sizeType: "SUGAR", weightPerUnit: 5 },
+    { id: "s2", categoryId: 7, name: "Sugar (Diet)", nameAr: "سكر دايت", icon: "🌿", caloriesPer100: 0, proteinPer100: 0, carbsPer100: 0, fatPer100: 0, sizeType: "SUGAR", weightPerUnit: 1 },
+    { id: "s3", categoryId: 7, name: "Honey", nameAr: "عسل", icon: "🍯", caloriesPer100: 304, proteinPer100: 0.3, carbsPer100: 82, fatPer100: 0, sizeType: "SUGAR", weightPerUnit: 7 },
+    { id: "s4", categoryId: 7, name: "Ketchup", nameAr: "كاتشب", icon: "🍅", caloriesPer100: 112, proteinPer100: 1.3, carbsPer100: 26, fatPer100: 0.1, sizeType: "FOOD" },
+    { id: "s5", categoryId: 7, name: "Mayonnaise", nameAr: "مايونيز", icon: "🥚", caloriesPer100: 680, proteinPer100: 1, carbsPer100: 0.6, fatPer100: 75, sizeType: "FOOD" },
+    { id: "s6", categoryId: 7, name: "Mustard", nameAr: "مستردة", icon: "🥣", caloriesPer100: 66, proteinPer100: 4, carbsPer100: 8, fatPer100: 3, sizeType: "FOOD" },
 ];
 
 // Helper for backward compatibility (maps flat foods back into categories for UI)

@@ -47,7 +47,11 @@ export default function AddedFoodsSummary({ items, onRemove, onEdit, onClearAll 
                 </div>
                 <p className="text-gray-500 text-[10px] uppercase font-black tracking-tight mt-0.5">
                   {item?.quantity > 1 ? <span className="text-primary">{item?.quantity}x </span> : ''}
-                  {item?.selectedAmount}{item?.unit} • {item?.isRaw ? 'Raw' : 'Cooked'}
+                  {item?.selectedAmount}{item?.unit}
+                  {item?.sizeType === 'DRINK' && item?.sugarCount > 0 && (
+                    <span className="text-primary"> + {item.sugarCount} sugar</span>
+                  )}
+                  {item?.isRawCookedToggle && ` • ${item?.isRaw ? 'Raw' : 'Cooked'}`}
                 </p>
               </div>
             </div>
