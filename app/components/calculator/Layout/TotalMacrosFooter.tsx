@@ -8,6 +8,8 @@ interface TotalMacrosFooterProps {
 
 const GOALS = { calories: 2500, protein: 150, carbs: 300, fat: 80 };
 
+
+
 const MACROS = [
   { key: 'protein' as const, label: 'Protein', short: 'PRO', color: 'var(--success)', glow: 'var(--primary-glow)', track: 'oklch(from var(--success) l c h / 0.1)' },
   { key: 'carbs' as const, label: 'Carbs', short: 'CRB', color: 'var(--warning)', glow: 'oklch(from var(--warning) l c h / 0.4)', track: 'oklch(from var(--warning) l c h / 0.1)' },
@@ -49,24 +51,18 @@ export default function TotalMacrosFooter({ totals, onClick }: TotalMacrosFooter
   const calDash = (calPct / 100) * CIRC;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 px-4 pb-5 pt-3"
-      style={{ background: 'linear-gradient(to top, var(--background) 60%, transparent)' }}
-    >
+    <div className="fixed bottom-0 left-0 right-0 z-40 px-4 pb-5 pt-3 bg-atmospheric-fade">
       <div className="container mx-auto max-w-2xl">
         <div
           onClick={onClick}
-          className="relative overflow-hidden rounded-3xl cursor-pointer
-            active:scale-[0.98] transition-transform duration-150 select-none"
+          className="relative overflow-hidden rounded-3xl cursor-pointer bg-glass-card
+    active:scale-[0.98] transition-transform duration-150 select-none border border-white/5"
           style={{
-            background: 'linear-gradient(135deg, var(--surface) 0%, var(--surface-elevated) 100%)',
-            border: '1px solid var(--border)',
             boxShadow: `0 0 0 1px var(--border), 0 24px 48px rgba(0,0,0,0.6), 0 0 60px oklch(from ${calGlow} l c h / 0.1)`,
           }}
         >
           {/* Top shimmer line */}
-          <div className="absolute top-0 left-6 right-6 h-px"
-            style={{ background: `linear-gradient(90deg, transparent, ${calColor}60, transparent)` }}
-          />
+          <div className="absolute top-0 left-6 right-6 h-px shimmer-horizontal" />
 
           {/* Calorie progress bar — ultra thin, full width */}
           <div className="absolute top-0 left-0 right-0 h-[2px] bg-white/[0.04] overflow-hidden rounded-t-3xl">

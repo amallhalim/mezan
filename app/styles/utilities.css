@@ -1,7 +1,33 @@
 /* app/styles/utilities.css */
 
 @layer utilities {
-  /* Glassmorphism - Now fully semantic and theme-aware */
+  /* --- ATMOSPHERIC EFFECTS --- */
+  
+  /* 
+     Creates a smooth fade from the background color to transparent.
+     Perfect for footers or headers that need to blend into the main page.
+  */
+  .bg-atmospheric-fade {
+    background: linear-gradient(to top, var(--background) 60%, transparent);
+  }
+
+  /* 
+     A premium card background that combines our surface colors with a subtle gradient.
+     Use this for main navigational cards or prominent dashboard sections.
+  */
+  .bg-glass-card {
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface-elevated) 100%);
+  }
+
+  /* 
+     Creates a soft horizontal glow line that fades at the edges.
+     Excellent for highlighting the top edge of cards or separating sections.
+  */
+  .shimmer-horizontal {
+    background: linear-gradient(90deg, transparent, oklch(from var(--primary) l c h / 0.4), transparent);
+  }
+
+  /* --- GLASSMORPHISM --- */
   .glass {
     background: var(--glass-background);
     backdrop-filter: blur(20px);
@@ -16,17 +42,21 @@
     border: 1px solid var(--glass-border);
   }
 
-  /* Glow Effects */
+  /* --- GLOWS & NEON --- */
   .glow-primary { box-shadow: var(--shadow-glow); }
   .text-glow { text-shadow: 0 0 30px oklch(0.72 0.18 165 / 0.6); }
 
-  /* Gradients */
+  /* --- GRADIENTS --- */
   .gradient-primary { background: linear-gradient(135deg, var(--primary), var(--primary-glow)); }
   .gradient-text {
     background: linear-gradient(135deg, var(--primary-glow), var(--primary));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
 
