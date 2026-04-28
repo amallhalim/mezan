@@ -45,7 +45,7 @@ As a user planning a meal, I want to add multiple calculated food items together
 ### Edge Cases
 
 - What happens if the user inputs a negative weight or `0g`? (Should default to 1g or show a validation error).
-- How does the system handle extremely large numbers (e.g., 99999g)? (Should cap at a reasonable maximum, like 5000g).
+- **FR-009**: System MUST cap food weight inputs at 5000g to prevent data overflow and unrealistic calculations.
 - What if a food item is missing macro data? (Should display "N/A" or "0" gracefully).
 
 ## Requirements *(mandatory)*

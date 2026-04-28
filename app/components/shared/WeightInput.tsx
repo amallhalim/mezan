@@ -28,9 +28,12 @@ export default function WeightInput({
         <input
           type="number"
           min="1"
+          max="5000"
           value={amount || ''}
           onChange={(e) => {
-            const val = Number(e.target.value);
+            let val = Number(e.target.value);
+            // FR-009: Cap at 5000g
+            if (val > 5000) val = 5000;
             if (val >= 0) {
               onChange(val);
             }

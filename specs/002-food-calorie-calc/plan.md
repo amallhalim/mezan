@@ -10,21 +10,21 @@ This feature implements a robust food calorie calculator that allows users to in
 ## Technical Context
 
 **Language/Version**: TypeScript, React 18
-**Primary Dependencies**: Next.js App Router, TailwindCSS
+**Primary Dependencies**: Next.js App Router, TailwindCSS, Zustand
 **Storage**: N/A (Client-side logic)
 **Testing**: Jest / React Testing Library
 **Target Platform**: Web (Responsive)
 **Project Type**: Next.js Web Application
 **Performance Goals**: < 100ms calculation latency
-**Constraints**: Pure client-side calculations to ensure instant feedback.
-**Scale/Scope**: Generic utility hooks for math, and UI components for weight input.
+**Constraints**: Client-side state management for instant feedback and LocalStorage persistence.
+**Scale/Scope**: Modular Zustand store with slices for search and plate management.
 
 ## Constitution Check
 
 *GATE: Passed*
 - **I. Reusable Components First**: We will build a reusable `WeightInput` component and a pure utility function `calculateMacros` instead of tying the math to a specific page.
-- **II. Separation of UI and Logic**: The math logic will live in a standalone utility file (`utils/math.ts` or similar), separate from the UI components.
-- **III. Clean and Modular Code**: The feature will be broken down into small, composable hooks and pure functions.
+- **II. Separation of UI and Logic**: The math logic and global state will live in standalone files (`utils/math.ts`, `store/`), separate from the UI components.
+- **III. Clean and Modular Code**: The feature will be broken down into small, composable hooks, Zustand slices, and pure functions.
 - **V. Continuous & Helpful Documentation**: The mathematical formulas will be documented with JSDoc explaining *why* base-100g scaling is used and *how* precision is maintained.
 
 ## Project Structure
@@ -49,8 +49,10 @@ app/
 ├── components/
 │   └── shared/
 │       └── WeightInput.tsx   # Reusable UI component for inputting grams
-└── hooks/
-    └── useCalorieCalculator.ts # State hook for managing the current calculation
+└── store/
+    ├── useStore.ts           # Combined Zustand store
+    ├── types.ts              # Store type definitions
+    └── slices/               # Modular store logic (search, plate)
 ```
 
 **Structure Decision**: The math logic is extracted into a pure utility function `calculateMacros.ts` to ensure "Separation of UI and Logic". The `WeightInput` will be a shared component so it can be used anywhere in the app that requires weight entry.

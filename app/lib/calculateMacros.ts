@@ -16,11 +16,14 @@ export const calculateMacros = (
   quantity: number = 1,
   isRaw: boolean = false
 ): CalculatedMacros => {
+  // FR-009: Cap food weight inputs at 5000g
+  const cappedAmount = Math.min(amount, 5000);
+
   // If it's a piece/unit, we multiply amount by weightPerUnit to get total weight
   // If no weightPerUnit, we treat amount as a direct multiplier
   const effectiveWeight = food.sizeType === 'UNIT' && food.weightPerUnit
-    ? amount * food.weightPerUnit
-    : (food.sizeType === 'UNIT' ? amount * 100 : amount);
+    ? cappedAmount * food.weightPerUnit
+    : (food.sizeType === 'UNIT' ? cappedAmount * 100 : cappedAmount);
 
   const factor = effectiveWeight / 100;
   const cookingFactor = isRaw ? 1.2 : 1.0;

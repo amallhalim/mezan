@@ -10,11 +10,14 @@ export const calculateNutrients = (
   quantity: number,
   isRaw: boolean
 ) => {
+  // FR-009: Cap food weight inputs at 5000g
+  const cappedAmount = Math.min(amount, 5000);
+
   // If it's a piece/unit, we multiply amount by weightPerUnit to get total weight
   // If no weightPerUnit, we treat amount as a direct multiplier (backward compatibility)
   const effectiveWeight = food.sizeType === 'UNIT' && food.weightPerUnit
-    ? amount * food.weightPerUnit
-    : (food.sizeType === 'UNIT' ? amount * 100 : amount);
+    ? cappedAmount * food.weightPerUnit
+    : (food.sizeType === 'UNIT' ? cappedAmount * 100 : cappedAmount);
 
   const factor = effectiveWeight / 100;
   const cookingFactor = isRaw ? 1.2 : 1.0;
@@ -32,7 +35,7 @@ export const calculateNutrients = (
  */
 export const getCalorieColor = (calories: number) => {
   if (calories < 150) return 'text-emerald-400';
-  if (calories < 400) return 'text-[#10B981]';
+  if (calories < 400) return 'text-emerald-500';
   if (calories < 700) return 'text-amber-400';
   return 'text-orange-500';
 };
