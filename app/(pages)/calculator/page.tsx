@@ -106,8 +106,8 @@ export default function CalculatorPage() {
 
 
   return (
-    <div className='min-h-screen text-white selection:bg-primary selection:text-secondary'
-    // style={{ background: 'radial-gradient(ellipse 80% 60% at 50% -10%, var(--primary-glow) 0%, var(--background) 60%)', opacity: 0.15 }}
+    <div className='min-h-screen text-white selection:bg-primary selection:text-secondary '
+      style={{ background: 'radial-gradient(ellipse 80% 60% at 50% -10%, var(--primary-glow) 0%, var(--background) 20%)', opacity: 1 }}
     >
       <div className="fixed inset-0 pointer-events-none"
         style={{
@@ -135,16 +135,7 @@ export default function CalculatorPage() {
 
         {plates.length > 0 && (
           <div className="mt-8">
-            <div className="flex items-center gap-3 mb-4 px-1">
-              <p className="text-[10px] font-black tracking-[0.2em] text-gray-600 uppercase">My Plate</p>
-              <div className="flex-1 h-px bg-white/5" />
-              <button
-                onClick={handleClearAll}
-                className="text-[10px] font-black tracking-widest text-gray-600 hover:text-red-400 uppercase transition-colors"
-              >
-                Clear all
-              </button>
-            </div>
+
             <AddedFoodsSummary
               items={plates}
               onRemove={handleRemoveItem}
