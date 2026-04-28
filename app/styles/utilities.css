@@ -15,7 +15,7 @@
      A premium card background that combines our surface colors with a subtle gradient.
      Use this for main navigational cards or prominent dashboard sections.
   */
-  .bg-glass-card {
+  .glass-card-bg {
     background: linear-gradient(135deg, var(--surface) 0%, var(--surface-elevated) 100%);
   }
 
@@ -27,7 +27,11 @@
     background: linear-gradient(90deg, transparent, oklch(from var(--primary) l c h / 0.4), transparent);
   }
 
-  /* --- GLASSMORPHISM --- */
+  /* Card container – combines several Tailwind utilities */
+  .card-container {
+    @apply relative overflow-hidden rounded-3xl cursor-pointer active:scale-[0.98] transition-transform duration-150 select-none border border-white/5;
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface-elevated) 100%);
+  }
   .glass {
     background: var(--glass-background);
     backdrop-filter: blur(20px);

@@ -55,8 +55,7 @@ export default function TotalMacrosFooter({ totals, onClick }: TotalMacrosFooter
       <div className="container mx-auto max-w-2xl">
         <div
           onClick={onClick}
-          className="relative overflow-hidden rounded-3xl cursor-pointer bg-glass-card
-    active:scale-[0.98] transition-transform duration-150 select-none border border-white/5"
+          className="card-container"
           style={{
             boxShadow: `0 0 0 1px var(--border), 0 24px 48px rgba(0,0,0,0.6), 0 0 60px oklch(from ${calGlow} l c h / 0.1)`,
           }}

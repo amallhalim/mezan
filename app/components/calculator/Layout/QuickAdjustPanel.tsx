@@ -19,10 +19,10 @@ interface QuickAdjustPanelProps {
   initialValues?: any;
 }
 
-export default function QuickAdjustPanel({ 
-  food, 
-  onClose, 
-  onAdd, 
+export default function QuickAdjustPanel({
+  food,
+  onClose,
+  onAdd,
   onPreview,
   isEditing = false,
   initialValues
@@ -45,8 +45,11 @@ export default function QuickAdjustPanel({
 
   return (
     <div className="fixed inset-x-0 bottom-24 z-40 flex justify-center px-4 animate-in slide-in-from-bottom-10 duration-500">
-      <div className="bg-zinc-900/95 backdrop-blur-2xl w-full max-w-md rounded-[2.5rem] p-6 border border-white/10 shadow-[0_20px_80px_rgba(0,0,0,0.8)] overflow-hidden">
-
+      <div className="bg-zinc-900/95 
+      backdrop-blur-2xl   w-100
+      
+      rounded-[2.5rem] p-6 
+      border border-white/10 ">
         {/* Pull Handle (Visual only) */}
         <div className="w-12 h-1 bg-white/10 rounded-full mx-auto mb-6" />
 
@@ -147,17 +150,15 @@ export default function QuickAdjustPanel({
         <div className="flex gap-4">
           <Button
             variant="secondary"
-            size="lg"
-            className="flex-1"
+
             onClick={() => onAdd(calculated)}
           >
-            {isEditing ? 'UPDATE ITEM' : 'ADD TO PLATE'}
+            {isEditing ? 'UPDATE ITEM' : 'ADD TO PLATE   '}
           </Button>
 
           <Button
             variant="primary"
-            size="lg"
-            className="flex-[1.5]"
+
             leftIcon={<Calculator className="size-5" />}
             onClick={() => onPreview(calculated)}
           >

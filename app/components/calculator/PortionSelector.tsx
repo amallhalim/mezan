@@ -79,13 +79,13 @@ export default function PortionSelector({ food, onClose, onConfirm }: PortionSel
             isRaw={isRaw}
             calories={calculated.calories}
           />
-          
+
           <NutrientDisplay
             protein={calculated.protein}
             carbs={calculated.carbs}
             fat={calculated.fat}
           />
-          
+
           <QuantityStepper
             quantity={quantity}
             onChange={setQuantity}
@@ -140,7 +140,7 @@ export default function PortionSelector({ food, onClose, onConfirm }: PortionSel
             onClick={() => onConfirm(calculated)}
             className="w-full bg-primary hover:bg-primary/90 text-secondary font-black py-5 rounded-2xl shadow-[0_10px_20px_rgba(16,185,129,0.3)] transition-all transform active:scale-[0.98]"
           >
-            ADD TO PLATE
+            ADD TO PLATE dd
           </button>
         </div>
       </div>
