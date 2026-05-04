@@ -16,6 +16,11 @@
   --facebook: #1877F2;
   --whatsapp: #25D366;
 
+  /* 4. MACRO COLORS */
+  --macro-protein: oklch(0.7 0.12 230); /* Sky Blue */
+  --macro-carbs: oklch(0.8 0.15 75);   /* Amber */
+  --macro-fat: oklch(0.65 0.18 15);   /* Rose/Pink */
+
   /* 4. SPACING & RADIUS MAPPING */
   --spacing-xs: 4px;
   --spacing-sm: 8px;

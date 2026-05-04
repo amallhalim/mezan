@@ -30,6 +30,11 @@ export const SIZE_PRESETS: Record<string, SizePreset[]> = {
         { id: 'one-spoon', label: "1 Spoon", amount: 1, unit: "pc", icon: "🥄" },
         { id: 'two-spoons', label: "2 Spoons", amount: 2, unit: "pc", icon: "🥄" },
         { id: 'three-spoons', label: "3 Spoons", amount: 3, unit: "pc", icon: "🥄" },
+    ],
+    SPOON: [
+        { id: 'one-tbsp', label: "1 tbsp", amount: 1, unit: "pc", icon: "🥄" },
+        { id: 'two-tbsp', label: "2 tbsp", amount: 2, unit: "pc", icon: "🥄" },
+        { id: 'three-tbsp', label: "3 tbsp", amount: 3, unit: "pc", icon: "🥄" },
     ]
 };
 
@@ -50,7 +55,7 @@ export interface Food {
     proteinPer100: number;
     carbsPer100: number;
     fatPer100: number;
-    sizeType: 'FOOD' | 'DRINK' | 'UNIT' | 'SUGAR';
+    sizeType: 'FOOD' | 'DRINK' | 'UNIT' | 'SUGAR' | 'SPOON';
     isRawCookedToggle?: boolean;
     weightPerUnit?: number; // Optional: grams per piece
 }
@@ -120,9 +125,15 @@ export const FOODS: Food[] = [
     { id: "s1", categoryId: 7, name: "Sugar (Normal)", nameAr: "سكر عادي", icon: "🥄", caloriesPer100: 387, proteinPer100: 0, carbsPer100: 100, fatPer100: 0, sizeType: "SUGAR", weightPerUnit: 5 },
     { id: "s2", categoryId: 7, name: "Sugar (Diet)", nameAr: "سكر دايت", icon: "🌿", caloriesPer100: 0, proteinPer100: 0, carbsPer100: 0, fatPer100: 0, sizeType: "SUGAR", weightPerUnit: 1 },
     { id: "s3", categoryId: 7, name: "Honey", nameAr: "عسل", icon: "🍯", caloriesPer100: 304, proteinPer100: 0.3, carbsPer100: 82, fatPer100: 0, sizeType: "SUGAR", weightPerUnit: 7 },
-    { id: "s4", categoryId: 7, name: "Ketchup", nameAr: "كاتشب", icon: "🍅", caloriesPer100: 112, proteinPer100: 1.3, carbsPer100: 26, fatPer100: 0.1, sizeType: "FOOD" },
-    { id: "s5", categoryId: 7, name: "Mayonnaise", nameAr: "مايونيز", icon: "🥚", caloriesPer100: 680, proteinPer100: 1, carbsPer100: 0.6, fatPer100: 75, sizeType: "FOOD" },
-    { id: "s6", categoryId: 7, name: "Mustard", nameAr: "مستردة", icon: "🥣", caloriesPer100: 66, proteinPer100: 4, carbsPer100: 8, fatPer100: 3, sizeType: "FOOD" },
+    { id: "s4", categoryId: 7, name: "Ketchup", nameAr: "كاتشب", icon: "🍅", caloriesPer100: 112, proteinPer100: 1.3, carbsPer100: 26, fatPer100: 0.1, sizeType: "SPOON", weightPerUnit: 15 },
+    { id: "s5", categoryId: 7, name: "Mayonnaise", nameAr: "مايونيز", icon: "🥚", caloriesPer100: 680, proteinPer100: 1, carbsPer100: 0.6, fatPer100: 75, sizeType: "SPOON", weightPerUnit: 15 },
+    { id: "s6", categoryId: 7, name: "Mustard", nameAr: "مستردة", icon: "🥣", caloriesPer100: 66, proteinPer100: 4, carbsPer100: 8, fatPer100: 3, sizeType: "SPOON", weightPerUnit: 15 },
+    { id: "s7", categoryId: 7, name: "Tahini", nameAr: "طحينة", icon: "🥣", caloriesPer100: 595, proteinPer100: 17, carbsPer100: 21, fatPer100: 54, sizeType: "SPOON", weightPerUnit: 15 },
+    { id: "s8", categoryId: 7, name: "Garlic Sauce (Toum)", nameAr: "ثومية", icon: "🧄", caloriesPer100: 600, proteinPer100: 1, carbsPer100: 5, fatPer100: 65, sizeType: "SPOON", weightPerUnit: 15 },
+    { id: "s9", categoryId: 7, name: "Olive Oil", nameAr: "زيت زيتون", icon: "🫒", caloriesPer100: 884, proteinPer100: 0, carbsPer100: 0, fatPer100: 100, sizeType: "SPOON", weightPerUnit: 14 },
+    { id: "s10", categoryId: 7, name: "Pomegranate Molasses", nameAr: "دبس رمان", icon: "🍯", caloriesPer100: 300, proteinPer100: 0, carbsPer100: 75, fatPer100: 0, sizeType: "SPOON", weightPerUnit: 20 },
+    { id: "s11", categoryId: 7, name: "Butter", nameAr: "زبدة", icon: "🧈", caloriesPer100: 717, proteinPer100: 0.9, carbsPer100: 0.1, fatPer100: 81, sizeType: "SPOON", weightPerUnit: 14 },
+    { id: "s12", categoryId: 7, name: "Mixed Nuts", nameAr: "مكسرات مشكلة", icon: "🥜", caloriesPer100: 600, proteinPer100: 20, carbsPer100: 20, fatPer100: 50, sizeType: "FOOD" },
 ];
 
 // Helper for backward compatibility (maps flat foods back into categories for UI)

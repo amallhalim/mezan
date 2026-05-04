@@ -13,8 +13,8 @@ export const calculateNutrients = (
   // FR-009: Cap food weight inputs at 5000g
   const cappedAmount = Math.min(amount, 5000);
 
-  // If it's a piece/unit/sugar, we multiply amount by weightPerUnit to get total weight
-  const isPieceType = food.sizeType === 'UNIT' || food.sizeType === 'SUGAR';
+  // If it's a piece/unit/sugar/spoon, we multiply amount by weightPerUnit to get total weight
+  const isPieceType = food.sizeType === 'UNIT' || food.sizeType === 'SUGAR' || food.sizeType === 'SPOON';
   const effectiveWeight = isPieceType && food.weightPerUnit
     ? cappedAmount * food.weightPerUnit
     : (isPieceType ? cappedAmount * 100 : cappedAmount);

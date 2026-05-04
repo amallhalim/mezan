@@ -6,7 +6,7 @@ export default function FoodCard({ food, onSelect, isSelected }: any) {
         <div 
             onClick={() => onSelect(food)}
             className={`group relative flex flex-row justify-between items-center bg-white/5 
-                hover:bg-white/10 border border-white/5 hover:border-primary/50
+                backdrop-blur-md hover:bg-white/10 border border-white/5 hover:border-primary/50
                 rounded-2xl m-1 p-4 transition-all cursor-pointer overflow-hidden
                 ${isSelected ? 'bg-primary/10 border-primary/40' : ''}`}
         >
@@ -22,9 +22,9 @@ export default function FoodCard({ food, onSelect, isSelected }: any) {
                     <div className='flex flex-wrap gap-x-3 gap-y-1 mt-2'>
                         <span className="text-primary font-bold text-sm">{food.caloriesPer100} <span className="text-[10px] opacity-70 uppercase tracking-tighter">kcal</span></span>
                         <div className="flex gap-2 text-[10px] font-bold text-gray-500 uppercase">
-                            <span className="flex items-center gap-1"><div className="size-1 rounded-full bg-blue-400" /> P: {food.proteinPer100}g</span>
-                            <span className="flex items-center gap-1"><div className="size-1 rounded-full bg-amber-400" /> C: {food.carbsPer100}g</span>
-                            <span className="flex items-center gap-1"><div className="size-1 rounded-full bg-rose-400" /> F: {food.fatPer100}g</span>
+                            <span className="flex items-center gap-1"><div className="size-1 rounded-full" style={{ backgroundColor: 'var(--protein)' }} /> P: {food.proteinPer100}g</span>
+                            <span className="flex items-center gap-1"><div className="size-1 rounded-full" style={{ backgroundColor: 'var(--carbs)' }} /> C: {food.carbsPer100}g</span>
+                            <span className="flex items-center gap-1"><div className="size-1 rounded-full" style={{ backgroundColor: 'var(--fat)' }} /> F: {food.fatPer100}g</span>
                         </div>
                     </div>
                 </div>

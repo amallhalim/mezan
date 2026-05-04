@@ -10,6 +10,7 @@ import AddedFoodsSummary from '@/app/components/calculator/Layout/AddedFoodsSumm
 import QuickAdjustPanel from '@/app/components/calculator/Layout/QuickAdjustPanel';
 import ResultModal from '@/app/components/calculator/Layout/ResultModal';
 
+
 // Hooks & Store
 import { useMealSummary } from '@/app/hooks/useMealSummary';
 import { usePlatesStore } from '@/app/store/usePlatesStore';
@@ -125,6 +126,8 @@ export default function CalculatorPage() {
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
         />
+
+
 
         <FoodListSection
           filteredFoods={filteredFoods}

@@ -37,4 +37,9 @@
   --warning: oklch(0.78 0.16 75);
   --error: oklch(0.65 0.24 25);
   --info: oklch(0.7 0.15 230);
+
+  /* --- MACROS --- */
+  --protein: var(--macro-protein);
+  --carbs: var(--macro-carbs);
+  --fat: var(--macro-fat);
 }

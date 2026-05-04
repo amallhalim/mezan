@@ -30,7 +30,7 @@ export default function AddedFoodsSummary({ items, onRemove, onEdit, onClearAll 
         {items.map((item, idx) => (
           <div
             key={`${item?.id}-${idx}`}
-            className="group relative flex items-center justify-between bg-white/5 hover:bg-white/[0.08] p-4 rounded-[1.5rem] border border-white/5 hover:border-white/10 transition-all animate-in slide-in-from-right duration-500"
+            className="group relative flex items-center justify-between bg-white/5 backdrop-blur-md hover:bg-white/[0.08] p-4 rounded-[1.5rem] border border-white/5 hover:border-white/10 transition-all animate-in slide-in-from-right duration-500"
             style={{ animationDelay: `${idx * 50}ms` }}
           >
             <div
