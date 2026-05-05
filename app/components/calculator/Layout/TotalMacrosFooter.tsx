@@ -53,6 +53,8 @@ export default function TotalMacrosFooter({ totals, onClick }: TotalMacrosFooter
       <div className="container mx-auto max-w-2xl">
         <div
           onClick={onClick}
+          role="button"
+          aria-label="Calculate Meal Summary"
           className="relative group bg-card/60 backdrop-blur-xl border border-white/10 rounded-[2rem] overflow-hidden transition-all hover:bg-card/80 cursor-pointer"
           style={{
             boxShadow: `0 0 0 1px var(--border), 0 24px 48px rgba(0,0,0,0.6), 0 0 60px oklch(from ${calGlow} l c h / 0.12)`,

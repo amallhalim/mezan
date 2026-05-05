@@ -117,7 +117,7 @@ export default function CalculatorPage() {
         }}
       />
 
-      <div className='relative container mx-auto px-4 max-w-2xl pb-44 pt-6'>
+      <div className='relative container mx-auto px-4 max-w-2xl pb-44 pt-6' id="calculator">
         <CalculatorHeader
           selectedFoodListLength={plates.length}
           setShowMealSummary={setShowMealSummary}
