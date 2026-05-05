@@ -19,6 +19,7 @@ vi.mock("next/image", () => ({
 }))
 
 test('full calculator workflow: search, add, and verify', async () => {
+  // 🎭 HIRE AN ACTOR: This prepares the virtual human to interact with our UI.
   const user = userEvent.setup()
   const { rerender } = render(<CalculatorPage />)
 
@@ -71,6 +72,8 @@ test("verify search label exists", () => {
 })
 
 test("shows 'No results' message for unknown food", async () => {
+  // 🎭 HIRE AN ACTOR: userEvent.setup() creates a "virtual user" that 
+  // simulates real human behavior (like mouse clicks and key presses).
   const user = userEvent.setup()
   render(<CalculatorPage />)
   const searchInput = screen.getByPlaceholderText(/Search 1000\+ foods/i)
@@ -81,6 +84,7 @@ test("shows 'No results' message for unknown food", async () => {
 })
 
 test("Integration: Adding multiple foods calculates correct total macros", async () => {
+  // 🎭 HIRE AN ACTOR: We set up the user BEFORE rendering for the best realism.
   const user = userEvent.setup()
   render(<CalculatorPage />)
   
@@ -173,5 +177,29 @@ describe("UI & Attributes Verification", () => {
     const calcBtn = screen.getByRole('button', { name: /Calculate Meal Summary/i })
     expect(calcBtn).toBeInTheDocument()
     expect(calcBtn).toHaveClass('relative')
+  })
+})
+
+describe("Asynchronous & Promises", () => {
+  test("findByText: Waits for the Result Modal to appear", async () => {
+    // 🎭 HIRE AN ACTOR
+    const user = userEvent.setup()
+    render(<CalculatorPage />)
+    
+    // 1. Add a food so the calculate button works
+    usePlatesStore.getState().addPlate({ 
+      name: 'Egg', calories: 70, protein: 6, carbs: 0, fat: 5, id: 'egg1' 
+    })
+
+    // 2. Click the calculate button
+    const calcBtn = screen.getByRole('button', { name: /Calculate/i })
+    await user.click(calcBtn)
+
+    // 3. 🚀 WAIT for the Modal: 
+    // We use findByText because the Modal might take a millisecond to animate in.
+    // findByText is AUTOMATICALLY asynchronous!
+    const modalTitle = await screen.findByText(/My Full Plate/i)
+    
+    expect(modalTitle).toBeInTheDocument()
   })
 })
