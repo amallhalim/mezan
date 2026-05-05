@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react"
-import { expect, test, vi } from "vitest"
+import { describe, expect, test, vi } from "vitest"
 import Home from "./page"
 
 
@@ -17,65 +17,116 @@ test("renders by Role (Heading and Buttons)", () => {
     expect(submitBtn).toBeInTheDocument()
 })
 
-/** 
+
+
+
+
+describe("renders by ALL", () => {
+    test("renders by ALL (Heading and Buttons)", () => {
+        render(<Home />)
+        const heading = screen.getByRole("heading", { name: /Testing Sandbox/i })
+        expect(heading).toBeInTheDocument()
+
+        const submitBtn = screen.getByRole("button", { name: /Submit Plate/i })
+        expect(submitBtn).toBeInTheDocument()
+    })
+
+    /** 
  * 🟢 getByLabelText: Best for Form Fields
  * Use this for inputs that have a corresponding <label> tag. 
  * This ensures your forms are properly labeled and accessible.
  */
-test("renders by Label Text (Form Input)", () => {
-    render(<Home />)
-    const usernameInput = screen.getByLabelText(/Username/i)
-    expect(usernameInput).toBeInTheDocument()
-})
+    test("renders by Label Text (Form Input)", () => {
+        render(<Home />)
+        const usernameInput = screen.getByLabelText(/Username/i)
+        expect(usernameInput).toBeInTheDocument()
+    })
 
-/** 
- * 🟢 getByPlaceholderText: Good for Search/Inputs
- * Use this for inputs that use 'placeholder="..."' instead of a label.
- */
-test("renders by Placeholder Text (Form Input)", () => {
-    render(<Home />)
-    const searchInput = screen.getByPlaceholderText(/e\.g\. Chicken Breast/i)
-    expect(searchInput).toBeInTheDocument()
-})
+    /** 
+     * 🟢 getByPlaceholderText: Good for Search/Inputs
+     * Use this for inputs that use 'placeholder="..."' instead of a label.
+     */
+    test("renders by Placeholder Text (Form Input)", () => {
+        render(<Home />)
+        const searchInput = screen.getByPlaceholderText(/e\.g\. Chicken Breast/i)
+        expect(searchInput).toBeInTheDocument()
+    })
 
-/** 
- * 🟢 getByDisplayValue: Good for checking current values
- * Use this to verify what is currently typed or selected in a form field.
- */
-test("renders by Display Value (Pre-filled Input)", () => {
-    render(<Home />)
-    const displayValue = screen.getByDisplayValue(/JohnDoe/i)
-    expect(displayValue).toBeInTheDocument()
-})
+    /** 
+     * 🟢 getByDisplayValue: Good for checking current values
+     * Use this to verify what is currently typed or selected in a form field.
+     */
+    test("renders by Display Value (Pre-filled Input)", () => {
+        render(<Home />)
+        const displayValue = screen.getByDisplayValue(/JohnDoe/i)
+        expect(displayValue).toBeInTheDocument()
+    })
+    /** 
+     * 🟢 getByAltText: Best for Images
+     * Use this to check if an image is showing correctly using its 'alt' description.
+     */
+    test("renders by Alt Text (Image)", () => {
+        render(<Home />)
+        const logo = screen.getByAltText(/Mizan Logo/i)
+        expect(logo).toBeInTheDocument()
+    })
 
-/** 
- * 🟢 getByAltText: Best for Images
- * Use this to check if an image is showing correctly using its 'alt' description.
- */
-test("renders by Alt Text (Image)", () => {
-    render(<Home />)
-    const logo = screen.getByAltText(/Mizan Logo/i)
-    expect(logo).toBeInTheDocument()
-})
-
-/** 
- * 🟢 getByTitle: Best for Tooltips/SVGs
- * Use this for elements that have a 'title' attribute (extra info on hover).
- */
-test("renders by Title (Tooltip/System Info)", () => {
-    render(<Home />)
-    const statusDiv = screen.getByTitle(/System Status: Operational/i)
-    expect(statusDiv).toBeInTheDocument()
-})
-
-/** 
+    /** 
+     * 🟢 getByTitle: Best for Tooltips/SVGs
+     * Use this for elements that have a 'title' attribute (extra info on hover).
+     */
+    test("renders by Title (Tooltip/System Info)", () => {
+        render(<Home />)
+        const statusDiv = screen.getByTitle(/System Status: Operational/i)
+        expect(statusDiv).toBeInTheDocument()
+    })
+    /** 
  * 🔴 getByTestId: THE LAST RESORT
  * Use this ONLY when you cannot find the element any other way.
  * It requires adding 'data-testid' directly into your HTML code.
  */
-test("renders by Test ID (Last Resort)", () => {
-    render(<Home />)
-    const versionTag = screen.getByTestId("version-tag")
-    expect(versionTag).toBeInTheDocument()
-    expect(versionTag).toHaveTextContent(/v1\.0\.4/i)
+    test("renders by Test ID (Last Resort)", () => {
+        render(<Home />)
+        const versionTag = screen.getByTestId("version-tag")
+        expect(versionTag).toBeInTheDocument()
+        expect(versionTag).toHaveTextContent(/v1\.0\.4/i)
+    })
+
+
+
+})
+
+
+describe("renders by queryAll", () => {
+
+    describe("queryAll by role", () => {
+        test("queryAll by role (Heading and Buttons)", () => {
+            render(<Home />)
+            const heading = screen.getByRole("heading", { name: /Testing Sandbox/i })
+            expect(heading).toBeInTheDocument()
+
+            const submitBtn = screen.getByRole("button", { name: /Submit Plate/i })
+            expect(submitBtn).toBeInTheDocument()
+        })
+    })
+
+    describe("queryAll by label text", () => {
+        test("queryAll by label text (Heading and Buttons)", () => {
+            render(<Home />)
+            const heading = screen.getByRole("heading", { name: /Testing Sandbox/i })
+            expect(heading).toBeInTheDocument()
+
+            const submitBtn = screen.getByRole("button", { name: /Submit Plate/i })
+            expect(submitBtn).toBeInTheDocument()
+        })
+    })
+
+    test("renders by queryAll (Heading and Buttons)", () => {
+        render(<Home />)
+        const heading = screen.getByRole("heading", { name: /Testing Sandbox/i })
+        expect(heading).toBeInTheDocument()
+
+        const submitBtn = screen.getByRole("button", { name: /Submit Plate/i })
+        expect(submitBtn).toBeInTheDocument()
+    })
 })
