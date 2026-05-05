@@ -19,7 +19,6 @@ vi.mock("next/image", () => ({
 }))
 
 test('full calculator workflow: search, add, and verify', async () => {
-  // 🎭 HIRE AN ACTOR: This prepares the virtual human to interact with our UI.
   const user = userEvent.setup()
   const { rerender } = render(<CalculatorPage />)
 
@@ -72,8 +71,6 @@ test("verify search label exists", () => {
 })
 
 test("shows 'No results' message for unknown food", async () => {
-  // 🎭 HIRE AN ACTOR: userEvent.setup() creates a "virtual user" that 
-  // simulates real human behavior (like mouse clicks and key presses).
   const user = userEvent.setup()
   render(<CalculatorPage />)
   const searchInput = screen.getByPlaceholderText(/Search 1000\+ foods/i)
@@ -84,23 +81,19 @@ test("shows 'No results' message for unknown food", async () => {
 })
 
 test("Integration: Adding multiple foods calculates correct total macros", async () => {
-  // 🎭 HIRE AN ACTOR: We set up the user BEFORE rendering for the best realism.
   const user = userEvent.setup()
   render(<CalculatorPage />)
   
-  // 1. Add Chicken (165 kcal)
   const searchInput = screen.getByPlaceholderText(/Search 1000\+ foods/i)
   await user.type(searchInput, 'Chicken')
   await user.click(screen.getAllByText(/Chicken Breast/i)[0])
   await user.click(screen.getByRole('button', { name: /ADD TO PLATE/i }))
   
-  // 2. Add Rice (130 kcal)
   await user.clear(searchInput)
   await user.type(searchInput, 'Rice')
   await user.click(screen.getAllByText(/White Rice/i)[0])
   await user.click(screen.getByRole('button', { name: /ADD TO PLATE/i }))
   
-  // 3. VERIFY: The Footer should show the TOTAL (165 + 130 = 295)
   const totalDisplay = screen.getByLabelText(/Total Calories/i)
   expect(totalDisplay).toHaveTextContent('295')
 })
@@ -158,5 +151,27 @@ describe("Comparison: fireEvent vs userEvent", () => {
     const closeButton = screen.getByTestId(/search-close-button/i)
     await userEvent.click(closeButton)
     expect(setSearchQuery).toHaveBeenCalledWith('')
+  })
+})
+
+describe("UI & Attributes Verification", () => {
+  test("search input has correct initial attributes and classes", () => {
+    render(<CalculatorPage />)
+    const input = screen.getByPlaceholderText(/Search 1000\+ foods/i)
+    
+    // 1. Check HTML Attributes
+    expect(input).toHaveAttribute('type', 'text')
+    expect(input).toHaveAttribute('aria-label', 'Search 1000+ foods')
+    
+    // 2. Check CSS Classes (Tailwind)
+    expect(input).toHaveClass('bg-white/[0.04]')
+    expect(input).toHaveClass('rounded-2xl')
+  })
+
+  test("calculate button has correct role and class", () => {
+    render(<CalculatorPage />)
+    const calcBtn = screen.getByRole('button', { name: /Calculate Meal Summary/i })
+    expect(calcBtn).toBeInTheDocument()
+    expect(calcBtn).toHaveClass('relative')
   })
 })
