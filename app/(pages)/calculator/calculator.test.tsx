@@ -1,9 +1,15 @@
 import { render, screen } from '@testing-library/react'
-import { expect, test, vi } from 'vitest'
+import { expect, test, vi, beforeEach } from 'vitest'
 import CalculatorPage from './page'
 import userEvent from '@testing-library/user-event'
+import { usePlatesStore } from '@/app/store/usePlatesStore'
 
 
+
+// 🧹 This resets the plate before EVERY test starts
+beforeEach(() => {
+  usePlatesStore.getState().clearPlates()
+})
 
 test('full calculator workflow: search, add, and verify', async () => {
   const user = userEvent.setup()
@@ -28,6 +34,10 @@ test('full calculator workflow: search, add, and verify', async () => {
 
 test('opens result modal when calculation button is clicked', async () => {
   const user = userEvent.setup()
+
+  // Pre-add an item so the button works
+  usePlatesStore.getState().addPlate({ name: 'Chicken', calories: 165, protein: 31, carbs: 0, fat: 3.6, id: '1' })
+
   render(<CalculatorPage />)
 
   const calcBtn = screen.getByRole('button', { name: /Calculate Meal Summary/i })
@@ -38,34 +48,31 @@ test('opens result modal when calculation button is clicked', async () => {
 
 test("test exist calculator page", () => {
   render(<CalculatorPage />)
-  expect(screen.getByText(/Calculator/i)).toBeInTheDocument()
+  // Your page header says "Macro Calc", not "Calculator"
+  expect(screen.getByText(/Macro/i)).toBeInTheDocument()
 })
 
-test("ecepect not found message when no food added", () => {
+test("expect plate section is hidden when no food added", () => {
   render(<CalculatorPage />)
-  expect(screen.getByText(/No foods added yet/i)).not.toBeInTheDocument()
+  // Since the app returns null when empty, the section should be missing
+  expect(screen.queryByText(/Your Plate/i)).not.toBeInTheDocument()
 })
 
-test("expect element not existing ", () => {
+test("expect element exists once", () => {
   render(<CalculatorPage />)
-  // We use queryBy when we expect something to be GONE
-  expect(screen.queryByText(/Your Plate/i)).toBeInTheDocument()
+  // "Chicken Breast" appears exactly once in the starting category
+  expect(screen.getAllByText(/Chicken Breast/i)).toHaveLength(1)
 })
 
-test("except emelent exist twise only", () => {
+test("query all headings", () => {
   render(<CalculatorPage />)
-  expect(screen.getAllByText(/Chicken Breast/i)).toHaveLength(2)
-})
-
-test("query by all", () => {
-  render(<CalculatorPage />)
-  // queryAll returns an array. We check if it's not zero.
+  // Check that we have at least one heading on the page
   const headings = screen.queryAllByRole("heading")
   expect(headings.length).toBeGreaterThan(0)
 })
 
-test("query by label text", () => {
+test("verify search label exists", () => {
   render(<CalculatorPage />)
-  // Labels are linked to inputs. We search for the label text.
-  expect(screen.getByLabelText(/Search 1000\+ foods/i)).not.toBeInTheDocument()
+  // This now works because we added 'aria-label' to the input!
+  expect(screen.getByLabelText(/Search 1000\+ foods/i)).toBeInTheDocument()
 })
