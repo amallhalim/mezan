@@ -109,7 +109,9 @@ export default function TotalMacrosFooter({ totals, onClick }: TotalMacrosFooter
                 {isOver ? '⚠ OVER' : 'Calories'}
               </span>
               <div className="flex items-baseline gap-1">
-                <span className="text-xl md:text-[2rem] font-black leading-none tabular-nums tracking-tighter"
+                <span
+                  aria-label="Total Calories"
+                  className="text-xl md:text-[2rem] font-black leading-none tabular-nums tracking-tighter"
                   style={{ color: calColor, textShadow: `0 0 20px ${calGlow}` }}>
                   {totals.calories}
                 </span>

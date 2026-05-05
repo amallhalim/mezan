@@ -19,6 +19,7 @@ vi.mock("next/image", () => ({
 }))
 
 test('full calculator workflow: search, add, and verify', async () => {
+  // 🎭 HIRE AN ACTOR: This prepares the virtual human to interact with our UI.
   const user = userEvent.setup()
   const { rerender } = render(<CalculatorPage />)
 
@@ -71,6 +72,8 @@ test("verify search label exists", () => {
 })
 
 test("shows 'No results' message for unknown food", async () => {
+  // 🎭 HIRE AN ACTOR: userEvent.setup() creates a "virtual user" that 
+  // simulates real human behavior (like mouse clicks and key presses).
   const user = userEvent.setup()
   render(<CalculatorPage />)
   const searchInput = screen.getByPlaceholderText(/Search 1000\+ foods/i)
@@ -78,6 +81,28 @@ test("shows 'No results' message for unknown food", async () => {
   expect(screen.getByText(/No results/i)).toBeInTheDocument()
   expect(screen.getByText(/Can't find/i)).toBeInTheDocument()
   expect(screen.getByText(/"Xyz123"/i)).toBeInTheDocument()
+})
+
+test("Integration: Adding multiple foods calculates correct total macros", async () => {
+  // 🎭 HIRE AN ACTOR: We set up the user BEFORE rendering for the best realism.
+  const user = userEvent.setup()
+  render(<CalculatorPage />)
+  
+  // 1. Add Chicken (165 kcal)
+  const searchInput = screen.getByPlaceholderText(/Search 1000\+ foods/i)
+  await user.type(searchInput, 'Chicken')
+  await user.click(screen.getAllByText(/Chicken Breast/i)[0])
+  await user.click(screen.getByRole('button', { name: /ADD TO PLATE/i }))
+  
+  // 2. Add Rice (130 kcal)
+  await user.clear(searchInput)
+  await user.type(searchInput, 'Rice')
+  await user.click(screen.getAllByText(/White Rice/i)[0])
+  await user.click(screen.getByRole('button', { name: /ADD TO PLATE/i }))
+  
+  // 3. VERIFY: The Footer should show the TOTAL (165 + 130 = 295)
+  const totalDisplay = screen.getByLabelText(/Total Calories/i)
+  expect(totalDisplay).toHaveTextContent('295')
 })
 
 
@@ -95,11 +120,8 @@ describe("Comparison: fireEvent vs userEvent", () => {
     />)
 
     const searchInput = screen.getByTestId(/search-input/i)
-    
-    // fireEvent.change "teleports" the value instantly
     fireEvent.change(searchInput, { target: { value: 'Chicken' } })
 
-    // It was called only ONCE with the full word
     expect(setSearchQuery).toHaveBeenCalledWith('Chicken')
     expect(setSearchQuery).toHaveBeenCalledTimes(1)
   })
@@ -117,12 +139,8 @@ describe("Comparison: fireEvent vs userEvent", () => {
     />)
 
     const searchInput = screen.getByTestId(/search-input/i)
-    
-    // user.type mimes a human typing. 
-    // In a unit test, we type one letter to verify the call.
     await user.type(searchInput, 'C')
 
-    // It called the function with 'C'
     expect(setSearchQuery).toHaveBeenCalledWith('C')
   })
 
