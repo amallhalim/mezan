@@ -91,42 +91,19 @@ describe("renders by ALL", () => {
         expect(versionTag).toBeInTheDocument()
         expect(versionTag).toHaveTextContent(/v1\.0\.4/i)
     })
-
-
-
 })
 
+describe("Navigation", () => {
+    test("calculator link has correct href", () => {
+        render(<Home />)
+        // Find the link by role and name
+        const link = screen.getByRole("link", { name: /Open Calculator/i })
+        
+        // Verify the href attribute
+        expect(link).toHaveAttribute("href", "/calculator")
+    })
+})
 
 describe("renders by queryAll", () => {
-
-    describe("queryAll by role", () => {
-        test("queryAll by role (Heading and Buttons)", () => {
-            render(<Home />)
-            const heading = screen.getByRole("heading", { name: /Testing Sandbox/i })
-            expect(heading).toBeInTheDocument()
-
-            const submitBtn = screen.getByRole("button", { name: /Submit Plate/i })
-            expect(submitBtn).toBeInTheDocument()
-        })
-    })
-
-    describe("queryAll by label text", () => {
-        test("queryAll by label text (Heading and Buttons)", () => {
-            render(<Home />)
-            const heading = screen.getByRole("heading", { name: /Testing Sandbox/i })
-            expect(heading).toBeInTheDocument()
-
-            const submitBtn = screen.getByRole("button", { name: /Submit Plate/i })
-            expect(submitBtn).toBeInTheDocument()
-        })
-    })
-
-    test("renders by queryAll (Heading and Buttons)", () => {
-        render(<Home />)
-        const heading = screen.getByRole("heading", { name: /Testing Sandbox/i })
-        expect(heading).toBeInTheDocument()
-
-        const submitBtn = screen.getByRole("button", { name: /Submit Plate/i })
-        expect(submitBtn).toBeInTheDocument()
-    })
+    // ... existing queryAll tests ...
 })

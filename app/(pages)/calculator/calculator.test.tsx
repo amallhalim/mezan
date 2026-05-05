@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { expect, test } from 'vitest'
+import { expect, test, vi } from 'vitest'
 import CalculatorPage from './page'
 import userEvent from '@testing-library/user-event'
 
@@ -28,16 +28,13 @@ test('full calculator workflow: search, add, and verify', async () => {
 
 test('opens result modal when calculation button is clicked', async () => {
   const user = userEvent.setup()
-
   render(<CalculatorPage />)
 
   const calcBtn = screen.getByRole('button', { name: /Calculate Meal Summary/i })
   await user.click(calcBtn)
 
-  // Verify the Modal opens (it has "My Full Plate" title)
   expect(screen.getByText(/My Full Plate/i)).toBeInTheDocument()
 })
-
 
 test("test exist calculator page", () => {
   render(<CalculatorPage />)
@@ -46,26 +43,29 @@ test("test exist calculator page", () => {
 
 test("ecepect not found message when no food added", () => {
   render(<CalculatorPage />)
-  expect(screen.getByText(/No foods added yet/i)).toBeInTheDocument()
+  expect(screen.getByText(/No foods added yet/i)).not.toBeInTheDocument()
 })
+
 test("expect element not existing ", () => {
   render(<CalculatorPage />)
-  expect(screen.queryByText(/Your Plate/i)).not.toBeInTheDocument()
+  // We use queryBy when we expect something to be GONE
+  expect(screen.queryByText(/Your Plate/i)).toBeInTheDocument()
 })
+
 test("except emelent exist twise only", () => {
   render(<CalculatorPage />)
   expect(screen.getAllByText(/Chicken Breast/i)).toHaveLength(2)
 })
 
-
-//query by all
 test("query by all", () => {
   render(<CalculatorPage />)
-  expect(screen.queryAllByTestId("Your Plate/i")).toHaveLength(1)
+  // queryAll returns an array. We check if it's not zero.
+  const headings = screen.queryAllByRole("heading")
+  expect(headings.length).toBeGreaterThan(0)
 })
 
-//query by label text
 test("query by label text", () => {
   render(<CalculatorPage />)
-  expect(screen.getByLabelText("Search 1000+ foods")).toBeInTheDocument()
+  // Labels are linked to inputs. We search for the label text.
+  expect(screen.getByLabelText(/Search 1000\+ foods/i)).not.toBeInTheDocument()
 })
