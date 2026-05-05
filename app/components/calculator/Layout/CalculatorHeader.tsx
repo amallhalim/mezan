@@ -57,6 +57,7 @@ export default function CalculatorHeader({
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-gray-500 group-focus-within:text-primary transition-colors duration-200 z-10" />
           <input
             type="text"
+            data-testid="search-input"
             aria-label="Search 1000+ foods"
             placeholder="Search 1000+ foods..."
             value={searchQuery}
@@ -68,6 +69,7 @@ export default function CalculatorHeader({
           />
           {searchQuery && (
             <button
+              data-testid="search-close-button"
               onClick={() => setSearchQuery("")}
               className="absolute right-4 top-1/2 -translate-y-1/2 size-5 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all text-gray-400 hover:text-white text-xs font-black"
             >
