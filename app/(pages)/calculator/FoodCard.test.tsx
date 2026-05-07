@@ -70,4 +70,34 @@ describe("FoodCard Component", () => {
     });
   });
 
+  describe("Edge Cases & Security", () => {
+    test("renders 0 values correctly (not hiding them)", () => {
+      const zeroFood = { 
+        ...mockFoodData, 
+        caloriesPer100: 0, 
+        proteinPer100: 0,
+        carbsPer100: 0,
+        fatPer100: 0 
+      };
+      render(<FoodCard food={zeroFood} />);
+      
+      // Ensure '0' is visible and not replaced by empty strings or null
+      const zeros = screen.getAllByText(/0/);
+      expect(zeros.length).toBeGreaterThan(0);
+    });
+
+    test("does NOT call onSelect when non-action keys are pressed", async () => {
+      const user = userEvent.setup();
+      const onSelect = vi.fn();
+      render(<FoodCard food={mockFoodData} onSelect={onSelect} />);
+      
+      const card = screen.getByRole('button');
+      await user.tab(); // Focus the card
+      await user.keyboard('a'); // Press a random letter
+      await user.keyboard('{Shift}'); // Press Shift
+      
+      expect(onSelect).not.toHaveBeenCalled();
+    });
+  });
+
 });
