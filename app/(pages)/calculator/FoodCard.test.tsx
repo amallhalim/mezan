@@ -1,17 +1,14 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import FoodCard from "./FoodCard";
+import { mockFoodData } from "@/app/tests/fixtures";
 
-const mockFoodData = {
-  name: 'Chicken Breast',
-  nameAr: 'صدر دجاج',
-  caloriesPer100: 165,
-  proteinPer100: 31,
-  carbsPer100: 4,
-  fatPer100: 3.6,
-  icon: '🐔',
-}
-
+/**
+ * 📂 Why use 'describe' blocks?
+ * 1. Organization: Groups related tests (Visual vs Interaction).
+ * 2. Readability: Creates a "Table of Contents" in test reports.
+ * 3. Scoping: Allows specific setup (beforeEach) for a group of tests.
+ */
 describe("FoodCard Component", () => {
   
   describe("Visual Rendering", () => {

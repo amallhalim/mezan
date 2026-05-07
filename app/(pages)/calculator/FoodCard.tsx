@@ -14,6 +14,13 @@ export default function FoodCard({ food, onSelect, isSelected }: any) {
                 rounded-2xl m-1 p-4 transition-all cursor-pointer overflow-hidden
                 ${isSelected ? 'bg-primary/10 border-primary/40' : ''}`}
         >
+            {/* 🔴 UNTESTED BRANCH: This will show up as "Uncovered" in your report! */}
+            {food?.isPremium && (
+                <div className="absolute top-0 right-0 bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-bl-lg">
+                    PREMIUM
+                </div>
+            )}
+
             <div className='flex items-center gap-4'>
                 {food?.icon && (
                     <div className='flex justify-center items-center text-2xl

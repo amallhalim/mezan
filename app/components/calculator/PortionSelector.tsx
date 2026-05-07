@@ -57,7 +57,7 @@ export default function PortionSelector({ food, onClose, onConfirm }: PortionSel
 
           <div className="flex items-center gap-4">
             <div className="size-16 rounded-2xl bg-primary/20 flex items-center justify-center text-4xl shadow-inner">
-              {food.icon}
+              {food?.icon}
             </div>
             <div>
               <h2 className="text-2xl font-bold text-white">{food.name}</h2>

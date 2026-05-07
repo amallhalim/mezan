@@ -62,7 +62,7 @@ export default function QuickAdjustPanel({
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
             <div className="size-14 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center text-3xl shadow-inner group-hover:scale-110 transition-transform">
-              {food.icon}
+              {food?.icon}
             </div>
             <div>
               <div className="flex items-center gap-2">

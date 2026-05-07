@@ -52,7 +52,7 @@ export default function FoodCustomizerModal({ food, onClose, onConfirm }: FoodCu
             unit={presets[0]?.unit || 'g'}
             isRaw={isRaw}
             calories={calculated.calories}
-            icon={food.icon}
+            icon={food?.icon}
           />
 
           <MacroNutrientStats

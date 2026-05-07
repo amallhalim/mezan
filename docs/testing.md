@@ -18,7 +18,31 @@ Opens a beautiful browser interface to see results, errors, and files.
 npm run test:ui
 ```
 
-### 3. CI Mode (Run Once)
+### 3. Coverage Mode (Scorecard)
+See exactly which lines of code are NOT tested.
+```bash
+npm run test:coverage       # Text report in terminal
+npm run test:ui:coverage    # Visual report in browser (Awesome!)
+```
+
+> [!TIP]
+> **Focus on one file**: You can run coverage for just one file by adding its name:
+> `npm run test:ui:coverage -- FoodCard`
+
+
+#### ❓ Why use Coverage?
+Testing shows that your code **works**. Coverage shows what you **forgot to test**.
+*   **Find Blind Spots**: It highlights `if/else` branches or `error` handlers that your tests never touched.
+*   **Quality Score**: It gives you a clear percentage (e.g., 85%) of how much of your logic is "safe".
+*   **Risk Management**: Untested code is where bugs hide. Coverage finds those hiding spots.
+
+#### 🛣️ Branch Coverage (The "Fork in the Road")
+A 100% "Line Coverage" score doesn't always mean your code is perfect. You also need to watch **Branch Coverage**:
+*   **The Happy Path**: Testing when everything works as expected.
+*   **The Sad Path**: Testing the `else` blocks, error handlers, and empty states.
+*   **The Rule**: If you have an `if/else`, you must have tests that trigger **both** sides to get 100% branch coverage.
+
+### 4. CI Mode (Run Once)
 Runs all tests and exits (useful for GitHub Actions).
 ```bash
 npm run test -- --run
@@ -38,6 +62,14 @@ npm test FoodCard
 **In UI Mode:**
 1. Run `npm run test:ui -- FoodCard`
 2. OR: Use the **Search (🔍)** bar in the browser dashboard.
+
+---
+
+## 📦 Test Fixtures (Centralized Data)
+
+To keep tests clean and consistent, we store all mock data in **`app/tests/fixtures.ts`**.
+*   **Why?** If you change your data structure, you only fix it once.
+*   **Usage:** `import { mockFoodData } from "@/app/tests/fixtures";`
 
 ---
 

@@ -17,6 +17,7 @@ This project is a modern web application built with the following core technolog
 
 ## 🧪 Testing Infrastructure
 - **[Vitest](https://vitest.dev/)**: A blazing fast unit test framework powered by Vite.
+- **[@vitest/coverage-v8](https://vitest.dev/guide/coverage)**: For generating detailed test coverage reports.
 - **[React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)**: For testing components as the user would see them.
 - **[JSDOM](https://github.com/jsdom/jsdom)**: A pure-JavaScript implementation of the DOM for testing without a real browser.
 
