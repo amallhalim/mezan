@@ -42,6 +42,31 @@ A 100% "Line Coverage" score doesn't always mean your code is perfect. You also 
 *   **The Sad Path**: Testing the `else` blocks, error handlers, and empty states.
 *   **The Rule**: If you have an `if/else`, you must have tests that trigger **both** sides to get 100% branch coverage.
 
+---
+
+## 🛡️ The Quality Gate (Thresholds)
+
+We have a **Strict Quality Policy** in this project. The tests will **FAIL** automatically if the coverage drops below **80%**.
+
+*   **Branches**: 80%
+*   **Functions**: 80%
+*   **Lines**: 80%
+*   **Statements**: 80%
+
+**Why?** This prevents "code decay" and ensures that as the project grows, we maintain a high standard of safety. If you add new code without tests, Vitest will alert you!
+
+---
+
+## ⚙️ Configuration Location
+
+We store our test configuration in **`vitest.config.ts`** instead of `package.json`.
+
+*   **Type Safety**: TypeScript provides auto-completion and error checking while writing config.
+*   **Power & Logic**: `.ts` files allow us to use variables and dynamic logic (e.g., changing paths).
+*   **Cleanliness**: Keeps `package.json` focused only on dependencies and scripts.
+
+---
+
 ### 4. CI Mode (Run Once)
 Runs all tests and exits (useful for GitHub Actions).
 ```bash
