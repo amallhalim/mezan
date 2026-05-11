@@ -1,46 +1,52 @@
-import { renderHook, act } from "@/app/tests/test-utils";
+import { renderHook, act } from "./tests/test-utils";
 import useCount from "./useCount";
 
-describe("useCount (Correct Live Updates)", () => {
+describe("useCount (Extract After Update Style)", () => {
 
     test("starts at 0 by default", () => {
         const { result } = renderHook(() => useCount());
-        // ✅ Access 'current' at the moment of assertion
-        expect(result.current.count).toBe(0);
+        
+        // Extracting data for the assertion
+        const { count } = result.current;
+        expect(count).toBe(0);
     });
 
     test("increments the count correctly", () => {
         const { result } = renderHook(() => useCount(0));
-
-        // You can destructure the function safely...
         const { increment } = result.current;
 
         act(() => {
             increment();
         });
 
-        // ❌ DON'T use a destructured 'count' variable here!
-        // ✅ ALWAYS use result.current.count to see the update
-        expect(result.current.count).toBe(1);
+        // ✅ Extracting count AFTER the act() so it has the new value
+        const { count } = result.current;
+        expect(count).toBe(1);
     });
 
     test("decrements the count correctly", () => {
         const { result } = renderHook(() => useCount(10));
+        const { decrement } = result.current;
 
         act(() => {
-            result.current.decrement();
+            decrement();
         });
 
-        expect(result.current.count).toBe(9);
+        // ✅ Extracting count AFTER the update
+        const { count } = result.current;
+        expect(count).toBe(9);
     });
 
     test("increments by a custom step", () => {
         const { result } = renderHook(() => useCount(0, 5));
+        const { increment } = result.current;
 
         act(() => {
-            result.current.increment();
+            increment();
         });
 
-        expect(result.current.count).toBe(5);
+        // ✅ Extracting count AFTER the update
+        const { count } = result.current;
+        expect(count).toBe(5);
     });
 });

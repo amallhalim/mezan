@@ -226,10 +226,16 @@ const { count, increment } = result.current;
 act(() => increment());
 expect(count).toBe(1); // Fails! 'count' is still 0.
 
-// ✅ RIGHT: Always access the live value
+// ✅ Option A: Always access the live value (Safest)
 const { increment } = result.current;
 act(() => increment());
-expect(result.current.count).toBe(1); // Passes!
+expect(result.current.count).toBe(1); 
+
+// ✅ Option B: Extract AFTER the update (Cleanest)
+const { increment } = result.current;
+act(() => increment());
+const { count } = result.current; // Take the snapshot AFTER the work is done
+expect(count).toBe(1);
 ```
 
 ---
