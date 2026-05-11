@@ -1,0 +1,10 @@
+
+
+# echo "Running Prettier check..."
+npm run prettier:check
+
+# echo "Running Vitest..."
+npm run test
+# 
+# echo "Running ESLint..."
+# npm run lint
