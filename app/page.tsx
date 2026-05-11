@@ -1,12 +1,17 @@
-"use client"
-import Image from "next/image";
-import { ArrowRight, Activity, ShieldCheck, Cpu } from "lucide-react";
-import { useCounter } from "./context/CounterContext";
+import { useState } from "react";
+import { useTheme } from "./context/ThemeContext";
 
 export default function Home() {
-  const { count, increment, decrement } = useCounter();
+  const { theme, toggleTheme } = useTheme();
+  const [count, setCount] = useState(0);
+
+  const increment = () => setCount(count + 1);
+  const decrement = () => setCount(count - 1);
+
   return (
-    <div className="min-h-screen bg-zinc-950 text-white font-sans selection:bg-primary/30">
+    <div className={`min-h-screen font-sans selection:bg-primary/30 transition-colors duration-500 ${
+      theme === "dark" ? "bg-zinc-950 text-white" : "bg-zinc-50 text-zinc-900"
+    }`}>
       {/* Background Atmospheric Glow */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-24 -left-24 w-96 h-96 bg-primary/20 rounded-full blur-[120px] animate-pulse" />
@@ -16,27 +21,48 @@ export default function Home() {
       <main className="relative max-w-7xl mx-auto px-6 py-12 lg:py-24">
         {/* --- Header Section --- */}
         <header className="mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-primary-foreground text-sm font-medium">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-            </span>
-            System Operational
+          <div className="flex justify-between items-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-primary-foreground text-sm font-medium">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+              </span>
+              System Operational
+            </div>
+            {/* Theme Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              className="px-4 py-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all"
+            >
+              Mode: {theme}
+            </button>
           </div>
           <h1 className="text-5xl lg:text-7xl font-bold tracking-tight bg-gradient-to-br from-white via-white to-white/40 bg-clip-text text-transparent">
             Testing Sandbox
           </h1>
-          {/* <p className="text-zinc-400 text-lg max-w-2xl leading-relaxed">
-            Welcome to the internal testing environment. Use the controls below to validate UI components and state logic.
-          </p> */}
         </header>
 
 
-        <div className="text-white bg-black border-red-500 border-2">
+        <div className="p-8 rounded-3xl border-2 border-primary/20 bg-white/5 backdrop-blur-md mb-12">
           {/* State & Interaction */}
-          <p>count is {count}</p>
-          <button name="increment" onClick={increment}>Increment</button>
-          <button name="decrement" onClick={decrement}>Decrement</button>
+          <h2 className="text-2xl font-bold mb-4">Counter Interaction</h2>
+          <p className="text-lg mb-6">Current count is: <span className="font-mono text-primary">{count}</span></p>
+          <div className="flex gap-4">
+            <button
+              className="px-6 py-3 bg-primary text-primary-foreground rounded-xl font-bold hover:opacity-90"
+              name="increment"
+              onClick={increment}
+            >
+              Increment
+            </button>
+            <button
+              className="px-6 py-3 bg-white/10 rounded-xl font-bold hover:bg-white/20"
+              name="decrement"
+              onClick={decrement}
+            >
+              Decrement
+            </button>
+          </div>
         </div>
 
 
