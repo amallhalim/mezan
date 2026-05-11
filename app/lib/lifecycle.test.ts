@@ -202,9 +202,17 @@ describe("5️⃣ beforeAll / afterAll — One-time setup & cleanup", () => {
     // 🏗️ Runs ONCE before any test in this describe
     // Perfect for expensive operations you don't want to repeat
     allProteinFoods = FOODS.filter((f) => f.categoryId === 1);
-    allProteinMacros = allProteinFoods.map((f) =>
-      calculateNutrients(f, 100, 1, false)
-    );
+    allProteinMacros = allProteinFoods.map((f) => {
+      // If it's a piece (like Egg), calculate how many pieces make 100g
+      const amountFor100g =
+        f.sizeType === "UNIT" ||
+        f.sizeType === "SPOON" ||
+        f.sizeType === "SUGAR"
+          ? 100 / (f.weightPerUnit || 100)
+          : 100;
+
+      return calculateNutrients(f, amountFor100g, 1, false);
+    });
   });
 
   afterAll(() => {

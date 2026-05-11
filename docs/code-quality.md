@@ -1,49 +1,71 @@
-# Testing & Code Quality Workflow
+# Code Quality & Automation Guide
 
-This project uses a modern automated workflow to ensure high code quality and prevent bugs from reaching production.
-
-## 🚀 The Core Tools
-
-| Tool            | Purpose                    | Why we use it                                                                                    |
-| :-------------- | :------------------------- | :----------------------------------------------------------------------------------------------- |
-| **Vitest**      | Unit & Integration Testing | Ensures your logic works correctly. If you break a feature, the tests will tell you immediately. |
-| **Prettier**    | Code Formatting            | No more "space vs tabs" arguments. It keeps the code clean and consistent automatically.         |
-| **ESLint**      | Static Analysis            | Catches potential bugs (like unused variables or bad React patterns) while you write code.       |
-| **Husky**       | Git Hooks                  | The "Gatekeeper." It runs your checks automatically whenever you try to `git commit`.            |
-| **Lint-staged** | Targeted Checks            | Makes hooks fast by only checking the files you actually modified.                               |
+This document explains the tools and workflows we use to keep this project clean, bug-free, and professional.
 
 ---
 
-## 🛠️ How it works (The "Guardrail" System)
+## 🛠️ The Quality Stack
 
-### 1. Pre-commit Protection (Husky)
-
-When you run `git commit`, Husky steps in before the commit is finalized. It runs the scripts defined in `.husky/pre-commit`.
-
-- **If everything passes**: Your code is committed.
-- **If a test fails or code is messy**: The commit is **blocked**. You must fix the issue before you can commit.
-- _Benefit_: You can never accidentally push broken code to the repository.
-
-### 2. Standardized Style (Prettier + ESLint)
-
-By combining these with "Format on Save" in VS Code, your code stays professional without you having to think about it.
-
-- Prettier handles the **Aesthetics** (spaces, quotes, commas).
-- ESLint handles the **Quality** (security, logic errors, accessibility).
+| Tool            | Role             | Function                                                                          |
+| :-------------- | :--------------- | :-------------------------------------------------------------------------------- |
+| **Vitest**      | **Testing**      | Runs your logic through automated tests to ensure features don't break.           |
+| **Prettier**    | **Formatting**   | Automatically fixes your code style (spaces, quotes, alignment).                  |
+| **ESLint**      | **Linting**      | Analyzes code for potential bugs, security risks, and best practices.             |
+| **Husky**       | **Automation**   | Triggers scripts automatically during Git actions (like `commit`).                |
+| **lint-staged** | **Optimization** | Ensures only the files you actually changed are checked, keeping everything fast. |
 
 ---
 
-## 📋 Common Commands
+## 🔄 The Development Workflow
 
-- `npm run test`: Run all tests once.
-- `npm run test:watch`: Keep tests running while you code (great for TDD).
-- `npm run format`: Manually fix formatting in the whole project.
-- `npm run lint`: Check for code quality issues.
+### 1. In the Editor (Real-time)
+
+- **ESLint** highlights errors in red/yellow as you type.
+- **Prettier** fixes your code every time you save (if "Format on Save" is enabled in VS Code).
+
+### 2. The "Pre-Commit" Gate (Husky + lint-staged)
+
+When you run `git commit`, the following sequence happens automatically:
+
+1.  **Filter**: `lint-staged` finds only the files you are about to commit.
+2.  **Fix**: It runs `eslint --fix` and `prettier --write` on those files.
+3.  **Validate**: It runs your tests (`vitest run`).
+4.  **Decision**:
+    - ✅ **Pass**: The commit is finalized.
+    - ❌ **Fail**: The commit is blocked. You must fix the errors before you can try again.
 
 ---
 
-## 💡 Best Practices for Developers
+## 🧩 Key Configurations
 
-1.  **Don't skip hooks**: Avoid using `--no-verify` unless absolutely necessary. The hooks are there to help you!
-2.  **Write tests first**: When fixing a bug, write a test that fails first, then fix the code until it passes.
-3.  **Check the "Output" tab**: If Prettier or ESLint isn't working in VS Code, check the Output panel for error messages.
+### Prettier (`.prettierrc.json`)
+
+We use standard settings (2-space tabs, semicolons, double quotes) to ensure the whole team's code looks identical.
+
+### ESLint (`eslint.config.mjs`)
+
+We use `eslint-config-prettier` to ensure ESLint doesn't argue with Prettier. Prettier handles the _look_, ESLint handles the _logic_.
+
+### Husky (`.husky/pre-commit`)
+
+This file contains the "orders" for what to do before a commit. We use `npx lint-staged` to keep it efficient.
+
+---
+
+## 📋 Pro Tips
+
+- **Format Manually**: If you want to format the whole project at once, run:
+  ```bash
+  npm run format
+  ```
+- **Run Related Tests**: `lint-staged` is configured to run tests related to your changes, so you don't have to wait for the whole suite.
+- **Bypassing**: If you _absolutely must_ commit something without running the checks (not recommended!), you can add `--no-verify` to your git command.
+- **ESM Support**: We use `.mts` for configuration files to ensure modern Node.js compatibility and avoid "Experimental Warnings."
+
+---
+
+## 🛑 Troubleshooting
+
+- **Husky failed?** Check the terminal output. It will tell you exactly which test failed or which file has a linting error.
+- **Prettier not working?** Ensure the "Prettier - Code formatter" extension is installed and set as the "Default Formatter" in VS Code.
+- **ESLint Conflicts?** We use `eslint-config-prettier` to disable all conflicting rules automatically.
