@@ -1,24 +1,23 @@
 "use client";
-import React, { useState, useMemo, useEffect } from 'react';
-import { category, Food } from '@/app/lib/data';
+import React, { useState, useMemo, useEffect } from "react";
+import { category, Food } from "@/app/lib/data";
 
 // Components
-import CalculatorHeader from '@/app/components/calculator/Layout/CalculatorHeader';
-import FoodListSection from '@/app/components/calculator/Layout/FoodListSection';
-import TotalMacrosFooter from '@/app/components/calculator/Layout/TotalMacrosFooter';
-import AddedFoodsSummary from '@/app/components/calculator/Layout/AddedFoodsSummary';
-import QuickAdjustPanel from '@/app/components/calculator/Layout/QuickAdjustPanel';
-import ResultModal from '@/app/components/calculator/Layout/ResultModal';
-
+import CalculatorHeader from "@/app/components/calculator/Layout/CalculatorHeader";
+import FoodListSection from "@/app/components/calculator/Layout/FoodListSection";
+import TotalMacrosFooter from "@/app/components/calculator/Layout/TotalMacrosFooter";
+import AddedFoodsSummary from "@/app/components/calculator/Layout/AddedFoodsSummary";
+import QuickAdjustPanel from "@/app/components/calculator/Layout/QuickAdjustPanel";
+import ResultModal from "@/app/components/calculator/Layout/ResultModal";
 
 // Hooks & Store
-import { useMealSummary } from '@/app/hooks/useMealSummary';
-import { usePlatesStore } from '@/app/store/usePlatesStore';
+import { useMealSummary } from "@/app/hooks/useMealSummary";
+import { usePlatesStore } from "@/app/store/usePlatesStore";
 
 export default function CalculatorPage() {
   // --- Global Store ---
   const plates = usePlatesStore((state) => state.plates);
-  console.log("plates", plates)
+  console.log("plates", plates);
   const addPlate = usePlatesStore((state) => state.addPlate);
   const updatePlate = usePlatesStore((state) => state.updatePlate);
   const clearPlates = usePlatesStore((state) => state.clearPlates);
@@ -34,16 +33,16 @@ export default function CalculatorPage() {
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-
   const filteredFoods = useMemo(() => {
     if (searchQuery.trim()) {
-      const allFoods = category.flatMap(cat => cat.foods);
-      return allFoods.filter(f =>
-        f.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        f.nameAr.toLowerCase().includes(searchQuery.toLowerCase())
+      const allFoods = category.flatMap((cat) => cat.foods);
+      return allFoods.filter(
+        (f) =>
+          f.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          f.nameAr.toLowerCase().includes(searchQuery.toLowerCase()),
       );
     }
-    return category.find(c => c.id === selectedCategory)?.foods ?? [];
+    return category.find((c) => c.id === selectedCategory)?.foods ?? [];
   }, [selectedCategory, searchQuery]);
 
   const { totals } = useMealSummary(plates);
@@ -58,7 +57,6 @@ export default function CalculatorPage() {
     if (!calculated) return;
 
     if (editingIndex !== null) {
-
       updatePlate(editingIndex, calculated);
       setEditingIndex(null);
       showToast(`Updated ${calculated.name}`);
@@ -77,7 +75,6 @@ export default function CalculatorPage() {
 
     // Preview often implies adding to the session in this UI flow
     if (editingIndex !== null) {
-
       updatePlate(editingIndex, calculated);
       setEditingIndex(null);
     } else {
@@ -88,7 +85,9 @@ export default function CalculatorPage() {
 
   const handleEditItem = (item: any, index: number) => {
     setEditingIndex(index);
-    const baseFood = category.flatMap(c => c.foods).find(f => f.id === item.id);
+    const baseFood = category
+      .flatMap((c) => c.foods)
+      .find((f) => f.id === item.id);
     if (baseFood) setActiveFood(baseFood);
   };
 
@@ -104,20 +103,28 @@ export default function CalculatorPage() {
     if (editingIndex === index) setEditingIndex(null);
   };
 
-
-
   return (
-    <div className='min-h-screen text-white selection:bg-primary selection:text-secondary '
-      style={{ background: 'radial-gradient(ellipse 80% 60% at 50% -10%, var(--primary-glow) 0%, var(--background) 20%)', opacity: 1 }}
+    <div
+      className="min-h-screen text-white selection:bg-primary selection:text-secondary "
+      style={{
+        background:
+          "radial-gradient(ellipse 80% 60% at 50% -10%, var(--primary-glow) 0%, var(--background) 20%)",
+        opacity: 1,
+      }}
     >
-      <div className="fixed inset-0 pointer-events-none"
+      <div
+        className="fixed inset-0 pointer-events-none"
         style={{
-          backgroundImage: 'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)',
-          backgroundSize: '48px 48px'
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
         }}
       />
 
-      <div className='relative container mx-auto px-4 max-w-2xl pb-44 pt-6' id="calculator">
+      <div
+        className="relative container mx-auto px-4 max-w-2xl pb-44 pt-6"
+        id="calculator"
+      >
         <CalculatorHeader
           selectedFoodListLength={plates.length}
           setShowMealSummary={setShowMealSummary}
@@ -126,8 +133,6 @@ export default function CalculatorPage() {
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
         />
-
-
 
         <FoodListSection
           filteredFoods={filteredFoods}
@@ -138,7 +143,6 @@ export default function CalculatorPage() {
 
         {plates.length > 0 && (
           <div className="mt-8">
-
             <AddedFoodsSummary
               items={plates}
               onRemove={handleRemoveItem}
@@ -149,25 +153,37 @@ export default function CalculatorPage() {
         )}
       </div>
 
-      <TotalMacrosFooter totals={totals} onClick={() => setShowMealSummary(true)} />
+      <TotalMacrosFooter
+        totals={totals}
+        onClick={() => setShowMealSummary(true)}
+      />
 
       {activeFood && (
         <QuickAdjustPanel
           food={activeFood}
-          onClose={() => { setActiveFood(null); setEditingIndex(null); }}
+          onClose={() => {
+            setActiveFood(null);
+            setEditingIndex(null);
+          }}
           onAdd={handleAddFood}
           onPreview={handlePreviewFood}
           isEditing={editingIndex !== null}
-          initialValues={editingIndex !== null ? {
-            amount: plates[editingIndex]?.selectedAmount,
-            isRaw: plates[editingIndex]?.isRaw,
-            quantity: plates[editingIndex]?.quantity,
-            selectedSizeId: 'custom'
-          } : undefined}
+          initialValues={
+            editingIndex !== null
+              ? {
+                  amount: plates[editingIndex]?.selectedAmount,
+                  isRaw: plates[editingIndex]?.isRaw,
+                  quantity: plates[editingIndex]?.quantity,
+                  selectedSizeId: "custom",
+                }
+              : undefined
+          }
         />
       )}
 
-      {resultItem && <ResultModal item={resultItem} onClose={() => setResultItem(null)} />}
+      {resultItem && (
+        <ResultModal item={resultItem} onClose={() => setResultItem(null)} />
+      )}
 
       {showMealSummary && (
         <ResultModal
@@ -177,7 +193,7 @@ export default function CalculatorPage() {
             nameAr: "وجبتي بالكامل",
             icon: "🍽️",
             selectedAmount: plates.length,
-            unit: "items"
+            unit: "items",
           }}
           onClose={() => setShowMealSummary(false)}
         />

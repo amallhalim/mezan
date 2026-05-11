@@ -1,6 +1,6 @@
-import { useState, useMemo, useEffect } from 'react';
-import { Food, SIZE_PRESETS, SizePreset } from '@/app/lib/data';
-import { calculateNutrients } from '@/app/lib/calculatorUtils';
+import { useState, useMemo, useEffect } from "react";
+import { Food, SIZE_PRESETS, SizePreset } from "@/app/lib/data";
+import { calculateNutrients } from "@/app/lib/calculatorUtils";
 
 export interface FoodCalculatorState {
   amount: number;
@@ -11,30 +11,35 @@ export interface FoodCalculatorState {
   sugarType?: string; // 's1', 's2', 's3'
 }
 
-export function useFoodCalculator(food: Food | null, initialValues?: Partial<FoodCalculatorState>) {
+export function useFoodCalculator(
+  food: Food | null,
+  initialValues?: Partial<FoodCalculatorState>,
+) {
   const [amount, setAmount] = useState<number>(initialValues?.amount ?? 100);
-  const [selectedSizeId, setSelectedSizeId] = useState<string>(initialValues?.selectedSizeId ?? 'small');
+  const [selectedSizeId, setSelectedSizeId] = useState<string>(
+    initialValues?.selectedSizeId ?? "small",
+  );
   const [isRaw, setIsRaw] = useState(initialValues?.isRaw ?? false);
   const [quantity, setQuantity] = useState(initialValues?.quantity ?? 1);
   const [sugarCount, setSugarCount] = useState(initialValues?.sugarCount ?? 0);
-  const [sugarType, setSugarType] = useState(initialValues?.sugarType ?? 's1');
+  const [sugarType, setSugarType] = useState(initialValues?.sugarType ?? "s1");
 
   // Reset state when food changes, unless we have initialValues
   useEffect(() => {
     if (food && !initialValues) {
       setAmount(100);
-      setSelectedSizeId('small');
+      setSelectedSizeId("small");
       setIsRaw(false);
       setQuantity(1);
       setSugarCount(0);
-      setSugarType('s1');
+      setSugarType("s1");
     } else if (food && initialValues) {
       setAmount(initialValues.amount ?? 100);
-      setSelectedSizeId(initialValues.selectedSizeId ?? 'small');
+      setSelectedSizeId(initialValues.selectedSizeId ?? "small");
       setIsRaw(initialValues.isRaw ?? false);
       setQuantity(initialValues.quantity ?? 1);
       setSugarCount(initialValues.sugarCount ?? 0);
-      setSugarType(initialValues.sugarType ?? 's1');
+      setSugarType(initialValues.sugarType ?? "s1");
     }
   }, [food, initialValues]);
 
@@ -44,7 +49,7 @@ export function useFoodCalculator(food: Food | null, initialValues?: Partial<Foo
   }, [food]);
 
   const currentSize = useMemo(() => {
-    return presets.find(p => p.id === selectedSizeId);
+    return presets.find((p) => p.id === selectedSizeId);
   }, [presets, selectedSizeId]);
 
   const calculated = useMemo(() => {
@@ -53,15 +58,23 @@ export function useFoodCalculator(food: Food | null, initialValues?: Partial<Foo
     let baseNutrients = calculateNutrients(food, amount, quantity, isRaw);
 
     // Handle Sugar for Drinks
-    if (food.sizeType === 'DRINK' && sugarCount > 0) {
-      const { FOODS } = require('@/app/lib/data');
+    if (food.sizeType === "DRINK" && sugarCount > 0) {
+      const { FOODS } = require("@/app/lib/data");
       const sugarItem = FOODS.find((f: any) => f.id === sugarType);
       if (sugarItem) {
-        const sugarNutrients = calculateNutrients(sugarItem, sugarCount, quantity, false);
+        const sugarNutrients = calculateNutrients(
+          sugarItem,
+          sugarCount,
+          quantity,
+          false,
+        );
         baseNutrients = {
           calories: baseNutrients.calories + sugarNutrients.calories,
-          protein: Math.round((baseNutrients.protein + sugarNutrients.protein) * 10) / 10,
-          carbs: Math.round((baseNutrients.carbs + sugarNutrients.carbs) * 10) / 10,
+          protein:
+            Math.round((baseNutrients.protein + sugarNutrients.protein) * 10) /
+            10,
+          carbs:
+            Math.round((baseNutrients.carbs + sugarNutrients.carbs) * 10) / 10,
           fat: Math.round((baseNutrients.fat + sugarNutrients.fat) * 10) / 10,
         };
       }
@@ -72,11 +85,11 @@ export function useFoodCalculator(food: Food | null, initialValues?: Partial<Foo
       ...baseNutrients,
       nameAr: food.nameAr,
       selectedAmount: amount,
-      unit: presets[0]?.unit || 'g',
+      unit: presets[0]?.unit || "g",
       isRaw,
       quantity,
       sugarCount,
-      sugarType
+      sugarType,
     };
   }, [food, amount, isRaw, quantity, presets, sugarCount, sugarType]);
 
@@ -101,6 +114,6 @@ export function useFoodCalculator(food: Food | null, initialValues?: Partial<Foo
     presets,
     currentSize,
     calculated,
-    handleSizeSelect
+    handleSizeSelect,
   };
 }

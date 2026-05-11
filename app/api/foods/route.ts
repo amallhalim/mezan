@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { FOODS, CATEGORIES } from '@/app/lib/data';
+import { NextRequest, NextResponse } from "next/server";
+import { FOODS, CATEGORIES } from "@/app/lib/data";
 
 /**
  * GET /api/foods
@@ -15,29 +15,29 @@ import { FOODS, CATEGORIES } from '@/app/lib/data';
  */
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const search = searchParams.get('search');
-  const categoryId = searchParams.get('category');
+  const search = searchParams.get("search");
+  const categoryId = searchParams.get("category");
 
   let results = [...FOODS];
 
   // Filter by category
   if (categoryId) {
     const catId = parseInt(categoryId, 10);
-    const categoryExists = CATEGORIES.some(c => c.id === catId);
+    const categoryExists = CATEGORIES.some((c) => c.id === catId);
     if (!categoryExists) {
       return NextResponse.json(
         { error: `Category ${categoryId} not found` },
-        { status: 404 }
+        { status: 404 },
       );
     }
-    results = results.filter(f => f.categoryId === catId);
+    results = results.filter((f) => f.categoryId === catId);
   }
 
   // Filter by search query
   if (search) {
     const q = search.toLowerCase();
     results = results.filter(
-      f => f.name.toLowerCase().includes(q) || f.nameAr.includes(q)
+      (f) => f.name.toLowerCase().includes(q) || f.nameAr.includes(q),
     );
   }
 
@@ -60,15 +60,15 @@ export async function POST(request: NextRequest) {
     // Validation
     if (!body.name || !body.caloriesPer100) {
       return NextResponse.json(
-        { error: 'Missing required fields: name, caloriesPer100' },
-        { status: 400 }
+        { error: "Missing required fields: name, caloriesPer100" },
+        { status: 400 },
       );
     }
 
     if (body.caloriesPer100 < 0) {
       return NextResponse.json(
-        { error: 'Calories cannot be negative' },
-        { status: 400 }
+        { error: "Calories cannot be negative" },
+        { status: 400 },
       );
     }
 
@@ -77,20 +77,17 @@ export async function POST(request: NextRequest) {
       id: `custom_${Date.now()}`,
       categoryId: body.categoryId || 1,
       name: body.name,
-      nameAr: body.nameAr || '',
-      icon: body.icon || '🍽️',
+      nameAr: body.nameAr || "",
+      icon: body.icon || "🍽️",
       caloriesPer100: body.caloriesPer100,
       proteinPer100: body.proteinPer100 || 0,
       carbsPer100: body.carbsPer100 || 0,
       fatPer100: body.fatPer100 || 0,
-      sizeType: body.sizeType || 'FOOD' as const,
+      sizeType: body.sizeType || ("FOOD" as const),
     };
 
     return NextResponse.json(newFood, { status: 201 });
   } catch {
-    return NextResponse.json(
-      { error: 'Invalid JSON body' },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 }

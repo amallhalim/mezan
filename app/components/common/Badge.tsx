@@ -1,22 +1,23 @@
-import React from 'react';
+import React from "react";
 
 interface BadgeProps {
   children: React.ReactNode;
-  variant?: 'primary' | 'success' | 'warning' | 'error' | 'outline';
-  size?: 'sm' | 'md';
+  variant?: "primary" | "success" | "warning" | "error" | "outline";
+  size?: "sm" | "md";
 }
 
 /**
  * Modern Badge component using Tailwind utility classes and design system tokens.
  * Focuses on high-contrast, compact metadata display.
  */
-export const Badge: React.FC<BadgeProps> = ({ 
-  children, 
-  variant = 'primary',
-  size = 'md' 
+export const Badge: React.FC<BadgeProps> = ({
+  children,
+  variant = "primary",
+  size = "md",
 }) => {
-  const baseStyles = "inline-flex items-center font-black tracking-widest uppercase rounded-full border";
-  
+  const baseStyles =
+    "inline-flex items-center font-black tracking-widest uppercase rounded-full border";
+
   const sizeStyles = {
     sm: "px-2 py-0.5 text-[8px]",
     md: "px-3 py-1 text-[10px]",
@@ -31,7 +32,9 @@ export const Badge: React.FC<BadgeProps> = ({
   };
 
   return (
-    <span className={`${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]}`}>
+    <span
+      className={`${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]}`}
+    >
       {children}
     </span>
   );

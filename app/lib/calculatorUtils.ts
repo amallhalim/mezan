@@ -1,5 +1,5 @@
-import { Flame, Award, TrendingUp } from 'lucide-react';
-import { Food } from './data';
+import { Flame, Award, TrendingUp } from "lucide-react";
+import { Food } from "./data";
 
 interface Nutrients {
   calories: number;
@@ -15,25 +15,38 @@ export const calculateNutrients = (
   food: Food,
   amount: number,
   quantity: number,
-  isRaw: boolean
+  isRaw: boolean,
 ) => {
   // FR-009: Cap food weight inputs at 5000g
   const cappedAmount = Math.min(amount, 5000);
 
   // If it's a piece/unit/sugar/spoon, we multiply amount by weightPerUnit to get total weight
-  const isPieceType = food.sizeType === 'UNIT' || food.sizeType === 'SUGAR' || food.sizeType === 'SPOON';
-  const effectiveWeight = isPieceType && food.weightPerUnit
-    ? cappedAmount * food.weightPerUnit
-    : (isPieceType ? cappedAmount * 100 : cappedAmount);
+  const isPieceType =
+    food.sizeType === "UNIT" ||
+    food.sizeType === "SUGAR" ||
+    food.sizeType === "SPOON";
+  const effectiveWeight =
+    isPieceType && food.weightPerUnit
+      ? cappedAmount * food.weightPerUnit
+      : isPieceType
+        ? cappedAmount * 100
+        : cappedAmount;
 
   const factor = effectiveWeight / 100;
   const cookingFactor = isRaw ? 1.2 : 1.0;
 
   return {
-    calories: Math.round(food.caloriesPer100 * factor * cookingFactor * quantity),
-    protein: Math.round(food.proteinPer100 * factor * cookingFactor * quantity * 10) / 10,
-    carbs: Math.round(food.carbsPer100 * factor * cookingFactor * quantity * 10) / 10,
-    fat: Math.round(food.fatPer100 * factor * cookingFactor * quantity * 10) / 10,
+    calories: Math.round(
+      food.caloriesPer100 * factor * cookingFactor * quantity,
+    ),
+    protein:
+      Math.round(food.proteinPer100 * factor * cookingFactor * quantity * 10) /
+      10,
+    carbs:
+      Math.round(food.carbsPer100 * factor * cookingFactor * quantity * 10) /
+      10,
+    fat:
+      Math.round(food.fatPer100 * factor * cookingFactor * quantity * 10) / 10,
   };
 };
 
@@ -41,18 +54,20 @@ export const calculateNutrients = (
  * Helper to get tailwind color class based on calorie intensity
  */
 export const getCalorieColor = (calories: number) => {
-  if (calories < 150) return 'text-emerald-400';
-  if (calories < 400) return 'text-emerald-500';
-  if (calories < 700) return 'text-amber-400';
-  return 'text-orange-500';
+  if (calories < 150) return "text-emerald-400";
+  if (calories < 400) return "text-emerald-500";
+  if (calories < 700) return "text-amber-400";
+  return "text-orange-500";
 };
 
 /**
  * Generate a health insight object based on calories
  */
 export const getHealthInsight = (calories: number) => {
-  if (calories > 800) return { text: "High Energy", icon: Flame, color: "text-orange-400" };
-  if (calories < 100) return { text: "Light Choice", icon: Award, color: "text-emerald-400" };
+  if (calories > 800)
+    return { text: "High Energy", icon: Flame, color: "text-orange-400" };
+  if (calories < 100)
+    return { text: "Light Choice", icon: Award, color: "text-emerald-400" };
   return { text: "Balanced", icon: TrendingUp, color: "text-primary" };
 };
 
@@ -60,10 +75,13 @@ export const getHealthInsight = (calories: number) => {
  * Calculate totals for a list of items
  */
 export const calculateMealTotals = (items: Nutrients[]) => {
-  return items.reduce((acc, curr) => ({
-    calories: acc.calories + curr?.calories,
-    protein: acc.protein + curr?.protein,
-    carbs: acc.carbs + curr?.carbs,
-    fat: acc.fat + curr?.fat,
-  }), { calories: 0, protein: 0, carbs: 0, fat: 0 });
+  return items.reduce(
+    (acc, curr) => ({
+      calories: acc.calories + curr?.calories,
+      protein: acc.protein + curr?.protein,
+      carbs: acc.carbs + curr?.carbs,
+      fat: acc.fat + curr?.fat,
+    }),
+    { calories: 0, protein: 0, carbs: 0, fat: 0 },
+  );
 };

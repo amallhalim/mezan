@@ -1,5 +1,5 @@
 // hooks/useScrollableTabs.ts
-import { useRef, useState, useEffect, useCallback } from 'react';
+import { useRef, useState, useEffect, useCallback } from "react";
 
 interface UseScrollableTabsOptions {
   selectedId: number;
@@ -16,7 +16,7 @@ interface UseScrollableTabsReturn {
 
 export function useScroller({
   selectedId,
-  scrollAmount = 200
+  scrollAmount = 200,
 }: UseScrollableTabsOptions): UseScrollableTabsReturn {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -33,10 +33,13 @@ export function useScroller({
     const el = scrollRef.current;
     if (!el) return;
     checkScroll();
-    el.addEventListener('scroll', checkScroll, { passive: true });
+    el.addEventListener("scroll", checkScroll, { passive: true });
     const ro = new ResizeObserver(checkScroll);
     ro.observe(el);
-    return () => { el.removeEventListener('scroll', checkScroll); ro.disconnect(); };
+    return () => {
+      el.removeEventListener("scroll", checkScroll);
+      ro.disconnect();
+    };
   }, [checkScroll]);
 
   // Auto-scroll active tab into view
@@ -44,15 +47,19 @@ export function useScroller({
     const el = scrollRef.current;
     if (!el) return;
     const active = el.querySelector('[data-active="true"]') as HTMLElement;
-    active?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+    active?.scrollIntoView({
+      block: "nearest",
+      inline: "center",
+      behavior: "smooth",
+    });
   }, [selectedId]);
 
   const scrollLeft = useCallback(() => {
-    scrollRef.current?.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    scrollRef.current?.scrollBy({ left: -scrollAmount, behavior: "smooth" });
   }, [scrollAmount]);
 
   const scrollRight = useCallback(() => {
-    scrollRef.current?.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    scrollRef.current?.scrollBy({ left: scrollAmount, behavior: "smooth" });
   }, [scrollAmount]);
 
   return { scrollRef, canScrollLeft, canScrollRight, scrollLeft, scrollRight };

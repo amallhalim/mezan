@@ -1,7 +1,7 @@
-import React from 'react';
-import { Search } from 'lucide-react';
-import { Food } from '@/app/lib/data';
-import FoodCard from '@/app/(pages)/calculator/FoodCard';
+import React from "react";
+import { Search } from "lucide-react";
+import { Food } from "@/app/lib/data";
+import FoodCard from "@/app/(pages)/calculator/FoodCard";
 
 interface FoodListSectionProps {
   filteredFoods: Food[];
@@ -14,7 +14,7 @@ export default function FoodListSection({
   filteredFoods,
   searchQuery,
   activeFood,
-  setActiveFood
+  setActiveFood,
 }: FoodListSectionProps) {
   return (
     <section>
@@ -23,7 +23,7 @@ export default function FoodListSection({
           {/* Section label */}
           <div className="flex items-center gap-3 mb-4 px-1">
             <p className="text-[10px] font-black tracking-[0.2em] text-gray-600 uppercase">
-              {searchQuery ? `Results · ${filteredFoods.length}` : 'Foods'}
+              {searchQuery ? `Results · ${filteredFoods.length}` : "Foods"}
             </p>
             <div className="flex-1 h-px bg-white/5" />
           </div>
@@ -55,13 +55,17 @@ export default function FoodListSection({
           </div>
           <h3 className="text-lg font-black text-white mb-1">No results</h3>
           <p className="text-gray-500 text-sm mb-6 max-w-[220px] leading-relaxed">
-            Can&apos;t find{' '}
-            <span className="text-primary font-bold">&quot;{searchQuery}&quot;</span>
-            {' '}— request it to be added.
+            Can&apos;t find{" "}
+            <span className="text-primary font-bold">
+              &quot;{searchQuery}&quot;
+            </span>{" "}
+            — request it to be added.
           </p>
-          <button className="flex items-center gap-2 bg-primary/10 hover:bg-primary/20 text-primary
+          <button
+            className="flex items-center gap-2 bg-primary/10 hover:bg-primary/20 text-primary
             font-black text-xs py-3 px-6 rounded-xl transition-all border border-primary/20
-            hover:border-primary/40 tracking-widest uppercase">
+            hover:border-primary/40 tracking-widest uppercase"
+          >
             <span>+</span> Request Food
           </button>
         </div>

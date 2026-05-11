@@ -5,11 +5,11 @@ import { useState } from "react";
  * It takes an initial number and returns state + controls.
  */
 export default function useCount(initialCount = 0, step = 1) {
-    const [count, setCount] = useState(initialCount);
+  const [count, setCount] = useState(initialCount);
 
-    const increment = () => setCount((prev) => prev + step);
-    const decrement = () => setCount((prev) => prev - step);
-    const reset = () => setCount(initialCount);
+  const increment = () => setCount((prev) => prev + step);
+  const decrement = () => setCount((prev) => prev - step);
+  const reset = () => setCount(initialCount);
 
-    return { count, increment, decrement, reset };
+  return { count, increment, decrement, reset };
 }

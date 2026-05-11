@@ -1,7 +1,8 @@
-import { useMemo } from 'react';
-import { calculateMealTotals } from '@/app/lib/calculatorUtils';
+import { useMemo } from "react";
+import { calculateMealTotals } from "@/app/lib/calculatorUtils";
+import { Plate } from "@/app/store/usePlatesStore";
 
-export function useMealSummary(selectedFoodList: any[]) {
+export function useMealSummary(selectedFoodList: Plate[]) {
   const totals = useMemo(() => {
     return calculateMealTotals(selectedFoodList);
   }, [selectedFoodList]);
@@ -11,6 +12,6 @@ export function useMealSummary(selectedFoodList: any[]) {
   return {
     totals,
     isEmpty,
-    itemCount: selectedFoodList.length
+    itemCount: selectedFoodList.length,
   };
 }

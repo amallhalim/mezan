@@ -33,7 +33,7 @@ export const colors = {
     warning: "var(--warning)",
     error: "var(--error)",
     info: "var(--info)",
-  }
+  },
 };
 
 export const spacing = {
@@ -63,12 +63,12 @@ export const typography = {
     medium: "var(--weight-medium)",
     bold: "var(--weight-bold)",
     black: "var(--weight-black)",
-  }
+  },
 };
 
 export const tokens = {
   colors,
   spacing,
   radius,
-  typography
+  typography,
 };

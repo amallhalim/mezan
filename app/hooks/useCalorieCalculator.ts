@@ -1,7 +1,7 @@
-import { useState, useMemo } from 'react';
-import { Food } from '@/app/lib/data';
-import { calculateMacros, CalculatedMacros } from '@/app/lib/calculateMacros';
-import { calculateMealTotals } from '../lib/calculatorUtils';
+import { useState, useMemo } from "react";
+import { Food } from "@/app/lib/data";
+import { calculateMacros, CalculatedMacros } from "@/app/lib/calculateMacros";
+import { calculateMealTotals } from "../lib/calculatorUtils";
 
 export interface CalculatedServing extends CalculatedMacros {
   id?: string;
@@ -27,21 +27,21 @@ export function useCalorieCalculator(initialFood: Food | null = null) {
       foodId: activeFood.id,
       name: activeFood.name,
       inputQuantity: amount,
-      ...macros
+      ...macros,
     };
     return serving;
   }, [activeFood, amount, quantity, isRaw]);
 
   const addToPlate = (serving: CalculatedServing) => {
-    setMealPlate(prev => [...prev, serving]);
+    setMealPlate((prev) => [...prev, serving]);
   };
 
   const removeFromPlate = (index: number) => {
-    setMealPlate(prev => prev.filter((_, i) => i !== index));
+    setMealPlate((prev) => prev.filter((_, i) => i !== index));
   };
 
   const updateInPlate = (index: number, serving: CalculatedServing) => {
-    setMealPlate(prev => {
+    setMealPlate((prev) => {
       const copy = [...prev];
       copy[index] = serving;
       return copy;
@@ -71,6 +71,6 @@ export function useCalorieCalculator(initialFood: Food | null = null) {
     removeFromPlate,
     updateInPlate,
     clearPlate,
-    mealTotals
+    mealTotals,
   };
 }

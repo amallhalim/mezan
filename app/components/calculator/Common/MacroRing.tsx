@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React from "react";
 
 interface MacroRingProps {
   percentage: number;
@@ -7,22 +7,42 @@ interface MacroRingProps {
   icon: React.ReactNode;
   label: string;
   value: number;
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
 }
 
-export default function MacroRing({ 
-  percentage, 
-  color, 
-  icon, 
-  label, 
+export default function MacroRing({
+  percentage,
+  color,
+  icon,
+  label,
   value,
-  size = 'md' 
+  size = "md",
 }: MacroRingProps) {
-  
   const sizeMap = {
-    sm: { box: 'size-14', svg: 16, radius: 14, stroke: 3, font: 'text-[7px]', valFont: 'text-xs' },
-    md: { box: 'size-20', svg: 20, radius: 17, stroke: 4, font: 'text-[8px]', valFont: 'text-sm' },
-    lg: { box: 'size-24', svg: 24, radius: 21, stroke: 6, font: 'text-[10px]', valFont: 'text-xl' },
+    sm: {
+      box: "size-14",
+      svg: 16,
+      radius: 14,
+      stroke: 3,
+      font: "text-[7px]",
+      valFont: "text-xs",
+    },
+    md: {
+      box: "size-20",
+      svg: 20,
+      radius: 17,
+      stroke: 4,
+      font: "text-[8px]",
+      valFont: "text-sm",
+    },
+    lg: {
+      box: "size-24",
+      svg: 24,
+      radius: 21,
+      stroke: 6,
+      font: "text-[10px]",
+      valFont: "text-xl",
+    },
   };
 
   const s = sizeMap[size];
@@ -59,9 +79,16 @@ export default function MacroRing({
           {icon}
         </div>
       </div>
-      <span className={`font-black text-gray-500 uppercase tracking-widest leading-none ${s.font} mb-1`}>{label}</span>
-      <span className={`font-black text-white tabular-nums leading-none ${s.valFont}`}>
-        {value}<span className="text-[7px] text-gray-600 ml-0.5 font-bold">g</span>
+      <span
+        className={`font-black text-gray-500 uppercase tracking-widest leading-none ${s.font} mb-1`}
+      >
+        {label}
+      </span>
+      <span
+        className={`font-black text-white tabular-nums leading-none ${s.valFont}`}
+      >
+        {value}
+        <span className="text-[7px] text-gray-600 ml-0.5 font-bold">g</span>
       </span>
     </div>
   );

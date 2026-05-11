@@ -6,21 +6,21 @@ import { persist, createJSONStorage } from "zustand/middleware";
  * We use a flexible object type to ensure all calculated macros are stored.
  */
 export interface Plate {
-    id: string;
-    name: string;
-    calories: number;
-    protein: number;
-    carbs: number;
-    fat: number;
-    [key: string]: unknown; // Allows additional fields like icon, unit, etc.
+  id: string;
+  name: string;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+  [key: string]: unknown; // Allows additional fields like icon, unit, etc.
 }
 
 interface PlatesState {
-    plates: Plate[];
-    addPlate: (plate: Plate) => void;
-    updatePlate: (index: number, plate: Plate) => void;
-    removePlate: (plateId: string) => void;
-    clearPlates: () => void;
+  plates: Plate[];
+  addPlate: (plate: Plate) => void;
+  updatePlate: (index: number, plate: Plate) => void;
+  removePlate: (plateId: string) => void;
+  clearPlates: () => void;
 }
 
 /**
@@ -28,38 +28,41 @@ interface PlatesState {
  * Includes safety guards to prevent null/undefined state during hydration.
  */
 export const usePlatesStore = create<PlatesState>()(
-    persist(
-        (set) => ({
-            // --- Initial State ---
-            plates: [],
+  persist(
+    (set) => ({
+      // --- Initial State ---
+      plates: [],
 
-            // --- Actions ---
+      // --- Actions ---
 
-            /** Adds a new item. Safety check ensures we always work with an array. */
-            addPlate: (plate) => set((state) => ({
-                plates: [...(state.plates || []), plate]
-            })),
+      /** Adds a new item. Safety check ensures we always work with an array. */
+      addPlate: (plate) =>
+        set((state) => ({
+          plates: [...(state.plates || []), plate],
+        })),
 
-            /** Replaces an item at a specific index (used for editing) */
-            updatePlate: (index, updatedPlate) => set((state) => {
-                const newPlates = [...(state.plates || [])];
-                if (index >= 0 && index < newPlates.length) {
-                    newPlates[index] = updatedPlate;
-                }
-                return { plates: newPlates };
-            }),
-
-            /** Removes an item by its ID */
-            removePlate: (plateId) => set((state) => ({
-                plates: (state.plates || []).filter((p) => p && p.id !== plateId)
-            })),
-
-            /** Resets the entire plate */
-            clearPlates: () => set({ plates: [] }),
+      /** Replaces an item at a specific index (used for editing) */
+      updatePlate: (index, updatedPlate) =>
+        set((state) => {
+          const newPlates = [...(state.plates || [])];
+          if (index >= 0 && index < newPlates.length) {
+            newPlates[index] = updatedPlate;
+          }
+          return { plates: newPlates };
         }),
-        {
-            name: "plates-storage",
-            storage: createJSONStorage(() => localStorage)
-        }
-    )
+
+      /** Removes an item by its ID */
+      removePlate: (plateId) =>
+        set((state) => ({
+          plates: (state.plates || []).filter((p) => p && p.id !== plateId),
+        })),
+
+      /** Resets the entire plate */
+      clearPlates: () => set({ plates: [] }),
+    }),
+    {
+      name: "plates-storage",
+      storage: createJSONStorage(() => localStorage),
+    },
+  ),
 );

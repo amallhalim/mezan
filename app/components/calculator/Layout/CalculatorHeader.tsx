@@ -1,6 +1,6 @@
-import React from 'react';
-import { Search, Activity, Zap, ChevronRight } from 'lucide-react';
-import FoodCategoryTabs from '@/app/components/calculator/Layout/FoodCategoryTabs';
+import React from "react";
+import { Search, Activity, Zap, ChevronRight } from "lucide-react";
+import FoodCategoryTabs from "@/app/components/calculator/Layout/FoodCategoryTabs";
 
 interface CalculatorHeaderProps {
   selectedFoodListLength: number;
@@ -17,7 +17,7 @@ export default function CalculatorHeader({
   searchQuery,
   setSearchQuery,
   selectedCategory,
-  setSelectedCategory
+  setSelectedCategory,
 }: CalculatorHeaderProps) {
   return (
     <header className="mb-8">
@@ -29,7 +29,9 @@ export default function CalculatorHeader({
               <Activity className="text-primary size-4" />
               <span className="absolute -top-0.5 -right-0.5 size-2 rounded-full bg-primary animate-pulse" />
             </div>
-            <span className="text-[11px] font-black tracking-[0.25em] text-primary/60 uppercase">Mezan</span>
+            <span className="text-[11px] font-black tracking-[0.25em] text-primary/60 uppercase">
+              Mezan
+            </span>
           </div>
           <h1 className="text-4xl font-black tracking-tighter text-white leading-none">
             Macro
@@ -44,7 +46,9 @@ export default function CalculatorHeader({
             className="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl px-4 py-2.5 transition-all group"
           >
             <Zap className="size-3.5 text-primary" />
-            <span className="text-xs font-black text-white">{selectedFoodListLength} foods</span>
+            <span className="text-xs font-black text-white">
+              {selectedFoodListLength} foods
+            </span>
             <ChevronRight className="size-3.5 text-gray-600 group-hover:text-white transition-colors" />
           </button>
         )}
@@ -80,8 +84,13 @@ export default function CalculatorHeader({
       </div>
 
       {/* Category tabs */}
-      <div className={`transition-all duration-300 overflow-hidden ${searchQuery ? 'max-h-0 opacity-0' : 'max-h-24 opacity-100'}`}>
-        <FoodCategoryTabs selectedId={selectedCategory} onSelect={setSelectedCategory} />
+      <div
+        className={`transition-all duration-300 overflow-hidden ${searchQuery ? "max-h-0 opacity-0" : "max-h-24 opacity-100"}`}
+      >
+        <FoodCategoryTabs
+          selectedId={selectedCategory}
+          onSelect={setSelectedCategory}
+        />
       </div>
     </header>
   );

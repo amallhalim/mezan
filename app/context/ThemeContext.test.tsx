@@ -4,7 +4,7 @@ import { useTheme } from "./ThemeContext";
 
 /**
  * 🧪 UNIT TEST FOR THEME PROVIDER
- * 
+ *
  * Since we can't test the Provider 'alone', we create a small
  * 'Dummy Component' that uses the useTheme hook.
  */

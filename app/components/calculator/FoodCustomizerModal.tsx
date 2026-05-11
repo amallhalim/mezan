@@ -1,12 +1,12 @@
 "use client";
-import React from 'react';
-import { X, Scale, Plus } from 'lucide-react';
-import { Food } from '@/app/lib/data';
-import MacroNutrientStats from './PortionSelector/MacroNutrientStats';
-import QuantitySelector from './PortionSelector/QuantitySelector';
-import PortionSizeOptions from './PortionSelector/PortionSizeOptions';
-import SelectedPortionPreview from './PortionSelector/SelectedPortionPreview';
-import { useFoodCalculator } from '@/app/hooks/useFoodCalculator';
+import React from "react";
+import { X, Scale, Plus } from "lucide-react";
+import { Food } from "@/app/lib/data";
+import MacroNutrientStats from "./PortionSelector/MacroNutrientStats";
+import QuantitySelector from "./PortionSelector/QuantitySelector";
+import PortionSizeOptions from "./PortionSelector/PortionSizeOptions";
+import SelectedPortionPreview from "./PortionSelector/SelectedPortionPreview";
+import { useFoodCalculator } from "@/app/hooks/useFoodCalculator";
 
 interface FoodCustomizerModalProps {
   food: Food | null;
@@ -14,7 +14,11 @@ interface FoodCustomizerModalProps {
   onConfirm: (calculatedFood: any) => void;
 }
 
-export default function FoodCustomizerModal({ food, onClose, onConfirm }: FoodCustomizerModalProps) {
+export default function FoodCustomizerModal({
+  food,
+  onClose,
+  onConfirm,
+}: FoodCustomizerModalProps) {
   const {
     amount,
     setAmount,
@@ -27,7 +31,7 @@ export default function FoodCustomizerModal({ food, onClose, onConfirm }: FoodCu
     presets,
     currentSize,
     calculated,
-    handleSizeSelect
+    handleSizeSelect,
   } = useFoodCalculator(food);
 
   if (!food || !calculated) return null;
@@ -45,11 +49,11 @@ export default function FoodCustomizerModal({ food, onClose, onConfirm }: FoodCu
         <div className="p-5 space-y-3.5 max-h-[85vh] overflow-y-auto custom-scrollbar">
           <SelectedPortionPreview
             quantity={quantity}
-            sizeLabel={currentSize?.label || 'Custom'}
+            sizeLabel={currentSize?.label || "Custom"}
             foodName={food.name}
             nameAr={food.nameAr}
             totalAmount={amount * quantity}
-            unit={presets[0]?.unit || 'g'}
+            unit={presets[0]?.unit || "g"}
             isRaw={isRaw}
             calories={calculated.calories}
             icon={food?.icon}
@@ -71,17 +75,19 @@ export default function FoodCustomizerModal({ food, onClose, onConfirm }: FoodCu
 
             {food.isRawCookedToggle && (
               <div className="flex-1 space-y-1">
-                <label className="text-[9px] font-black text-gray-500 uppercase tracking-[0.15em] ml-1">Food State</label>
+                <label className="text-[9px] font-black text-gray-500 uppercase tracking-[0.15em] ml-1">
+                  Food State
+                </label>
                 <div className="flex items-center justify-between p-1 bg-white/5 rounded-xl border border-white/5 h-10">
                   <button
                     onClick={() => setIsRaw(false)}
-                    className={`flex-1 h-full rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${!isRaw ? 'bg-primary text-secondary shadow-md' : 'text-gray-500 hover:text-white'}`}
+                    className={`flex-1 h-full rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${!isRaw ? "bg-primary text-secondary shadow-md" : "text-gray-500 hover:text-white"}`}
                   >
                     Cooked
                   </button>
                   <button
                     onClick={() => setIsRaw(true)}
-                    className={`flex-1 h-full rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${isRaw ? 'bg-primary text-secondary shadow-md' : 'text-gray-500 hover:text-white'}`}
+                    className={`flex-1 h-full rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${isRaw ? "bg-primary text-secondary shadow-md" : "text-gray-500 hover:text-white"}`}
                   >
                     Raw
                   </button>
@@ -107,13 +113,15 @@ export default function FoodCustomizerModal({ food, onClose, onConfirm }: FoodCu
               value={amount}
               onChange={(e) => {
                 setAmount(Number(e.target.value));
-                setSelectedSizeId('custom');
+                setSelectedSizeId("custom");
               }}
               placeholder="Custom..."
               className="w-full bg-white/5 border border-white/5 focus:border-primary/50 focus:bg-white/10 rounded-xl py-3 pl-10 pr-12 text-white font-bold text-sm transition-all outline-none"
             />
             <div className="absolute inset-y-0 right-4 flex items-center">
-              <span className="text-gray-500 font-bold text-xs uppercase">{presets[0]?.unit || 'g'}</span>
+              <span className="text-gray-500 font-bold text-xs uppercase">
+                {presets[0]?.unit || "g"}
+              </span>
             </div>
           </div>
 

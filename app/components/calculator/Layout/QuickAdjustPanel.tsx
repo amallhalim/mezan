@@ -1,15 +1,15 @@
 "use client";
-import React from 'react';
-import { X, Calculator, Scale } from 'lucide-react';
-import { Food } from '@/app/lib/data';
-import { useFoodCalculator } from '@/app/hooks/useFoodCalculator';
-import PortionSizeOptions from '@/app/components/calculator/PortionSelector/PortionSizeOptions';
-import QuantitySelector from '@/app/components/calculator/PortionSelector/QuantitySelector';
+import React from "react";
+import { X, Calculator, Scale } from "lucide-react";
+import { Food } from "@/app/lib/data";
+import { useFoodCalculator } from "@/app/hooks/useFoodCalculator";
+import PortionSizeOptions from "@/app/components/calculator/PortionSelector/PortionSizeOptions";
+import QuantitySelector from "@/app/components/calculator/PortionSelector/QuantitySelector";
 
-import MacroNutrientStats from '@/app/components/calculator/PortionSelector/MacroNutrientStats';
-import Button from '@/app/components/Common/Button';
-import WeightInput from '@/app/components/shared/WeightInput';
-import SugarSelector from '@/app/components/calculator/PortionSelector/SugarSelector';
+import MacroNutrientStats from "@/app/components/calculator/PortionSelector/MacroNutrientStats";
+import Button from "@/app/components/Common/Button";
+import WeightInput from "@/app/components/shared/WeightInput";
+import SugarSelector from "@/app/components/calculator/PortionSelector/SugarSelector";
 
 interface QuickAdjustPanelProps {
   food: Food;
@@ -26,7 +26,7 @@ export default function QuickAdjustPanel({
   onAdd,
   onPreview,
   isEditing = false,
-  initialValues
+  initialValues,
 }: QuickAdjustPanelProps) {
   const {
     amount,
@@ -43,18 +43,20 @@ export default function QuickAdjustPanel({
     setSugarType,
     presets,
     calculated,
-    handleSizeSelect
+    handleSizeSelect,
   } = useFoodCalculator(food, initialValues);
 
   if (!calculated) return null;
 
   return (
     <div className="fixed inset-x-0 bottom-24 z-40 flex justify-center px-4 animate-in slide-in-from-bottom-10 duration-500">
-      <div className="bg-zinc-900/95 
+      <div
+        className="bg-zinc-900/95 
       backdrop-blur-2xl   w-100
       
       rounded-[2.5rem] p-6 
-      border border-white/10 ">
+      border border-white/10 "
+      >
         {/* Pull Handle (Visual only) */}
         <div className="w-12 h-1 bg-white/10 rounded-full mx-auto mb-6" />
 
@@ -66,11 +68,16 @@ export default function QuickAdjustPanel({
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-xl font-black text-white leading-tight">{food.name}</h3>
-                <span className="text-primary/60 font-bold text-sm" dir="rtl">{food.nameAr}</span>
+                <h3 className="text-xl font-black text-white leading-tight">
+                  {food.name}
+                </h3>
+                <span className="text-primary/60 font-bold text-sm" dir="rtl">
+                  {food.nameAr}
+                </span>
               </div>
               <p className="text-primary font-black text-[10px] uppercase tracking-widest opacity-80">
-                {amount}{calculated.unit} • {isRaw ? 'RAW' : 'COOKED'}
+                {amount}
+                {calculated.unit} • {isRaw ? "RAW" : "COOKED"}
               </p>
             </div>
           </div>
@@ -80,7 +87,9 @@ export default function QuickAdjustPanel({
               <span className="text-4xl font-black text-primary leading-none tabular-nums drop-shadow-[0_0_20px_rgba(16,185,129,0.3)]">
                 {calculated.calories}
               </span>
-              <p className="text-[10px] text-gray-500 font-black uppercase tracking-tighter">kcal</p>
+              <p className="text-[10px] text-gray-500 font-black uppercase tracking-tighter">
+                kcal
+              </p>
             </div>
             <button
               onClick={onClose}
@@ -118,28 +127,29 @@ export default function QuickAdjustPanel({
 
             {food.isRawCookedToggle && (
               <div className="flex-1 space-y-1.5">
-                <label className="text-[9px] font-black text-gray-500 uppercase tracking-[0.15em] ml-1">State</label>
+                <label className="text-[9px] font-black text-gray-500 uppercase tracking-[0.15em] ml-1">
+                  State
+                </label>
                 <div className="flex items-center justify-between p-1 bg-white/5 rounded-xl border border-white/5 h-10">
                   <button
                     onClick={() => setIsRaw(false)}
-                    className={`flex-1 h-full rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${!isRaw ? 'bg-primary text-secondary' : 'text-gray-500 hover:text-white'}`}
+                    className={`flex-1 h-full rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${!isRaw ? "bg-primary text-secondary" : "text-gray-500 hover:text-white"}`}
                   >
                     Cooked
                   </button>
                   <button
                     onClick={() => setIsRaw(true)}
-                    className={`flex-1 h-full rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${isRaw ? 'bg-primary text-secondary' : 'text-gray-500 hover:text-white'}`}
+                    className={`flex-1 h-full rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${isRaw ? "bg-primary text-secondary" : "text-gray-500 hover:text-white"}`}
                   >
                     Raw
                   </button>
                 </div>
               </div>
             )}
-
           </div>
 
           {/* Sugar Selection for Drinks */}
-          {food.sizeType === 'DRINK' && (
+          {food.sizeType === "DRINK" && (
             <SugarSelector
               sugarCount={sugarCount}
               setSugarCount={setSugarCount}
@@ -155,28 +165,23 @@ export default function QuickAdjustPanel({
             label="Custom"
             onChange={(val) => {
               setAmount(val);
-              setSelectedSizeId('custom');
+              setSelectedSizeId("custom");
             }}
           />
         </div>
 
         {/* Action Buttons Row */}
         <div className="flex gap-4">
-          <Button
-            variant="secondary"
-
-            onClick={() => onAdd(calculated)}
-          >
-            {isEditing ? 'UPDATE ITEM' : 'ADD TO PLATE   '}
+          <Button variant="secondary" onClick={() => onAdd(calculated)}>
+            {isEditing ? "UPDATE ITEM" : "ADD TO PLATE   "}
           </Button>
 
           <Button
             variant="primary"
-
             leftIcon={<Calculator className="size-5" />}
             onClick={() => onPreview(calculated)}
           >
-            {isEditing ? 'SAVE & PREVIEW' : 'PREVIEW RESULT'}
+            {isEditing ? "SAVE & PREVIEW" : "PREVIEW RESULT"}
           </Button>
         </div>
       </div>

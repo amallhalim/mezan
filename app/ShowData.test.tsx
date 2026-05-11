@@ -4,7 +4,6 @@ import { server } from "./mocks/node"; // 👈 Import the server
 import { http, HttpResponse } from "msw"; // 👈 Import MSW tools
 
 describe("ShowData Component (MSW Mocking)", () => {
-
   test("shows loading state initially", () => {
     render(<ShowData />);
     expect(screen.getByText(/Loading User/i)).toBeInTheDocument();
@@ -27,10 +26,10 @@ describe("ShowData Component (MSW Mocking)", () => {
   test("handles API errors correctly", async () => {
     // 🧪 DYNAMIC OVERRIDE: Tell MSW to fail just for this test
     server.use(
-      http.get('https://api.example.com/user', ({ request, params }) => {
+      http.get("https://api.example.com/user", ({ request, params }) => {
         // You can now access 'request.url' or 'params' here if needed!
         return new HttpResponse(null, { status: 500 });
-      })
+      }),
     );
 
     render(<ShowData />);

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Scale } from 'lucide-react';
+import React from "react";
+import { Scale } from "lucide-react";
 
 interface WeightInputProps {
   amount: number;
@@ -11,10 +11,10 @@ interface WeightInputProps {
 
 export default function WeightInput({
   amount,
-  unit = 'g',
-  label = 'Custom',
+  unit = "g",
+  label = "Custom",
   onChange,
-  className = ''
+  className = "",
 }: WeightInputProps) {
   return (
     <div className={`flex-1 space-y-1.5 ${className}`}>
@@ -29,7 +29,7 @@ export default function WeightInput({
           type="number"
           min="1"
           max="5000"
-          value={amount || ''}
+          value={amount || ""}
           onChange={(e) => {
             let val = Number(e.target.value);
             // FR-009: Cap at 5000g
@@ -41,7 +41,9 @@ export default function WeightInput({
           className="w-full h-full bg-white/5 border border-white/5 focus:border-primary/50 rounded-xl pl-9 pr-8 text-white font-bold text-xs outline-none transition-all"
         />
         <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-          <span className="text-[9px] text-gray-500 font-bold uppercase">{unit}</span>
+          <span className="text-[9px] text-gray-500 font-bold uppercase">
+            {unit}
+          </span>
         </div>
       </div>
     </div>

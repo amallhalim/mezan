@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
 // --- STEP 1: Define Types ---
@@ -43,12 +43,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 // This is the 'Radio Receiver' that components use to get the data.
 export function useTheme() {
   const context = useContext(ThemeContext);
-  
+
   // SAFETY CHECK: If someone tries to use useTheme() outside of a <ThemeProvider>,
   // this check will catch the mistake and show a clear error message.
   if (!context) {
     throw new Error("useTheme must be used within a ThemeProvider");
   }
-  
+
   return context;
 }
