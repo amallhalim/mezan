@@ -3,21 +3,13 @@ import { vi, beforeAll, afterEach, afterAll } from 'vitest'
 import { server } from './app/mocks/node'
 
 // Mock ResizeObserver which is not available in JSDOM
-// It must be a class (constructor)
-global.ResizeObserver = vi.fn().mockImplementation(() => ({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn(),
-}))
-
-// Alternatively, use a class
 class MockResizeObserver {
     observe = vi.fn()
     unobserve = vi.fn()
     disconnect = vi.fn()
 }
 
-global.ResizeObserver = MockResizeObserver as any;
+global.ResizeObserver = MockResizeObserver as unknown as typeof global.ResizeObserver;
 
 
 // ✅ Start the interceptor before all tests

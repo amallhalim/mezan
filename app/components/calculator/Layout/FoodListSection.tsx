@@ -55,8 +55,8 @@ export default function FoodListSection({
           </div>
           <h3 className="text-lg font-black text-white mb-1">No results</h3>
           <p className="text-gray-500 text-sm mb-6 max-w-[220px] leading-relaxed">
-            Can't find{' '}
-            <span className="text-primary font-bold">"{searchQuery}"</span>
+            Can&apos;t find{' '}
+            <span className="text-primary font-bold">&quot;{searchQuery}&quot;</span>
             {' '}— request it to be added.
           </p>
           <button className="flex items-center gap-2 bg-primary/10 hover:bg-primary/20 text-primary

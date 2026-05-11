@@ -12,7 +12,7 @@ export interface Plate {
     protein: number;
     carbs: number;
     fat: number;
-    [key: string]: any; // Allows additional fields like icon, unit, etc.
+    [key: string]: unknown; // Allows additional fields like icon, unit, etc.
 }
 
 interface PlatesState {

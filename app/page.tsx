@@ -1,16 +1,11 @@
-
 "use client";
-import { useState } from "react";
-import Image from "next/image";
-import { ArrowRight, Activity, ShieldCheck, Cpu } from "lucide-react";
+import { ArrowRight, ShieldCheck, Cpu } from "lucide-react";
 import { useTheme } from "./context/ThemeContext";
-import useCount from "./useCount";
 import Counter from "./Counter";
 import ShowData from "./ShowData";
 
 export default function Home() {
   const { theme, toggleTheme } = useTheme();
-  const { count, increment, decrement } = useCount()
 
   return (
     <div className={`min-h-screen font-sans selection:bg-primary/30 transition-colors duration-500 ${theme === "dark" ? "bg-zinc-950 text-white" : "bg-zinc-50 text-zinc-900"

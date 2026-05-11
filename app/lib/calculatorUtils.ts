@@ -1,11 +1,18 @@
-import React from 'react';
 import { Flame, Award, TrendingUp } from 'lucide-react';
+import { Food } from './data';
+
+interface Nutrients {
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+}
 
 /**
  * Pure function to calculate nutrients for a single food item
  */
 export const calculateNutrients = (
-  food: any,
+  food: Food,
   amount: number,
   quantity: number,
   isRaw: boolean
@@ -52,7 +59,7 @@ export const getHealthInsight = (calories: number) => {
 /**
  * Calculate totals for a list of items
  */
-export const calculateMealTotals = (items: any[]) => {
+export const calculateMealTotals = (items: Nutrients[]) => {
   return items.reduce((acc, curr) => ({
     calories: acc.calories + curr?.calories,
     protein: acc.protein + curr?.protein,

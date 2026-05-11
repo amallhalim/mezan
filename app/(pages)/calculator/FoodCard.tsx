@@ -1,7 +1,14 @@
 import { CheckIcon, Plus } from 'lucide-react'
 import React from 'react'
+import { Food } from '@/app/lib/data'
 
-export default function FoodCard({ food, onSelect, isSelected }: any) {
+interface FoodCardProps {
+    food: Food;
+    onSelect: (food: Food) => void;
+    isSelected: boolean;
+}
+
+export default function FoodCard({ food, onSelect, isSelected }: FoodCardProps) {
     return (
         <div
             role="button"
