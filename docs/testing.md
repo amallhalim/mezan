@@ -157,6 +157,81 @@ test("my test", () => {
 
 ---
 
+## 🪝 Testing Custom Hooks
+
+Hooks cannot be called directly in tests. You must use `renderHook`.
+
+### 1. The Structure of `renderHook`
+`renderHook` returns an object that contains a **`result`** property. Your hook's return values are stored in **`result.current`**.
+
+```typescript
+const { result } = renderHook(() => useMyHook());
+
+console.log(result.current); // { count: 0, increment: f(), ... }
+```
+
+### 2. Updating State with `act()`
+When a hook function changes the state (like `increment()`), React needs to be told to "apply" those changes before the test continues. We use `act()` for this.
+
+```typescript
+import { renderHook, act } from "@testing-library/react";
+
+test("increments state", () => {
+  const { result } = renderHook(() => useCount());
+
+  act(() => {
+    result.current.increment();
+  });
+
+  expect(result.current.count).toBe(1);
+});
+```
+
+### 3. Testing with Parameters (`initialProps`)
+If your hook accepts arguments, use `initialProps`. This allows you to use the `rerender()` function to change the props later.
+
+#### The Pro Way (Cleanest)
+If your hook only takes one argument, you can pass it directly:
+
+```typescript
+const { result } = renderHook(useCount, { 
+  initialProps: 10 
+});
+```
+
+#### The Callback Way (More Flexible)
+Use this if you need to transform the props or pass multiple arguments:
+
+```typescript
+const { result, rerender } = renderHook(
+  (initialValue) => useCount(initialValue), 
+  { initialProps: 10 }
+);
+
+expect(result.current.count).toBe(10);
+```
+
+---
+
+---
+
+## ⚠️ Common Gotchas
+
+### 1. Destructuring Primitives
+When testing hooks, **do not** destructure numbers or strings from `result.current` at the start of your test.
+
+```typescript
+// ❌ WRONG: 'count' is now a snapshot of 0
+const { count, increment } = result.current; 
+act(() => increment());
+expect(count).toBe(1); // Fails! 'count' is still 0.
+
+// ✅ RIGHT: Always access the live value
+const { increment } = result.current;
+act(() => increment());
+expect(result.current.count).toBe(1); // Passes!
+```
+
 ---
 
 ## 🔍 Debugging & Finding Selectors
