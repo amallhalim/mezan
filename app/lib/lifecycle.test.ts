@@ -2,30 +2,6 @@ import { usePlatesStore } from "../store/usePlatesStore";
 import { calculateNutrients } from "./calculatorUtils";
 import { FOODS } from "./data";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
  * ============================================================
  *  🔄 LIFECYCLE HOOKS — beforeEach / afterEach / beforeAll / afterAll
