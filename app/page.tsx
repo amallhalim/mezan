@@ -1,7 +1,10 @@
+"use client"
 import Image from "next/image";
 import { ArrowRight, Activity, ShieldCheck, Cpu } from "lucide-react";
+import { useState } from "react";
 
 export default function Home() {
+  const [count, setCount] = useState<number>(0)
   return (
     <div className="min-h-screen bg-zinc-950 text-white font-sans selection:bg-primary/30">
       {/* Background Atmospheric Glow */}
@@ -24,6 +27,15 @@ export default function Home() {
             Master the art of high-precision health tracking. Use this high-end environment to learn how different Testing Library queries work.
           </p> */}
         </header>
+
+
+        <div className="text-white bg-black border-red-500 border-2">
+          {/* State & Interaction */}
+          <p>count is {count}</p>
+          <button name="increment" onClick={() => setCount(count + 1)}>Increment</button>
+          <button name="decrement" onClick={() => setCount(count - 1)}>Decrement</button>
+        </div>
+
 
         <div className="grid md:grid-cols-2 gap-8 items-start">
           {/* --- Interactive Controls Card --- */}

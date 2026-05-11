@@ -1,6 +1,7 @@
 import { logRoles, prettyDOM, render, screen } from "@testing-library/react"
 
 import Home from "./page"
+import userEvent from "@testing-library/user-event"
 
 
 /** 
@@ -12,7 +13,7 @@ test("renders by Role (Heading and Buttons)", () => {
     const { container } = render(<Home />)
     // Logs a URL to the console that opens the current UI state in Testing Playground.
     // Use this for visual debugging and finding the best queries (roles, labels, etc.).
-    screen.logTestingPlaygroundURL()
+
 
     // console.log("prettyDOM-----------------------")
     // console.log("prettyDOM", prettyDOM())
@@ -120,3 +121,27 @@ describe("Navigation", () => {
     })
 })
 
+describe("Interactions", () => {
+    test("increments count when increment button is clicked", async () => {
+        const user = userEvent.setup();
+        render(<Home />);
+
+        // Find the specific button by its name (the text inside it)
+        const incrementBtn = screen.getByRole("button", { name: /increment/i });
+
+        // Perform the click
+        await user.click(incrementBtn);
+
+        // ASSERT: Check if the count updated in the UI
+        expect(screen.getByText(/count is 1/i)).toBeInTheDocument();
+
+    });
+    test("trible clicl", async () => {
+        const user = userEvent.setup();
+        render(<Home />);
+        const incrementBtn = screen.getByRole("button", { name: /increment/i });
+        await user.tripleClick(incrementBtn);
+
+        expect(screen.getByText(/count is 3/i)).toBeInTheDocument();
+    })
+});
