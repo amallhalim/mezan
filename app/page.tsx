@@ -1,4 +1,8 @@
+
+"use client";
 import { useState } from "react";
+import Image from "next/image";
+import { ArrowRight, Activity, ShieldCheck, Cpu } from "lucide-react";
 import { useTheme } from "./context/ThemeContext";
 
 export default function Home() {
@@ -9,9 +13,8 @@ export default function Home() {
   const decrement = () => setCount(count - 1);
 
   return (
-    <div className={`min-h-screen font-sans selection:bg-primary/30 transition-colors duration-500 ${
-      theme === "dark" ? "bg-zinc-950 text-white" : "bg-zinc-50 text-zinc-900"
-    }`}>
+    <div className={`min-h-screen font-sans selection:bg-primary/30 transition-colors duration-500 ${theme === "dark" ? "bg-zinc-950 text-white" : "bg-zinc-50 text-zinc-900"
+      }`}>
       {/* Background Atmospheric Glow */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-24 -left-24 w-96 h-96 bg-primary/20 rounded-full blur-[120px] animate-pulse" />
