@@ -6,6 +6,7 @@ import { ArrowRight, Activity, ShieldCheck, Cpu } from "lucide-react";
 import { useTheme } from "./context/ThemeContext";
 import useCount from "./useCount";
 import Counter from "./Counter";
+import ShowData from "./ShowData";
 
 export default function Home() {
   const { theme, toggleTheme } = useTheme();
@@ -44,8 +45,10 @@ export default function Home() {
           </h1>
         </header>
 
-
-        <Counter />
+        <div className="grid md:grid-cols-2 gap-8 mb-12">
+          <Counter />
+          <ShowData />
+        </div>
 
 
         <div className="grid md:grid-cols-2 gap-8 items-start">
