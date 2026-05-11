@@ -129,6 +129,36 @@ If a component uses `next/image`, it will fail in tests unless mocked. We have g
 
 ---
 
+## 🛠️ Custom Render Helper (`test-utils.tsx`)
+
+In professional React projects, components often depend on **Global Providers** (Theme, Auth, Language). Instead of manually wrapping every test in `<ThemeProvider>`, we use a **Custom Render Helper**.
+
+### ❓ Why use `app/tests/test-utils.tsx`?
+
+1.  **Automatic Wrapping**: Every time you call `render()`, the component is automatically wrapped in all necessary providers.
+2.  **Scalability**: If you add a new provider (e.g., `AuthProvider`), you only add it in **one place** (`test-utils.tsx`) instead of fixing 100 test files.
+3.  **Clean Tests**: Your test files stay focused on the logic, not the boilerplate.
+
+### 🚀 How to use it:
+
+Instead of importing from `@testing-library/react`, always import from your local helper:
+
+```typescript
+// ❌ Avoid this
+import { render } from "@testing-library/react"; 
+
+// ✅ Do this
+import { render, screen } from "./tests/test-utils"; 
+
+test("my test", () => {
+  render(<MyComponent />); // Works perfectly with Theme!
+});
+```
+
+---
+
+---
+
 ## 🔍 Debugging & Finding Selectors
 
 When you're struggling to find the right `role` or `label` for an element, use the **Testing Playground**.

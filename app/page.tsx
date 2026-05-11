@@ -1,30 +1,33 @@
 "use client"
 import Image from "next/image";
 import { ArrowRight, Activity, ShieldCheck, Cpu } from "lucide-react";
-import { useState } from "react";
+import { useCounter } from "./context/CounterContext";
 
 export default function Home() {
-  const [count, setCount] = useState<number>(0)
+  const { count, increment, decrement } = useCounter();
   return (
     <div className="min-h-screen bg-zinc-950 text-white font-sans selection:bg-primary/30">
       {/* Background Atmospheric Glow */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-[10%] -left-[10%] size-[500px] bg-primary/10 rounded-full blur-[120px]" />
-        <div className="absolute top-[20%] -right-[10%] size-[400px] bg-blue-500/5 rounded-full blur-[100px]" />
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-primary/20 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute top-1/2 -right-24 w-80 h-80 bg-blue-500/10 rounded-full blur-[100px]" />
       </div>
 
-      <main className="relative container mx-auto px-6 py-20 max-w-4xl">
-        {/* --- Hero Section --- */}
-        <header className="flex flex-col items-center text-center mb-24 animate-in fade-in slide-in-from-bottom-8 duration-1000">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-black uppercase tracking-[0.2em] mb-8">
-            <Activity className="size-3" />
-            Performance Tracking
+      <main className="relative max-w-7xl mx-auto px-6 py-12 lg:py-24">
+        {/* --- Header Section --- */}
+        <header className="mb-16 space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-primary-foreground text-sm font-medium">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+            </span>
+            System Operational
           </div>
-          <h1 className="text-6xl md:text-7xl font-black tracking-tighter mb-6 bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent">
+          <h1 className="text-5xl lg:text-7xl font-bold tracking-tight bg-gradient-to-br from-white via-white to-white/40 bg-clip-text text-transparent">
             Testing Sandbox
           </h1>
-          {/* <p className="text-lg text-gray-400 max-w-xl leading-relaxed font-medium">
-            Master the art of high-precision health tracking. Use this high-end environment to learn how different Testing Library queries work.
+          {/* <p className="text-zinc-400 text-lg max-w-2xl leading-relaxed">
+            Welcome to the internal testing environment. Use the controls below to validate UI components and state logic.
           </p> */}
         </header>
 
@@ -32,8 +35,8 @@ export default function Home() {
         <div className="text-white bg-black border-red-500 border-2">
           {/* State & Interaction */}
           <p>count is {count}</p>
-          <button name="increment" onClick={() => setCount(count + 1)}>Increment</button>
-          <button name="decrement" onClick={() => setCount(count - 1)}>Decrement</button>
+          <button name="increment" onClick={increment}>Increment</button>
+          <button name="decrement" onClick={decrement}>Decrement</button>
         </div>
 
 

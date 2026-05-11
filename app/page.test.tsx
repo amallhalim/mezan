@@ -1,4 +1,4 @@
-import { logRoles, prettyDOM, render, screen } from "@testing-library/react"
+import { logRoles, prettyDOM, render, screen } from "./tests/test-utils"
 
 import Home from "./page"
 import userEvent from "@testing-library/user-event"
