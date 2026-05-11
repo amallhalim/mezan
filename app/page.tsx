@@ -4,13 +4,12 @@ import { useState } from "react";
 import Image from "next/image";
 import { ArrowRight, Activity, ShieldCheck, Cpu } from "lucide-react";
 import { useTheme } from "./context/ThemeContext";
+import useCount from "./useCount";
+import Counter from "./Counter";
 
 export default function Home() {
   const { theme, toggleTheme } = useTheme();
-  const [count, setCount] = useState(0);
-
-  const increment = () => setCount(count + 1);
-  const decrement = () => setCount(count - 1);
+  const { count, increment, decrement } = useCount()
 
   return (
     <div className={`min-h-screen font-sans selection:bg-primary/30 transition-colors duration-500 ${theme === "dark" ? "bg-zinc-950 text-white" : "bg-zinc-50 text-zinc-900"
@@ -46,27 +45,7 @@ export default function Home() {
         </header>
 
 
-        <div className="p-8 rounded-3xl border-2 border-primary/20 bg-white/5 backdrop-blur-md mb-12">
-          {/* State & Interaction */}
-          <h2 className="text-2xl font-bold mb-4">Counter Interaction</h2>
-          <p className="text-lg mb-6">Current count is: <span className="font-mono text-primary">{count}</span></p>
-          <div className="flex gap-4">
-            <button
-              className="px-6 py-3 bg-primary text-primary-foreground rounded-xl font-bold hover:opacity-90"
-              name="increment"
-              onClick={increment}
-            >
-              Increment
-            </button>
-            <button
-              className="px-6 py-3 bg-white/10 rounded-xl font-bold hover:bg-white/20"
-              name="decrement"
-              onClick={decrement}
-            >
-              Decrement
-            </button>
-          </div>
-        </div>
+        <Counter />
 
 
         <div className="grid md:grid-cols-2 gap-8 items-start">

@@ -9,6 +9,7 @@ export default function useCount(initialCount = 0, step = 1) {
 
     const increment = () => setCount((prev) => prev + step);
     const decrement = () => setCount((prev) => prev - step);
+    const reset = () => setCount(initialCount);
 
-    return { count, increment, decrement };
+    return { count, increment, decrement, reset };
 }
