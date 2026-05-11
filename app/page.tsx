@@ -20,9 +20,9 @@ export default function Home() {
           <h1 className="text-6xl md:text-7xl font-black tracking-tighter mb-6 bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent">
             Testing Sandbox
           </h1>
-          <p className="text-lg text-gray-400 max-w-xl leading-relaxed font-medium">
+          {/* <p className="text-lg text-gray-400 max-w-xl leading-relaxed font-medium">
             Master the art of high-precision health tracking. Use this high-end environment to learn how different Testing Library queries work.
-          </p>
+          </p> */}
         </header>
 
         <div className="grid md:grid-cols-2 gap-8 items-start">
@@ -39,9 +39,9 @@ export default function Home() {
               {/* getByLabelText Hook */}
               <div className="space-y-2">
                 <label htmlFor="username" className="text-[10px] font-black uppercase text-gray-500 tracking-[0.15em] ml-1">Username</label>
-                <input 
+                <input
                   id="username"
-                  type="text" 
+                  type="text"
                   defaultValue="JohnDoe"
                   className="w-full bg-white/5 border border-white/5 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-primary/40 focus:bg-white/[0.08] transition-all"
                 />
@@ -50,9 +50,9 @@ export default function Home() {
               {/* getByPlaceholderText Hook */}
               <div className="space-y-2">
                 <label htmlFor="food-search" className="text-[10px] font-black uppercase text-gray-500 tracking-[0.15em] ml-1">Macro Search</label>
-                <input 
+                <input
                   id="food-search"
-                  type="text" 
+                  type="text"
                   placeholder="e.g. Chicken Breast"
                   className="w-full bg-white/5 border border-white/5 rounded-2xl px-5 py-4 text-sm font-medium outline-none focus:border-primary/40 focus:bg-white/[0.08] transition-all"
                 />
@@ -72,11 +72,11 @@ export default function Home() {
               <p className="text-[10px] font-black text-gray-600 uppercase tracking-widest mb-6">Asset Verification</p>
               {/* getByAltText Hook */}
               <div className="p-10 rounded-3xl bg-white/5 border border-white/5 group-hover:bg-white/10 transition-colors">
-                <Image 
-                  src="/next.svg" 
-                  alt="Mizan Logo" 
-                  width={140} 
-                  height={40} 
+                <Image
+                  src="/next.svg"
+                  alt="Mizan Logo"
+                  width={140}
+                  height={40}
                   className="dark:invert opacity-80 group-hover:opacity-100 transition-opacity"
                 />
               </div>
@@ -95,7 +95,7 @@ export default function Home() {
                   <span className="text-xs font-bold text-gray-400">Live & Syncing</span>
                 </div>
               </div>
-              
+
               {/* getByTestId Hook */}
               <div className="flex flex-col items-end">
                 <span className="text-[9px] font-black text-gray-600 uppercase tracking-widest mb-1">Architecture</span>

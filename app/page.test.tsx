@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
-import { describe, expect, test, vi } from "vitest"
+import { logRoles, prettyDOM, render, screen } from "@testing-library/react"
+
 import Home from "./page"
 
 
@@ -9,7 +9,23 @@ import Home from "./page"
  * It tests accessibility by checking the "role" in the accessibility tree.
  */
 test("renders by Role (Heading and Buttons)", () => {
-    render(<Home />)
+    const { container } = render(<Home />)
+    // Logs a URL to the console that opens the current UI state in Testing Playground.
+    // Use this for visual debugging and finding the best queries (roles, labels, etc.).
+    screen.logTestingPlaygroundURL()
+
+    // console.log("prettyDOM-----------------------")
+    // console.log("prettyDOM", prettyDOM())
+    // console.log("prettyDOM-----------------------")
+    // console.log(" screen.debug-----------------------")
+    // screen.debug(container)
+    // console.log(" screen.debug-----------------------")
+    // console.log("logRoles--11---------------------")
+    // logRoles(container);
+    // console.log("logRoles---33--------------------")
+
+
+
     const heading = screen.getByRole("heading", { name: /Testing Sandbox/i })
     expect(heading).toBeInTheDocument()
 
@@ -98,12 +114,9 @@ describe("Navigation", () => {
         render(<Home />)
         // Find the link by role and name
         const link = screen.getByRole("link", { name: /Open Calculator/i })
-        
+
         // Verify the href attribute
         expect(link).toHaveAttribute("href", "/calculator")
     })
 })
 
-describe("renders by queryAll", () => {
-    // ... existing queryAll tests ...
-})

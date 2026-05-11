@@ -126,3 +126,21 @@ expect(screen.getByText(/31/)).toBeInTheDocument()
 
 ### Mocking Next.js
 If a component uses `next/image`, it will fail in tests unless mocked. We have global mocks for this, but you can add specific ones using `vi.mock()`.
+
+---
+
+## 🔍 Debugging & Finding Selectors
+
+When you're struggling to find the right `role` or `label` for an element, use the **Testing Playground**.
+
+### 🛠️ Using `logTestingPlaygroundURL()`
+Add this line inside your test after `render()`:
+```typescript
+screen.logTestingPlaygroundURL()
+```
+When you run the test, it will print a link in your terminal. Open it to see:
+1.  **Visual Render**: A browser-like view of your component.
+2.  **Selector Suggestions**: Click any element to see the **best** React Testing Library query to find it.
+3.  **Accessibility Tree**: See how screen readers "see" your UI.
+
+---
