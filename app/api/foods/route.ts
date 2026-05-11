@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
     if (!categoryExists) {
       return NextResponse.json(
         { error: `Category ${categoryId} not found` },
-        { status: 404 },
+        { status: 404 }
       );
     }
     results = results.filter((f) => f.categoryId === catId);
@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
   if (search) {
     const q = search.toLowerCase();
     results = results.filter(
-      (f) => f.name.toLowerCase().includes(q) || f.nameAr.includes(q),
+      (f) => f.name.toLowerCase().includes(q) || f.nameAr.includes(q)
     );
   }
 
@@ -61,14 +61,14 @@ export async function POST(request: NextRequest) {
     if (!body.name || !body.caloriesPer100) {
       return NextResponse.json(
         { error: "Missing required fields: name, caloriesPer100" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 
     if (body.caloriesPer100 < 0) {
       return NextResponse.json(
         { error: "Calories cannot be negative" },
-        { status: 400 },
+        { status: 400 }
       );
     }
 

@@ -3,6 +3,7 @@
 ## Entities
 
 ### `CalculatedServing`
+
 Represents a specific quantity of a food item and its resulting macro values.
 
 - `foodId`: string (Reference to the base FoodItem)
@@ -13,5 +14,6 @@ Represents a specific quantity of a food item and its resulting macro values.
 - `calculatedFat`: number
 
 ## Validation Rules
+
 - `inputQuantity` must be > 0.
 - If a base food item has `0` for a macro, the calculated macro must also strictly be `0`.

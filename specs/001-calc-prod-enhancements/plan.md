@@ -21,7 +21,8 @@ This feature aims to make the Calculator route production-ready through a phased
 
 ## Constitution Check
 
-*GATE: Passed*
+_GATE: Passed_
+
 - **I. Reusable Components First**: We are extracting state from the UI, which will allow us to break the calculator into more reusable sub-components.
 - **II. Separation of UI and Logic**: This is the core goal of Phase 1 (moving state to a custom hook).
 - **III. Clean and Modular Code**: Decoupling the logic will drastically reduce the `page.tsx` file size.

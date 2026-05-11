@@ -5,7 +5,7 @@
 **Status**: Draft
 **Input**: User description: "read the calcator route page and create docuemntaion and enche ui nad logic and waht shudl do to make it production ready s make it as phase and make each phase as one specit"
 
-## User Scenarios & Testing *(mandatory)*
+## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - State & Logic Separation (Phase 1) (Priority: P1)
 
@@ -55,7 +55,7 @@ As a user, I need the calculator to fetch real, up-to-date food data from the ba
 - How does system handle a user trying to add an unreasonably large amount of food? (Max limits enforced in UI).
 - What happens if the screen size is very small? (Ensure responsive layout on mobile).
 
-## Requirements *(mandatory)*
+## Requirements _(mandatory)_
 
 ### Functional Requirements
 
@@ -70,7 +70,7 @@ As a user, I need the calculator to fetch real, up-to-date food data from the ba
 - **FoodItem**: Represents a food with nutritional macros.
 - **MealPlate**: Represents the collection of added food items with calculated total macros.
 
-## Success Criteria *(mandatory)*
+## Success Criteria _(mandatory)_
 
 ### Measurable Outcomes
 

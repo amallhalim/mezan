@@ -14,7 +14,7 @@ export const calculateMacros = (
   food: Food,
   amount: number,
   quantity: number = 1,
-  isRaw: boolean = false,
+  isRaw: boolean = false
 ): CalculatedMacros => {
   // FR-009: Cap food weight inputs at 5000g
   const cappedAmount = Math.min(amount, 5000);
@@ -35,19 +35,19 @@ export const calculateMacros = (
     // Calories generally are whole numbers in display, but we keep 1 decimal for consistency
     calories:
       Math.round(
-        (food.caloriesPer100 || 0) * factor * cookingFactor * quantity * 10,
+        (food.caloriesPer100 || 0) * factor * cookingFactor * quantity * 10
       ) / 10 || 0,
     protein:
       Math.round(
-        (food.proteinPer100 || 0) * factor * cookingFactor * quantity * 10,
+        (food.proteinPer100 || 0) * factor * cookingFactor * quantity * 10
       ) / 10 || 0,
     carbs:
       Math.round(
-        (food.carbsPer100 || 0) * factor * cookingFactor * quantity * 10,
+        (food.carbsPer100 || 0) * factor * cookingFactor * quantity * 10
       ) / 10 || 0,
     fat:
       Math.round(
-        (food.fatPer100 || 0) * factor * cookingFactor * quantity * 10,
+        (food.fatPer100 || 0) * factor * cookingFactor * quantity * 10
       ) / 10 || 0,
   };
 };
@@ -56,7 +56,7 @@ export const calculateMacros = (
  * Calculate totals for a list of items
  */
 export const calculateMealTotals = (
-  items: CalculatedMacros[],
+  items: CalculatedMacros[]
 ): CalculatedMacros => {
   return items.reduce(
     (acc, curr) => ({
@@ -68,6 +68,6 @@ export const calculateMealTotals = (
       carbs: Math.round(((acc.carbs || 0) + (curr?.carbs || 0)) * 10) / 10 || 0,
       fat: Math.round(((acc.fat || 0) + (curr?.fat || 0)) * 10) / 10 || 0,
     }),
-    { calories: 0, protein: 0, carbs: 0, fat: 0 },
+    { calories: 0, protein: 0, carbs: 0, fat: 0 }
   );
 };

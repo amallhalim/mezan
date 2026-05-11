@@ -29,7 +29,7 @@ describe("ShowData Component (MSW Mocking)", () => {
       http.get("https://api.example.com/user", ({ request, params }) => {
         // You can now access 'request.url' or 'params' here if needed!
         return new HttpResponse(null, { status: 500 });
-      }),
+      })
     );
 
     render(<ShowData />);

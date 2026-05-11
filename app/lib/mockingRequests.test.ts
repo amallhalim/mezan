@@ -153,7 +153,9 @@ describe("2️⃣ Mocking axios.post()", () => {
     } catch (error) {
       const axiosError = error as any;
       expect(axiosError.response.status).toBe(400);
-      expect(axiosError.response.data.message).toContain("Missing required field");
+      expect(axiosError.response.data.message).toContain(
+        "Missing required field"
+      );
     }
   });
 });

@@ -13,11 +13,11 @@ export interface FoodCalculatorState {
 
 export function useFoodCalculator(
   food: Food | null,
-  initialValues?: Partial<FoodCalculatorState>,
+  initialValues?: Partial<FoodCalculatorState>
 ) {
   const [amount, setAmount] = useState<number>(initialValues?.amount ?? 100);
   const [selectedSizeId, setSelectedSizeId] = useState<string>(
-    initialValues?.selectedSizeId ?? "small",
+    initialValues?.selectedSizeId ?? "small"
   );
   const [isRaw, setIsRaw] = useState(initialValues?.isRaw ?? false);
   const [quantity, setQuantity] = useState(initialValues?.quantity ?? 1);
@@ -66,7 +66,7 @@ export function useFoodCalculator(
           sugarItem,
           sugarCount,
           quantity,
-          false,
+          false
         );
         baseNutrients = {
           calories: baseNutrients.calories + sugarNutrients.calories,

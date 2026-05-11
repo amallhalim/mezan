@@ -20,32 +20,52 @@
   --font-arabic: var(--font-arabic);
 
   /* --- COLORS (Developer Guide) --- */
-  --color-background: var(--background);        /* Main page background (bg-background) */
-  --color-foreground: var(--foreground);        /* Standard fallback text color (text-foreground) */
-  
-  --color-text-heading: var(--text-heading);    /* Big titles and bold headings (text-text-heading) */
-  --color-text-body: var(--text-body);          /* Main paragraph reading text (text-text-body) */
-  --color-text-dim: var(--text-dim);            /* Captions and secondary info (text-text-dim) */
-  
-  --color-surface: var(--surface);              /* Card & section backgrounds (bg-surface) */
-  --color-surface-elevated: var(--surface-elevated); /* Floating dropdowns/popovers (bg-surface-elevated) */
-  --color-card: var(--card);                    /* Base for glass containers (bg-card) */
-  
-  --color-primary: var(--primary);              /* Main brand action color (bg-primary) */
-  --color-primary-glow: var(--primary-glow);    /* High-brightness neon highlights */
-  
-  --color-secondary: var(--secondary);          /* Secondary buttons/sections (bg-secondary) */
-  --color-muted: var(--muted);                  /* Disabled or ghost backgrounds (bg-muted) */
-  --color-muted-foreground: var(--muted-foreground); /* Soft text on muted areas */
-  
-  --color-accent: var(--accent);                /* Hover states & active highlights (bg-accent) */
-  --color-border: var(--border);                /* All dividers and outlines (border-border) */
-  
+  --color-background: var(
+    --background
+  ); /* Main page background (bg-background) */
+  --color-foreground: var(
+    --foreground
+  ); /* Standard fallback text color (text-foreground) */
+
+  --color-text-heading: var(
+    --text-heading
+  ); /* Big titles and bold headings (text-text-heading) */
+  --color-text-body: var(
+    --text-body
+  ); /* Main paragraph reading text (text-text-body) */
+  --color-text-dim: var(
+    --text-dim
+  ); /* Captions and secondary info (text-text-dim) */
+
+  --color-surface: var(--surface); /* Card & section backgrounds (bg-surface) */
+  --color-surface-elevated: var(
+    --surface-elevated
+  ); /* Floating dropdowns/popovers (bg-surface-elevated) */
+  --color-card: var(--card); /* Base for glass containers (bg-card) */
+
+  --color-primary: var(--primary); /* Main brand action color (bg-primary) */
+  --color-primary-glow: var(
+    --primary-glow
+  ); /* High-brightness neon highlights */
+
+  --color-secondary: var(
+    --secondary
+  ); /* Secondary buttons/sections (bg-secondary) */
+  --color-muted: var(--muted); /* Disabled or ghost backgrounds (bg-muted) */
+  --color-muted-foreground: var(
+    --muted-foreground
+  ); /* Soft text on muted areas */
+
+  --color-accent: var(
+    --accent
+  ); /* Hover states & active highlights (bg-accent) */
+  --color-border: var(--border); /* All dividers and outlines (border-border) */
+
   /* --- STATUS INDICATORS --- */
-  --color-success: var(--success);              /* Positive/Correct states (text-success) */
-  --color-warning: var(--warning);              /* Caution/Pending states (text-warning) */
-  --color-error: var(--error);                  /* Critical issues/Errors (text-error) */
-  --color-info: var(--info);                    /* General helpful info (text-info) */
+  --color-success: var(--success); /* Positive/Correct states (text-success) */
+  --color-warning: var(--warning); /* Caution/Pending states (text-warning) */
+  --color-error: var(--error); /* Critical issues/Errors (text-error) */
+  --color-info: var(--info); /* General helpful info (text-info) */
 
   /* --- SOCIAL BRANDING --- */
   --color-twitter: var(--twitter);
@@ -73,20 +93,32 @@
 
 /* 4. GLOBAL BASE STYLES */
 @layer base {
-  * { border-color: var(--color-border); }
+  * {
+    border-color: var(--color-border);
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    
+
     /* Premium background atmospheric glow */
     background-image:
-      radial-gradient(at 20% 0%, oklch(0.72 0.18 165 / 0.08) 0px, transparent 50%),
-      radial-gradient(at 80% 100%, oklch(0.7 0.15 230 / 0.06) 0px, transparent 50%);
+      radial-gradient(
+        at 20% 0%,
+        oklch(0.72 0.18 165 / 0.08) 0px,
+        transparent 50%
+      ),
+      radial-gradient(
+        at 80% 100%,
+        oklch(0.7 0.15 230 / 0.06) 0px,
+        transparent 50%
+      );
     background-attachment: fixed;
   }
-  
+
   /* Support for Right-to-Left (Arabic) font switching */
-  [dir="rtl"] body { font-family: var(--font-arabic); }
+  [dir="rtl"] body {
+    font-family: var(--font-arabic);
+  }
 }

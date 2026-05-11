@@ -10,16 +10,16 @@
   --brand-emerald: oklch(0.72 0.18 165);
   --brand-emerald-glow: oklch(0.82 0.2 162);
   --brand-dark: oklch(0.18 0.04 200);
-  
+
   /* 3. SOCIAL BRAND COLORS */
-  --twitter: #1DA1F2;
-  --facebook: #1877F2;
-  --whatsapp: #25D366;
+  --twitter: #1da1f2;
+  --facebook: #1877f2;
+  --whatsapp: #25d366;
 
   /* 4. MACRO COLORS */
   --macro-protein: oklch(0.7 0.12 230); /* Sky Blue */
-  --macro-carbs: oklch(0.8 0.15 75);   /* Amber */
-  --macro-fat: oklch(0.65 0.18 15);   /* Rose/Pink */
+  --macro-carbs: oklch(0.8 0.15 75); /* Amber */
+  --macro-fat: oklch(0.65 0.18 15); /* Rose/Pink */
 
   /* 4. SPACING & RADIUS MAPPING */
   --spacing-xs: 4px;

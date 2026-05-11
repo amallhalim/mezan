@@ -12,7 +12,7 @@
   --card-foreground: oklch(0.18 0.04 200);
 
   /* --- GLASSMORPHISM TOKENS --- */
-  --glass-background: oklch(1 0 0 / 0.6);   /* White glass for light mode */
+  --glass-background: oklch(1 0 0 / 0.6); /* White glass for light mode */
   --glass-border: oklch(0.88 0.01 180 / 0.4);
 
   /* --- TYPOGRAPHY --- */

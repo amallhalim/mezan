@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "format": "prettier --ignore-path .prettierignore .gitignore --write \"**/*.tsx\" \"**/*.ts\"",
+    "format": "prettier --write .",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:watch": "vitest",

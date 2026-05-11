@@ -31,7 +31,7 @@
 
   --accent: oklch(0.32 0.08 175);
   --border: oklch(0.32 0.03 200 / 0.5);
-  
+
   /* --- STATUS --- */
   --success: var(--brand-emerald);
   --warning: oklch(0.78 0.16 75);

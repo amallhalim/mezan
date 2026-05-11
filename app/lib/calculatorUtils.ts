@@ -15,7 +15,7 @@ export const calculateNutrients = (
   food: Food,
   amount: number,
   quantity: number,
-  isRaw: boolean,
+  isRaw: boolean
 ) => {
   // FR-009: Cap food weight inputs at 5000g
   const cappedAmount = Math.min(amount, 5000);
@@ -37,7 +37,7 @@ export const calculateNutrients = (
 
   return {
     calories: Math.round(
-      food.caloriesPer100 * factor * cookingFactor * quantity,
+      food.caloriesPer100 * factor * cookingFactor * quantity
     ),
     protein:
       Math.round(food.proteinPer100 * factor * cookingFactor * quantity * 10) /
@@ -82,6 +82,6 @@ export const calculateMealTotals = (items: Nutrients[]) => {
       carbs: acc.carbs + curr?.carbs,
       fat: acc.fat + curr?.fat,
     }),
-    { calories: 0, protein: 0, carbs: 0, fat: 0 },
+    { calories: 0, protein: 0, carbs: 0, fat: 0 }
   );
 };

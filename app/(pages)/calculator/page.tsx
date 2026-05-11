@@ -39,7 +39,7 @@ export default function CalculatorPage() {
       return allFoods.filter(
         (f) =>
           f.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          f.nameAr.toLowerCase().includes(searchQuery.toLowerCase()),
+          f.nameAr.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
     return category.find((c) => c.id === selectedCategory)?.foods ?? [];

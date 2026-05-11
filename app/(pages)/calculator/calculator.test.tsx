@@ -38,16 +38,14 @@ test("full calculator workflow: search, add, and verify", async () => {
 
 test("opens result modal when calculation button is clicked", async () => {
   const user = userEvent.setup();
-  usePlatesStore
-    .getState()
-    .addPlate({
-      name: "Chicken",
-      calories: 165,
-      protein: 31,
-      carbs: 0,
-      fat: 3.6,
-      id: "1",
-    });
+  usePlatesStore.getState().addPlate({
+    name: "Chicken",
+    calories: 165,
+    protein: 31,
+    carbs: 0,
+    fat: 3.6,
+    id: "1",
+  });
   render(<CalculatorPage />);
   const calcBtn = screen.getByRole("button", {
     name: /Calculate Meal Summary/i,
@@ -124,7 +122,7 @@ describe("Comparison: fireEvent vs userEvent", () => {
         setSelectedCategory={vi.fn()}
         selectedFoodListLength={0}
         setShowMealSummary={vi.fn()}
-      />,
+      />
     );
 
     const searchInput = screen.getByTestId(/search-input/i);
@@ -145,7 +143,7 @@ describe("Comparison: fireEvent vs userEvent", () => {
         setSelectedCategory={vi.fn()}
         selectedFoodListLength={0}
         setShowMealSummary={vi.fn()}
-      />,
+      />
     );
 
     const searchInput = screen.getByTestId(/search-input/i);
@@ -164,7 +162,7 @@ describe("Comparison: fireEvent vs userEvent", () => {
         setSelectedCategory={vi.fn()}
         selectedFoodListLength={1}
         setShowMealSummary={vi.fn()}
-      />,
+      />
     );
 
     const closeButton = screen.getByTestId(/search-close-button/i);

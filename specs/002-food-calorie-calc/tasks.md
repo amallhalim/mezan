@@ -64,6 +64,7 @@
 ## Implementation Strategy
 
 ### Incremental Delivery
+
 1.  **UI Feedback**: Implement T012 to notify users of successful merges.
 2.  **Mobile UX**: Implement T013 to improve the experience on small screens.
 3.  **Safety & Performance**: Complete T009 and T016.

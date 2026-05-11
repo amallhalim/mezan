@@ -21,11 +21,12 @@ This feature implements a robust food calorie calculator that allows users to in
 
 ## Constitution Check
 
-*GATE: Passed*
+_GATE: Passed_
+
 - **I. Reusable Components First**: We will build a reusable `WeightInput` component and a pure utility function `calculateMacros` instead of tying the math to a specific page.
 - **II. Separation of UI and Logic**: The math logic and global state will live in standalone files (`utils/math.ts`, `store/`), separate from the UI components.
 - **III. Clean and Modular Code**: The feature will be broken down into small, composable hooks, Zustand slices, and pure functions.
-- **V. Continuous & Helpful Documentation**: The mathematical formulas will be documented with JSDoc explaining *why* base-100g scaling is used and *how* precision is maintained.
+- **V. Continuous & Helpful Documentation**: The mathematical formulas will be documented with JSDoc explaining _why_ base-100g scaling is used and _how_ precision is maintained.
 
 ## Project Structure
 

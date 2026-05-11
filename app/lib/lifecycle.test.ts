@@ -1,4 +1,4 @@
-import { usePlatesStore, Plate } from "../store/usePlatesStore";
+import { usePlatesStore } from "../store/usePlatesStore";
 import { calculateNutrients } from "./calculatorUtils";
 import { FOODS } from "./data";
 
@@ -203,7 +203,7 @@ describe("5️⃣ beforeAll / afterAll — One-time setup & cleanup", () => {
     // Perfect for expensive operations you don't want to repeat
     allProteinFoods = FOODS.filter((f) => f.categoryId === 1);
     allProteinMacros = allProteinFoods.map((f) =>
-      calculateNutrients(f, 100, 1, false),
+      calculateNutrients(f, 100, 1, false)
     );
   });
 
@@ -228,7 +228,7 @@ describe("5️⃣ beforeAll / afterAll — One-time setup & cleanup", () => {
 
   test("chicken breast has the highest protein per 100g", () => {
     const highestProtein = allProteinMacros.reduce((best, curr) =>
-      curr.protein > best.protein ? curr : best,
+      curr.protein > best.protein ? curr : best
     );
     // Chicken Breast: 31g protein per 100g
     expect(highestProtein.protein).toBe(31);

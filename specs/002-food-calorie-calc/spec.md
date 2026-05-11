@@ -8,13 +8,14 @@
 ## Clarifications
 
 ### Session 2026-04-27
+
 - Q: Should the meal plate be saved? → A: Persistent Session (LocalStorage).
 - Q: Duplicate items on plate? → A: Merge with notification (inform user that quantity was added to existing row).
 - Q: Metric vs Imperial? → A: Strictly Grams (g).
 - Q: Selection behavior? → A: Explicit "Add to Plate" required.
 - Q: Mobile layout? → A: Sticky Summary (pinned to bottom).
 
-## User Scenarios & Testing *(mandatory)*
+## User Scenarios & Testing _(mandatory)_
 
 ### User Story 1 - Calculate Single Food Item (Priority: P1)
 
@@ -48,7 +49,7 @@ As a user planning a meal, I want to add multiple calculated food items together
 - **FR-009**: System MUST cap food weight inputs at 5000g to prevent data overflow and unrealistic calculations.
 - What if a food item is missing macro data? (Should display "N/A" or "0" gracefully).
 
-## Requirements *(mandatory)*
+## Requirements _(mandatory)_
 
 ### Functional Requirements
 
@@ -66,7 +67,7 @@ As a user planning a meal, I want to add multiple calculated food items together
 - **FoodMacroProfile**: Base nutritional data per 100g or standard serving.
 - **CalculatedServing**: An instance of a food item paired with a user-defined quantity and its resulting macro totals.
 
-## Success Criteria *(mandatory)*
+## Success Criteria _(mandatory)_
 
 ### Measurable Outcomes
 

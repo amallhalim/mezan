@@ -5,6 +5,7 @@
 **Description**: Fetches the list of all food categories and their nested items for the calculator.
 
 **Response Schema**:
+
 ```json
 [
   {

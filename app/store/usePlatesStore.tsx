@@ -63,6 +63,6 @@ export const usePlatesStore = create<PlatesState>()(
     {
       name: "plates-storage",
       storage: createJSONStorage(() => localStorage),
-    },
-  ),
+    }
+  )
 );

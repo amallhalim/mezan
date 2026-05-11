@@ -3,6 +3,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 ## Getting Started
 
 Check out our documentation in the [docs/](./docs) folder:
+
 - [🧪 Testing Guide](./docs/testing.md)
 - [🛠️ Tech Stack](./docs/tech-stack.md)
 

@@ -25,7 +25,7 @@ describe("FoodCard Component", () => {
 
     test("shows active styles when selected", () => {
       const { container } = render(
-        <FoodCard food={mockFoodData} isSelected={true} />,
+        <FoodCard food={mockFoodData} isSelected={true} />
       );
       // Check if the primary color classes are applied to the card
       expect(container.firstChild).toHaveClass("bg-primary/10");

@@ -44,7 +44,11 @@ function fetchFoodById(id: string): Promise<Food> {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const food = FOODS.find((f) => f.id === id);
-      food ? resolve(food) : reject(new Error(`Food "${id}" not found`));
+      if (food) {
+        resolve(food);
+      } else {
+        reject(new Error(`Food "${id}" not found`));
+      }
     }, 100);
   });
 }
@@ -62,7 +66,7 @@ function searchFoodsAsync(query: string): Promise<Food[]> {
     setTimeout(() => {
       if (!query.trim()) return reject(new Error("Query cannot be empty"));
       const results = FOODS.filter((f) =>
-        f.name.toLowerCase().includes(query.toLowerCase()),
+        f.name.toLowerCase().includes(query.toLowerCase())
       );
       resolve(results);
     }, 50);
@@ -115,13 +119,13 @@ describe("2️⃣ .resolves / .rejects", () => {
         id: "p1",
         name: "Chicken Breast",
         caloriesPer100: 165,
-      }),
+      })
     );
   });
 
   test(".resolves — search returns array with matching items", async () => {
     await expect(searchFoodsAsync("Egg")).resolves.toEqual(
-      expect.arrayContaining([expect.objectContaining({ name: "Egg" })]),
+      expect.arrayContaining([expect.objectContaining({ name: "Egg" })])
     );
   });
 
@@ -135,7 +139,7 @@ describe("2️⃣ .resolves / .rejects", () => {
 
   test(".rejects — also works with whitespace-only query", async () => {
     await expect(searchFoodsAsync("   ")).rejects.toThrow(
-      "Query cannot be empty",
+      "Query cannot be empty"
     );
   });
 });
@@ -184,7 +188,7 @@ describe("3️⃣ Promise.all — Parallel", () => {
         fetchFoodById("p1"), // ✅ valid
         fetchFoodById("INVALID"), // ❌ will reject
         fetchFoodById("c1"), // ✅ valid — but never resolves!
-      ]),
+      ])
     ).rejects.toThrow("not found");
   });
 });
@@ -209,13 +213,13 @@ describe("4️⃣ Promise.allSettled — Graceful errors", () => {
 
     // Extract successful foods
     const foods = fulfilled.map(
-      (r) => (r as PromiseFulfilledResult<Food>).value,
+      (r) => (r as PromiseFulfilledResult<Food>).value
     );
     expect(foods.map((f) => f.id)).toEqual(["p1", "c1"]);
 
     // Extract error messages
     const errors = rejected.map(
-      (r) => (r as PromiseRejectedResult).reason.message,
+      (r) => (r as PromiseRejectedResult).reason.message
     );
     errors.forEach((msg) => expect(msg).toContain("not found"));
   });
@@ -410,7 +414,7 @@ describe("7️⃣ Async Zustand Store", () => {
     expect(totals.calories).toBe(chickenMacros.calories + riceMacros.calories);
     expect(totals.protein).toBeCloseTo(
       chickenMacros.protein + riceMacros.protein,
-      0,
+      0
     );
   });
 
@@ -462,7 +466,7 @@ describe("8️⃣ Real-World Workflows", () => {
     expect(totals.calories).toBe(chickenCalc.calories + riceCalc.calories);
     expect(totals.protein).toBeCloseTo(
       chickenCalc.protein + riceCalc.protein,
-      0,
+      0
     );
 
     // 6. Verify getCalorieColor and getHealthInsight with the total
@@ -506,7 +510,7 @@ describe("8️⃣ Real-World Workflows", () => {
 
     // 3. Find the highest protein food
     const highestProtein = reports.reduce((best, curr) =>
-      curr.macros.protein > best.macros.protein ? curr : best,
+      curr.macros.protein > best.macros.protein ? curr : best
     );
 
     expect(highestProtein.food.name).toBeTruthy();
