@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 
 interface User {
@@ -22,14 +23,14 @@ export default function ShowData() {
   if (!user) return <div className="animate-pulse">Loading User...</div>;
 
   return (
-    <div className="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
-      <h3 className="text-sm font-medium text-zinc-400 mb-1">
+    <div className="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+      <h3 className="mb-1 text-sm font-medium text-zinc-400">
         Authenticated User
       </h3>
-      <div className="text-2xl font-bold text-primary">
+      <div className="text-primary text-2xl font-bold">
         {user.firstName} {user.lastName}
       </div>
-      <div className="text-xs text-zinc-500 mt-2">ID: {user.id}</div>
+      <div className="mt-2 text-xs text-zinc-500">ID: {user.id}</div>
     </div>
   );
 }
