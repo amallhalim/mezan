@@ -7,11 +7,12 @@ import QuantitySelector from "./PortionSelector/QuantitySelector";
 import PortionSizeOptions from "./PortionSelector/PortionSizeOptions";
 import SelectedPortionPreview from "./PortionSelector/SelectedPortionPreview";
 import { useFoodCalculator } from "@/app/hooks/useFoodCalculator";
+import { Plate } from "@/app/store/usePlatesStore";
 
 interface FoodCustomizerModalProps {
   food: Food | null;
   onClose: () => void;
-  onConfirm: (calculatedFood: any) => void;
+  onConfirm: (calculatedFood: Plate) => void;
 }
 
 export default function FoodCustomizerModal({
@@ -37,16 +38,16 @@ export default function FoodCustomizerModal({
   if (!food || !calculated) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-zinc-950 w-full max-w-lg rounded-t-3xl sm:rounded-3xl border border-white/10 shadow-2xl overflow-hidden animate-in slide-in-from-bottom duration-300">
+    <div className="animate-in fade-in fixed inset-0 z-50 flex items-end justify-center bg-black/60 p-0 backdrop-blur-sm duration-200 sm:items-center sm:p-4">
+      <div className="animate-in slide-in-from-bottom w-full max-w-lg overflow-hidden rounded-t-3xl border border-white/10 bg-zinc-950 shadow-2xl duration-300 sm:rounded-3xl">
         <button
           onClick={onClose}
-          className="absolute right-4 top-4 p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors"
+          className="absolute top-4 right-4 rounded-full bg-white/5 p-2 transition-colors hover:bg-white/10"
         >
           <X className="size-5 text-gray-400" />
         </button>
 
-        <div className="p-5 space-y-3.5 max-h-[85vh] overflow-y-auto custom-scrollbar">
+        <div className="custom-scrollbar max-h-[85vh] space-y-3.5 overflow-y-auto p-5">
           <SelectedPortionPreview
             quantity={quantity}
             sizeLabel={currentSize?.label || "Custom"}
@@ -65,7 +66,7 @@ export default function FoodCustomizerModal({
             fat={calculated.fat}
           />
 
-          <div className="flex gap-3 items-end">
+          <div className="flex items-end gap-3">
             <QuantitySelector
               quantity={quantity}
               onChange={setQuantity}
@@ -75,19 +76,19 @@ export default function FoodCustomizerModal({
 
             {food.isRawCookedToggle && (
               <div className="flex-1 space-y-1">
-                <label className="text-[9px] font-black text-gray-500 uppercase tracking-[0.15em] ml-1">
+                <label className="ml-1 text-[9px] font-black tracking-[0.15em] text-gray-500 uppercase">
                   Food State
                 </label>
-                <div className="flex items-center justify-between p-1 bg-white/5 rounded-xl border border-white/5 h-10">
+                <div className="flex h-10 items-center justify-between rounded-xl border border-white/5 bg-white/5 p-1">
                   <button
                     onClick={() => setIsRaw(false)}
-                    className={`flex-1 h-full rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${!isRaw ? "bg-primary text-secondary shadow-md" : "text-gray-500 hover:text-white"}`}
+                    className={`h-full flex-1 rounded-lg text-[9px] font-black tracking-widest uppercase transition-all ${!isRaw ? "bg-primary text-secondary shadow-md" : "text-gray-500 hover:text-white"}`}
                   >
                     Cooked
                   </button>
                   <button
                     onClick={() => setIsRaw(true)}
-                    className={`flex-1 h-full rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${isRaw ? "bg-primary text-secondary shadow-md" : "text-gray-500 hover:text-white"}`}
+                    className={`h-full flex-1 rounded-lg text-[9px] font-black tracking-widest uppercase transition-all ${isRaw ? "bg-primary text-secondary shadow-md" : "text-gray-500 hover:text-white"}`}
                   >
                     Raw
                   </button>
@@ -104,9 +105,9 @@ export default function FoodCustomizerModal({
           />
 
           {/* Custom Input - More Compact */}
-          <div className="relative group">
-            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-              <Scale className="size-4 text-gray-500 group-focus-within:text-primary transition-colors" />
+          <div className="group relative">
+            <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center">
+              <Scale className="group-focus-within:text-primary size-4 text-gray-500 transition-colors" />
             </div>
             <input
               type="number"
@@ -116,10 +117,10 @@ export default function FoodCustomizerModal({
                 setSelectedSizeId("custom");
               }}
               placeholder="Custom..."
-              className="w-full bg-white/5 border border-white/5 focus:border-primary/50 focus:bg-white/10 rounded-xl py-3 pl-10 pr-12 text-white font-bold text-sm transition-all outline-none"
+              className="focus:border-primary/50 w-full rounded-xl border border-white/5 bg-white/5 py-3 pr-12 pl-10 text-sm font-bold text-white transition-all outline-none focus:bg-white/10"
             />
             <div className="absolute inset-y-0 right-4 flex items-center">
-              <span className="text-gray-500 font-bold text-xs uppercase">
+              <span className="text-xs font-bold text-gray-500 uppercase">
                 {presets[0]?.unit || "g"}
               </span>
             </div>
@@ -127,10 +128,10 @@ export default function FoodCustomizerModal({
 
           <button
             onClick={() => onConfirm(calculated)}
-            className="w-full bg-gradient-to-r from-primary to-emerald-600 hover:from-emerald-400 hover:to-primary text-secondary font-black py-4 rounded-xl shadow-[0_10px_20px_rgba(16,185,129,0.2)] transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 group text-sm"
+            className="from-primary hover:to-primary text-secondary group flex w-full transform items-center justify-center gap-2 rounded-xl bg-gradient-to-r to-emerald-600 py-4 text-sm font-black shadow-[0_10px_20px_rgba(16,185,129,0.2)] transition-all hover:from-emerald-400 active:scale-[0.98]"
           >
             ADD TO PLATE
-            <div className="size-4 rounded-full bg-secondary/20 flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
+            <div className="bg-secondary/20 flex size-4 items-center justify-center rounded-full transition-transform group-hover:translate-x-0.5">
               <Plus className="size-2.5" />
             </div>
           </button>

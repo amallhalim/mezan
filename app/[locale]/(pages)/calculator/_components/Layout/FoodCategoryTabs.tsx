@@ -2,8 +2,8 @@
 import { useLocale } from "next-intl";
 import { useScroller } from "@/app/hooks/useScroller";
 import { category } from "@/app/lib/data";
-import ScrollArrow from "../../common/ScrollArrow";
-import Buttons from "../../common/Buttons";
+import ScrollArrow from "@/app/components/common/ScrollArrow";
+import Buttons from "@/app/components/common/Buttons";
 
 interface FoodCategoryTabsProps {
   selectedId: number;

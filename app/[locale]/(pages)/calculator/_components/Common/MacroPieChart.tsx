@@ -24,10 +24,10 @@ export default function MacroPieChart({
   if (totalKcal === 0)
     return (
       <div
-        className="flex items-center justify-center bg-white/5 rounded-full border border-white/10"
+        className="flex items-center justify-center rounded-full border border-white/10 bg-white/5"
         style={{ width: size, height: size }}
       >
-        <span className="text-[10px] text-gray-600 font-black uppercase">
+        <span className="text-[10px] font-black text-gray-600 uppercase">
           Empty
         </span>
       </div>
@@ -86,13 +86,13 @@ export default function MacroPieChart({
       </svg>
 
       {/* Legend */}
-      <div className="grid grid-cols-3 gap-4 w-full">
+      <div className="grid w-full grid-cols-3 gap-4">
         <div className="flex flex-col items-center gap-1">
           <div
             className="size-1.5 rounded-full"
             style={{ backgroundColor: "var(--protein)" }}
           />
-          <span className="text-[8px] font-black text-gray-500 uppercase tracking-tighter">
+          <span className="text-[8px] font-black tracking-tighter text-gray-500 uppercase">
             Prot {Math.round(pPerc)}%
           </span>
         </div>
@@ -101,7 +101,7 @@ export default function MacroPieChart({
             className="size-1.5 rounded-full"
             style={{ backgroundColor: "var(--carbs)" }}
           />
-          <span className="text-[8px] font-black text-gray-500 uppercase tracking-tighter">
+          <span className="text-[8px] font-black tracking-tighter text-gray-500 uppercase">
             Carb {Math.round(cPerc)}%
           </span>
         </div>
@@ -110,7 +110,7 @@ export default function MacroPieChart({
             className="size-1.5 rounded-full"
             style={{ backgroundColor: "var(--fat)" }}
           />
-          <span className="text-[8px] font-black text-gray-500 uppercase tracking-tighter">
+          <span className="text-[8px] font-black tracking-tighter text-gray-500 uppercase">
             Fat {Math.round(fPerc)}%
           </span>
         </div>

@@ -50,7 +50,7 @@ export default function MacroRing({
   const offset = circumference - (percentage / 100) * circumference;
 
   return (
-    <div className="bg-white/5 rounded-2xl p-3 border border-white/5 flex flex-col items-center justify-center relative group hover:bg-white/10 transition-all flex-1 min-w-0">
+    <div className="group relative flex min-w-0 flex-1 flex-col items-center justify-center rounded-2xl border border-white/5 bg-white/5 p-3 transition-all hover:bg-white/10">
       <div className={`relative ${s.box} mb-1.5`}>
         <svg className="size-full -rotate-90">
           <circle
@@ -75,20 +75,20 @@ export default function MacroRing({
             className={`${color} transition-all duration-1000 ease-out`}
           />
         </svg>
-        <div className="absolute inset-0 flex items-center justify-center scale-75">
+        <div className="absolute inset-0 flex scale-75 items-center justify-center">
           {icon}
         </div>
       </div>
       <span
-        className={`font-black text-gray-500 uppercase tracking-widest leading-none ${s.font} mb-1`}
+        className={`leading-none font-black tracking-widest text-gray-500 uppercase ${s.font} mb-1`}
       >
         {label}
       </span>
       <span
-        className={`font-black text-white tabular-nums leading-none ${s.valFont}`}
+        className={`leading-none font-black text-white tabular-nums ${s.valFont}`}
       >
         {value}
-        <span className="text-[7px] text-gray-600 ml-0.5 font-bold">g</span>
+        <span className="ml-0.5 text-[7px] font-bold text-gray-600">g</span>
       </span>
     </div>
   );

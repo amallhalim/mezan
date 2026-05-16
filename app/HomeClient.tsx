@@ -6,7 +6,7 @@ import { useTheme } from "./context/ThemeContext";
 import Counter from "./Counter";
 import ShowData from "./ShowData";
 import { useTranslations, useFormatter, useLocale } from "next-intl";
-import LanguageSwitcher from "./components/LanguageSwitcher";
+import LanguageSwitcher from "./components/common/LanguageSwitcher";
 import { Link } from "../i18n/navigation";
 
 export default function HomeClient() {

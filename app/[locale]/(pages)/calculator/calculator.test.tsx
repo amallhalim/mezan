@@ -3,7 +3,7 @@ import { expect, test, vi, beforeEach, describe } from "vitest";
 import CalculatorPage from "./page";
 import userEvent from "@testing-library/user-event";
 import { usePlatesStore } from "@/app/store/usePlatesStore";
-import CalculatorHeader from "@/app/components/calculator/Layout/CalculatorHeader";
+import CalculatorHeader from "./_components/Layout/CalculatorHeader";
 
 // 🧹 This resets the plate before EVERY test starts
 beforeEach(() => {
@@ -15,7 +15,6 @@ beforeEach(() => {
  * Next.js Images don't work in a testing environment without it.
  */
 vi.mock("next/image", () => ({
-  // eslint-disable-next-line @next/next/no-img-element
   default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
     <img alt="" {...props} />
   ),

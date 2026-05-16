@@ -3,12 +3,12 @@ import React, { useState, useMemo } from "react";
 import { category, Food } from "@/app/lib/data";
 
 // Components
-import CalculatorHeader from "@/app/components/calculator/Layout/CalculatorHeader";
-import FoodListSection from "@/app/components/calculator/Layout/FoodListSection";
-import TotalMacrosFooter from "@/app/components/calculator/Layout/TotalMacrosFooter";
-import AddedFoodsSummary from "@/app/components/calculator/Layout/AddedFoodsSummary";
-import QuickAdjustPanel from "@/app/components/calculator/Layout/QuickAdjustPanel";
-import ResultModal from "@/app/components/calculator/Layout/ResultModal";
+import CalculatorHeader from "./_components/Layout/CalculatorHeader";
+import FoodListSection from "./_components/Layout/FoodListSection";
+import TotalMacrosFooter from "./_components/Layout/TotalMacrosFooter";
+import AddedFoodsSummary from "./_components/Layout/AddedFoodsSummary";
+import QuickAdjustPanel from "./_components/Layout/QuickAdjustPanel";
+import ResultModal from "./_components/Layout/ResultModal";
 
 // Hooks & Store
 import { useMealSummary } from "@/app/hooks/useMealSummary";

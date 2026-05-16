@@ -24,7 +24,6 @@ interface ResultModalProps {
 
 export default function ResultModal({ item, onClose }: ResultModalProps) {
   const tHome = useTranslations("HomePage");
-  const tAbout = useTranslations("about");
   const locale = useLocale();
   const isArabic = locale === "ar";
   const [isSaved, setIsSaved] = React.useState(false);

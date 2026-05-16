@@ -46,20 +46,20 @@ export default function SelectedPortionPreview({
   };
 
   return (
-    <div className="bg-zinc-900/80 backdrop-blur-md rounded-[2rem] p-5 border border-white/10 flex items-center justify-between transition-all animate-in zoom-in-95 duration-300 relative group shadow-2xl">
-      <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-blue-500/20 rounded-[2.1rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+    <div className="animate-in zoom-in-95 group relative flex items-center justify-between rounded-[2rem] border border-white/10 bg-zinc-900/80 p-5 shadow-2xl backdrop-blur-md transition-all duration-300">
+      <div className="from-primary/20 pointer-events-none absolute -inset-1 rounded-[2.1rem] bg-gradient-to-r to-blue-500/20 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100" />
 
-      <div className="flex items-center gap-4 relative z-10">
-        <div className="size-14 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center text-3xl shadow-inner group-hover:scale-110 transition-transform duration-500">
+      <div className="relative z-10 flex items-center gap-4">
+        <div className="flex size-14 items-center justify-center rounded-2xl border border-white/5 bg-white/5 text-3xl shadow-inner transition-transform duration-500 group-hover:scale-110">
           {icon}
         </div>
-        <div className="flex-1 min-w-0">
-          <div className="flex flex-col mb-1">
-            <h3 className="text-xl font-black text-white leading-tight truncate">
+        <div className="min-w-0 flex-1">
+          <div className="mb-1 flex flex-col">
+            <h3 className="truncate text-xl leading-tight font-black text-white">
               {foodName}
             </h3>
             <h4
-              className="text-sm font-bold text-primary/80 leading-none"
+              className="text-primary/80 text-sm leading-none font-bold"
               dir="rtl"
             >
               {nameAr}
@@ -67,11 +67,11 @@ export default function SelectedPortionPreview({
           </div>
           <div className="flex items-center gap-2">
             <div
-              className={`flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/5 border border-white/5 ${insight.color} text-[8px] font-black uppercase tracking-widest`}
+              className={`flex items-center gap-1 rounded-full border border-white/5 bg-white/5 px-2 py-0.5 ${insight.color} text-[8px] font-black tracking-widest uppercase`}
             >
               <InsightIcon className="size-3" /> {insight.text}
             </div>
-            <p className="text-gray-500 font-bold text-[9px] uppercase tracking-widest opacity-70">
+            <p className="text-[9px] font-bold tracking-widest text-gray-500 uppercase opacity-70">
               {totalAmount}
               {unit} • {isRaw ? "RAW" : "COOKED"}
             </p>
@@ -79,13 +79,13 @@ export default function SelectedPortionPreview({
         </div>
       </div>
 
-      <div className="flex items-center gap-5 relative z-10">
+      <div className="relative z-10 flex items-center gap-5">
         <div className="text-right">
           <p
             className={`text-4xl font-black ${calorieColor} flex items-baseline gap-1 drop-shadow-sm`}
           >
             {calories}
-            <span className="text-[10px] text-gray-500 uppercase tracking-tighter">
+            <span className="text-[10px] tracking-tighter text-gray-500 uppercase">
               KCAL
             </span>
           </p>
@@ -93,7 +93,7 @@ export default function SelectedPortionPreview({
 
         <button
           onClick={handleShare}
-          className="size-10 rounded-full bg-white/5 border border-white/5 hover:bg-primary hover:text-secondary flex items-center justify-center text-gray-400 transition-all active:scale-90 shadow-lg"
+          className="hover:bg-primary hover:text-secondary flex size-10 items-center justify-center rounded-full border border-white/5 bg-white/5 text-gray-400 shadow-lg transition-all active:scale-90"
           title="Share Choice"
         >
           <Share2 className="size-4" />

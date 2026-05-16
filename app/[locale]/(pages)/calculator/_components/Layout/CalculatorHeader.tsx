@@ -2,7 +2,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { formatNumber } from "@/app/lib/numberUtils";
 import React from "react";
 import { Search, Activity, Zap, ChevronRight } from "lucide-react";
-import FoodCategoryTabs from "@/app/components/calculator/Layout/FoodCategoryTabs";
+import FoodCategoryTabs from "./FoodCategoryTabs";
 
 interface CalculatorHeaderProps {
   selectedFoodListLength: number;

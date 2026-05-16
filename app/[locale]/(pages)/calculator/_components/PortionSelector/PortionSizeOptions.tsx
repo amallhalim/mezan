@@ -16,7 +16,7 @@ export default function PortionSizeOptions({
 }: PortionSizeOptionsProps) {
   return (
     <div className="space-y-1.5">
-      <label className="text-[9px] font-black text-gray-500 uppercase tracking-[0.15em] ml-1">
+      <label className="ml-1 text-[9px] font-black tracking-[0.15em] text-gray-500 uppercase">
         {label}
       </label>
       <div className="grid grid-cols-5 gap-1.5">
@@ -24,17 +24,17 @@ export default function PortionSizeOptions({
           <button
             key={size.id}
             onClick={() => onSelect(size)}
-            className={`flex flex-col items-center justify-center py-2 px-1 rounded-xl border transition-all ${
+            className={`flex flex-col items-center justify-center rounded-xl border px-1 py-2 transition-all ${
               selectedId === size.id
                 ? "bg-primary/20 border-primary text-primary shadow-[0_0_10px_rgba(16,185,129,0.1)]"
-                : "bg-white/5 border-white/5 text-gray-400 hover:bg-white/10"
+                : "border-white/5 bg-white/5 text-gray-400 hover:bg-white/10"
             }`}
           >
-            <span className="text-base mb-0.5">{size.icon}</span>
-            <span className="text-[8px] font-black uppercase tracking-tighter leading-none">
+            <span className="mb-0.5 text-base">{size.icon}</span>
+            <span className="text-[8px] leading-none font-black tracking-tighter uppercase">
               {size.label}
             </span>
-            <span className="text-[8px] opacity-50 mt-0.5">
+            <span className="mt-0.5 text-[8px] opacity-50">
               {size.amount}
               {size.unit}
             </span>

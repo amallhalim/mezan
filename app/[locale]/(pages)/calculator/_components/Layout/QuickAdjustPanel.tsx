@@ -5,13 +5,13 @@ import { X, Calculator } from "lucide-react";
 import { Food } from "@/app/lib/data";
 import { formatNumber } from "@/app/lib/numberUtils";
 import { useFoodCalculator } from "@/app/hooks/useFoodCalculator";
-import PortionSizeOptions from "@/app/components/calculator/PortionSelector/PortionSizeOptions";
-import QuantitySelector from "@/app/components/calculator/PortionSelector/QuantitySelector";
+import PortionSizeOptions from "../PortionSelector/PortionSizeOptions";
+import QuantitySelector from "../PortionSelector/QuantitySelector";
 
-import MacroNutrientStats from "@/app/components/calculator/PortionSelector/MacroNutrientStats";
+import MacroNutrientStats from "../PortionSelector/MacroNutrientStats";
 import Button from "@/app/components/common/Button";
-import WeightInput from "@/app/components/shared/WeightInput";
-import SugarSelector from "@/app/components/calculator/PortionSelector/SugarSelector";
+import WeightInput from "@/app/components/common/WeightInput";
+import SugarSelector from "../PortionSelector/SugarSelector";
 import { Plate } from "@/app/store/usePlatesStore";
 
 interface QuickAdjustPanelProps {
