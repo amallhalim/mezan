@@ -18,6 +18,7 @@
         "ci"
       ]
     ],
-    "subject-case": [0, "always"]
+    "subject-case": [0, "always"],
+    "header-max-length": [2, "always", 200]
   }
 }

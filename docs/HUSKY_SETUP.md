@@ -33,7 +33,7 @@ When you run `git commit`, Husky automatically triggers:
 Husky will **block the commit** if there's an error. You must fix the error before you can successfully commit.
 
 > [!NOTE]
-> Detailed error messages are now automatically saved to **`husky-errors.log`** in your project root, so you can review them even after the terminal is closed.
+> Detailed error messages are now automatically saved to **`husky-errors.log`** in your project root. Additionally, Husky now outputs clear, high-visibility banners in your terminal with examples (✅ CORRECT vs ❌ WRONG) to help you fix issues instantly.
 
 ### 3. If it Passes ✅
 
@@ -206,7 +206,7 @@ The commit process has three protective layers:
 
 - **Layer C: `commit-msg`** (Message Formatting)
   - **When it runs:** After you save your message, but before it writes to history.
-  - **What it does:** Runs `commitlint` to ensure you used conventional commit prefixes (e.g., `feat:`, `fix:`).
+  - **What it does:** Runs `commitlint` to ensure you used conventional commit prefixes (e.g., `feat:`, `fix:`) and keeps the first line under **200 characters**.
 
 ### 3. Syncing with the Team
 

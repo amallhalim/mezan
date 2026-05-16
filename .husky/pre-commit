@@ -14,8 +14,15 @@ npx lint-staged
 # 🛡️ SECRET SCANNER: Basic check for obvious secrets
 if git diff --cached -- ':!.husky' | grep -iE "AKIA[0-9A-Z]{16}|sk_live_[0-9a-zA-Z]{24}|BEGIN RSA PRIVATE KEY"; then
   {
-    echo "🚫 ERROR: Potential secret leaked in staging area!"
-    echo "Commit blocked to protect your keys."
+    echo ""
+    echo "🚫 ================================================================= 🚫"
+    echo "    ERROR: Potential Secret Leaked!"
+    echo "    Your commit was blocked because it contains sensitive data."
+    echo ""
+    echo "    DETECTED: Potential AWS Key, Stripe Key, or RSA Private Key."
+    echo "    Please REMOVE the secret from your code before committing."
+    echo "🚫 ================================================================= 🚫"
+    echo ""
   } | tee -a husky-errors.log
   exit 1
 fi
@@ -26,8 +33,17 @@ VALID_BRANCH_REGEX="^(main|master|feature\/|bugfix\/|hotfix\/|release\/|chore\/)
 
 if [[ ! $BRANCH_NAME =~ $VALID_BRANCH_REGEX ]]; then
   {
-    echo "🚫 ERROR: Branch '$BRANCH_NAME' does not follow conventions."
-    echo "Must start with feature/, bugfix/, hotfix/, release/, or chore/"
+    echo ""
+    echo "🚫 ================================================================= 🚫"
+    echo "    ERROR: Invalid Branch Name: '$BRANCH_NAME'"
+    echo "    Your branch does not follow the project naming conventions."
+    echo ""
+    echo "    ✅ CORRECT: feature/login, bugfix/header, chore/husky"
+    echo "    ❌ WRONG:   my-test-branch, fixing-bugs"
+    echo ""
+    echo "    Please rename your branch: git branch -m feature/your-name"
+    echo "🚫 ================================================================= 🚫"
+    echo ""
   } | tee -a husky-errors.log
   exit 1
 fi
