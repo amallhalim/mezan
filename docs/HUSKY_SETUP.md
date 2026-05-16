@@ -194,7 +194,8 @@ The commit process has three protective layers:
     1. **Types:** Runs `npm run type-check`.
     2. **Lint/Format:** Runs `npx lint-staged`.
     3. **Secret Scan:** Scans the diff for leaked AWS/Stripe keys.
-    4. **Branch Name Enforcer:** Blocks the commit if your branch doesn't start with `feature/`, `bugfix/`, `hotfix/`, or `chore/`.
+    4. **Workflow Protection:** Blocks direct commits to `main`, `master`, or `develop`.
+    5. **Branch Name Enforcer:** Blocks the commit if your branch doesn't start with `feature/`, `bugfix/`, `hotfix/`, or `chore/`.
 - **Layer B: `prepare-commit-msg`** (Auto-Tagging)
   - **When it runs:** Just before the text editor opens for you to write your message.
   - **What it does:** Extracts ticket numbers (like `MEZ-123`) from your branch name and automatically prepends them to your commit message.

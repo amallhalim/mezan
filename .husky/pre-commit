@@ -29,7 +29,28 @@ fi
 
 # 🌿 BRANCH NAME ENFORCER: Block bad branch names
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
-VALID_BRANCH_REGEX="^(main|master|feature\/|bugfix\/|hotfix\/|release\/|chore\/)"
+
+# 🔒 WORKFLOW PROTECTION: Block direct commits to main/develop
+if [[ "$BRANCH_NAME" == "main" || "$BRANCH_NAME" == "master" || "$BRANCH_NAME" == "develop" ]]; then
+  {
+    echo ""
+    echo "🚫 ================================================================= 🚫"
+    echo "    CRITICAL ERROR: Direct Commit to '$BRANCH_NAME' is Blocked!"
+    echo "    You are trying to commit directly to a protected branch."
+    echo ""
+    echo "    🛠️ REQUIRED WORKFLOW: "
+    echo "    1. Create a feature branch: git checkout -b feature/your-task"
+    echo "    2. Commit your work there."
+    echo "    3. Merge to 'develop' -> then merge to 'main'."
+    echo ""
+    echo "    💡 Move your changes to a new branch now!"
+    echo "🚫 ================================================================= 🚫"
+    echo ""
+  } | tee -a husky-errors.log
+  exit 1
+fi
+
+VALID_BRANCH_REGEX="^(feature\/|bugfix\/|hotfix\/|release\/|chore\/)"
 
 if [[ ! $BRANCH_NAME =~ $VALID_BRANCH_REGEX ]]; then
   {
