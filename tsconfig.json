@@ -20,7 +20,9 @@
     ],
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    //: There are certain functions (test, describe, expect, vi) that will be available everywhere in this project.
+    "types": ["vitest/globals"]
   },
   "include": [
     "next-env.d.ts",

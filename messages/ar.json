@@ -1,0 +1,39 @@
+{
+  "HomePage": {
+    "greeting": "صندوق اختبار",
+    "systemOperational": "النظام يعمل",
+    "mode": "الوضع",
+    "identitySearch": "الهوية والبحث",
+    "username": "اسم المستخدم",
+    "macroSearch": "بحث الماكرو",
+    "submitPlate": "إرسال الصحن",
+    "assetVerification": "التحقق من الأصول",
+    "nodeStatus": "حالة العقدة",
+    "liveSyncing": "مباشر ومتزامن",
+    "architecture": "البنية",
+    "openCalculator": "فتح الحاسبة",
+    "returnEngine": "العودة إلى محرك الماكرو"
+  },
+  "about": {
+    "kcal": "سعرة",
+    "per100g": "لكل 100 جرام",
+    "premium": "مميز"
+  },
+  "Counter": {
+    "title": "تفاعل العداد",
+    "currentCount": "العدد الحالي هو: {count}",
+    "increment": "زيادة",
+    "decrement": "نقصان",
+    "reset": "إعادة تعيين"
+  },
+  "ShowData": {
+    "title": "المستخدم المصرح له",
+    "loading": "جاري تحميل المستخدم...",
+    "error": "فشل في تحميل المستخدم",
+    "userId": "المعرف: {id}"
+  },
+  "Metadata": {
+    "title": "ميزان - حاسبة السعرات الذكية",
+    "description": "احسب سعراتك الحرارية اليومية والماكروز بدقة عالية."
+  }
+}

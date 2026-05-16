@@ -1,0 +1,39 @@
+{
+  "HomePage": {
+    "greeting": "Testing Sandbox",
+    "systemOperational": "System Operational",
+    "mode": "Mode",
+    "identitySearch": "Identity & Search",
+    "username": "Username",
+    "macroSearch": "Macro Search",
+    "submitPlate": "Submit Plate",
+    "assetVerification": "Asset Verification",
+    "nodeStatus": "Node Status",
+    "liveSyncing": "Live & Syncing",
+    "architecture": "Architecture",
+    "openCalculator": "Open Calculator",
+    "returnEngine": "Return to the macro engine"
+  },
+  "about": {
+    "kcal": "kcal",
+    "per100g": "per 100g",
+    "premium": "Premium"
+  },
+  "Counter": {
+    "title": "Counter Interaction",
+    "currentCount": "Current count is: {count}",
+    "increment": "Increment",
+    "decrement": "Decrement",
+    "reset": "Reset"
+  },
+  "ShowData": {
+    "title": "Authenticated User",
+    "loading": "Loading User...",
+    "error": "Failed to load user",
+    "userId": "ID: {id}"
+  },
+  "Metadata": {
+    "title": "Mizan - Smart Calorie Calculator",
+    "description": "Calculate your daily calories and macros with high precision."
+  }
+}
