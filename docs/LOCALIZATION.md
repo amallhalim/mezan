@@ -2,6 +2,8 @@
 
 This project uses **Next-Intl** for a professional, URL-based localization system (`/en`, `/ar`). This approach is SEO-friendly and ensures the correct language is always preserved in the URL.
 
+📚 **Official Documentation:** [https://next-intl.dev/](https://next-intl.dev/)
+
 ---
 
 ## 📁 Key Files & Folders
