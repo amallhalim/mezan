@@ -32,6 +32,9 @@ When you run `git commit`, Husky automatically triggers:
 
 Husky will **block the commit** if there's an error. You must fix the error before you can successfully commit.
 
+> [!NOTE]
+> Detailed error messages are now automatically saved to **`husky-errors.log`** in your project root, so you can review them even after the terminal is closed.
+
 ### 3. If it Passes ✅
 
 The commit will proceed as normal.
@@ -170,12 +173,61 @@ export NVM_DIR="$HOME/.nvm"
 
 ---
 
-## ⚙️ Project Setup Reference
+## 📅 The Complete Hook Lifecycle (When & Why)
 
-1. **Installation**: `npm install husky --save-dev`
-2. **Initialization**: `npx husky init`
-3. **Current Hook ([.husky/pre-commit](file:///e:/mezan/.husky/pre-commit))**:
-   ```bash
-   npm run type-check
-   npx lint-staged
-   ```
+Our project uses a comprehensive suite of Husky hooks to automate the development workflow from branching to pushing. You don't have to trigger these manually—they happen automatically based on your Git commands.
+
+### 1. Branching & Checking Out
+
+- **`post-checkout`**:
+  - **When it runs:** Immediately after you run `git checkout <branch>`.
+  - **What it does:** Runs `npm run clean` to wipe the `.next` cache directory.
+  - **Why:** Prevents Next.js from throwing weird caching errors because you swapped to a branch with a different codebase.
+
+### 2. Creating a Commit
+
+The commit process has three protective layers:
+
+- **Layer A: `pre-commit`** (The Quality Gate)
+  - **When it runs:** As soon as you type `git commit`, but before the commit is created.
+  - **What it does:**
+    1. **Types:** Runs `npm run type-check`.
+    2. **Lint/Format:** Runs `npx lint-staged`.
+    3. **Secret Scan:** Scans the diff for leaked AWS/Stripe keys.
+    4. **Branch Name Enforcer:** Blocks the commit if your branch doesn't start with `feature/`, `bugfix/`, `hotfix/`, or `chore/`.
+- **Layer B: `prepare-commit-msg`** (Auto-Tagging)
+  - **When it runs:** Just before the text editor opens for you to write your message.
+  - **What it does:** Extracts ticket numbers (like `MEZ-123`) from your branch name and automatically prepends them to your commit message.
+  - **How it works under the hood:**
+    1. Grabs the branch name (e.g., `feature/MEZ-456-new-button`).
+    2. Uses Regex (`[A-Z]+-[0-9]+`) to extract the exact ticket ID (`MEZ-456`).
+    3. Rewrites your commit message from `"added new button"` to `"[MEZ-456] added new button"`.
+  - **Why:** Keeps Git history perfectly searchable against Jira/Linear tickets without relying on developers to remember to type the ID every single time.
+
+- **Layer C: `commit-msg`** (Message Formatting)
+  - **When it runs:** After you save your message, but before it writes to history.
+  - **What it does:** Runs `commitlint` to ensure you used conventional commit prefixes (e.g., `feat:`, `fix:`).
+
+### 3. Syncing with the Team
+
+- **`post-merge`** (Auto-Installer)
+  - **When it runs:** Immediately after `git pull` successfully merges remote changes.
+  - **What it does:** Runs `npm install` automatically.
+  - **Why:** Ensures you never get "missing module" errors if a teammate installed a new dependency.
+
+- **`post-rewrite`** (History Sync)
+  - **When it runs:** After you run `git commit --amend` or `git rebase`.
+  - **What it does:** Runs `npm install` and wipes the `.next` cache.
+  - **Why:** Keeps your local environment perfectly in sync when the Git timeline changes.
+
+### 4. Pushing to GitHub
+
+- **`pre-rebase`** (The Bodyguard)
+  - **When it runs:** When you type `git rebase <branch>`.
+  - **What it does:** Instantly blocks you if you try to rebase on the `main` or `master` branch.
+  - **Why:** Rebasing `main` destroys history for everyone else.
+
+- **`pre-push`** (The Final Gate)
+  - **When it runs:** When you type `git push`.
+  - **What it does:** Runs the full unit test suite (`npm test`).
+  - **Why:** Local commits stay fast, but remote servers stay pristine. Broken code cannot leave your machine.

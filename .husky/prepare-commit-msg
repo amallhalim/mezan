@@ -1,0 +1,16 @@
+# Extract the branch name
+BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+
+# Check if branch name matches a ticket pattern (e.g., MEZ-123, feature/MEZ-123)
+TICKET_ID=$(echo "$BRANCH_NAME" | grep -o -E '[A-Z]+-[0-9]+' || true)
+
+# If a ticket ID exists and the commit message doesn't already have it
+if [ -n "$TICKET_ID" ]; then
+  # Read the current commit message
+  COMMIT_MSG=$(cat "$1")
+  
+  if ! echo "$COMMIT_MSG" | grep -q "$TICKET_ID"; then
+    echo "[$TICKET_ID] $COMMIT_MSG" > "$1"
+    echo "🏷️ Auto-tagged commit message with ticket ID: $TICKET_ID"
+  fi
+fi

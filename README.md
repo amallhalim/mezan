@@ -4,6 +4,19 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 This project is fully internationalized. Please refer to the [Localization Guide](./LOCALIZATION.md) for details on how to add new translations and manage localized routes.
 
+## 🛡️ Code Quality & Git Hooks
+
+This project uses **Husky** and **lint-staged** as a "Quality Gate" to automatically format and lint your code before every commit. This ensures a consistent codebase and catches errors early.
+
+- [🐕 Husky Setup Guide](./docs/HUSKY_SETUP.md)
+- [✨ Code Quality Guidelines](./docs/code-quality.md)
+
+If you have a work-in-progress commit and urgently need to bypass the checks, you can use the bypass script:
+
+```bash
+npm run commit:skip -m "Your commit message"
+```
+
 ## Getting Started
 
 Check out our documentation in the [docs/](./docs) folder:
