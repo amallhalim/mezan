@@ -12,7 +12,9 @@ import {
   Award,
 } from "lucide-react";
 import MacroPieChart from "../Common/MacroPieChart";
+import { formatNumber } from "@/app/lib/numberUtils";
 
+import { useLocale, useTranslations } from "next-intl";
 import { Plate } from "@/app/store/usePlatesStore";
 
 interface ResultModalProps {
@@ -21,6 +23,10 @@ interface ResultModalProps {
 }
 
 export default function ResultModal({ item, onClose }: ResultModalProps) {
+  const tHome = useTranslations("HomePage");
+  const tAbout = useTranslations("about");
+  const locale = useLocale();
+  const isArabic = locale === "ar";
   const [isSaved, setIsSaved] = React.useState(false);
 
   if (!item) return null;
@@ -95,15 +101,8 @@ export default function ResultModal({ item, onClose }: ResultModalProps) {
           {/* Title Section */}
           <div className="space-y-2 text-center">
             <h2 className="text-4xl leading-none font-black tracking-tighter text-white">
-              {item.name}
+              {isArabic ? item.nameAr : item.name}
             </h2>
-            <div className="flex items-center justify-center gap-3">
-              <span className="to-primary/40 h-px w-8 bg-gradient-to-r from-transparent" />
-              <p className="text-primary text-xl font-black" dir="rtl">
-                {item.nameAr}
-              </p>
-              <span className="to-primary/40 h-px w-8 bg-gradient-to-l from-transparent" />
-            </div>
 
             {/* Badges */}
             <div className="mt-4 flex flex-wrap justify-center gap-2">
@@ -125,11 +124,11 @@ export default function ResultModal({ item, onClose }: ResultModalProps) {
               <div className="space-y-6">
                 <div className="space-y-1">
                   <p className="text-[10px] font-black tracking-[0.2em] text-gray-500 uppercase">
-                    Total Energy
+                    {tHome("totalEnergy") || "Total Energy"}
                   </p>
                   <div className="flex items-baseline gap-2">
                     <span className="text-primary text-6xl font-black tracking-tighter tabular-nums drop-shadow-[0_0_20px_rgba(16,185,129,0.3)]">
-                      {item.calories}
+                      {formatNumber(item.calories, locale)}
                     </span>
                     <span className="text-xs font-black tracking-widest text-gray-600 uppercase">
                       kcal
@@ -140,16 +139,20 @@ export default function ResultModal({ item, onClose }: ResultModalProps) {
                 <div className="space-y-4">
                   {[
                     {
-                      label: "Protein",
+                      label: tHome("proteins"),
                       value: item.protein,
                       color: "var(--protein)",
                     },
                     {
-                      label: "Carbs",
+                      label: tHome("carbs"),
                       value: item.carbs,
                       color: "var(--carbs)",
                     },
-                    { label: "Fat", value: item.fat, color: "var(--fat)" },
+                    {
+                      label: tHome("fat"),
+                      value: item.fat,
+                      color: "var(--fat)",
+                    },
                   ].map((m) => (
                     <div
                       key={m.label}
@@ -168,7 +171,7 @@ export default function ResultModal({ item, onClose }: ResultModalProps) {
                         className="text-sm font-black tabular-nums"
                         style={{ color: m.color }}
                       >
-                        {m.value}g
+                        {formatNumber(m.value, locale)}g
                       </span>
                     </div>
                   ))}
@@ -201,7 +204,9 @@ export default function ResultModal({ item, onClose }: ResultModalProps) {
             >
               <Heart className={`size-6 ${isSaved ? "fill-white" : ""}`} />
               <span className="text-sm font-black tracking-widest uppercase">
-                {isSaved ? "SAVED!" : "SAVE TO DIARY"}
+                {isSaved
+                  ? tHome("saved") || "SAVED!"
+                  : tHome("saveToDiary") || "SAVE TO DIARY"}
               </span>
             </button>
           </div>

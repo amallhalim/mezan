@@ -1,4 +1,5 @@
 "use client";
+import { useLocale } from "next-intl";
 import { useScroller } from "@/app/hooks/useScroller";
 import { category } from "@/app/lib/data";
 import ScrollArrow from "../../common/ScrollArrow";
@@ -13,6 +14,8 @@ export default function FoodCategoryTabs({
   selectedId,
   onSelect,
 }: FoodCategoryTabsProps) {
+  const locale = useLocale();
+  const isArabic = locale === "ar";
   const { scrollRef, canScrollLeft, canScrollRight, scrollLeft, scrollRight } =
     useScroller({ selectedId });
 
@@ -29,17 +32,20 @@ export default function FoodCategoryTabs({
           ref={scrollRef}
           className="scrollbar-hide flex gap-2 overflow-x-auto px-1 pb-2"
         >
-          {category.map((item) => (
-            <Buttons
-              key={item?.id}
-              isSelected={selectedId === item?.id}
-              onClick={() => onSelect(item?.id)}
-              title={item?.name}
-              icon={item?.icon}
-            >
-              {item?.icon} {item?.name}
-            </Buttons>
-          ))}
+          {category.map((item) => {
+            const displayName = isArabic ? item?.nameAr : item?.name;
+            return (
+              <Buttons
+                key={item?.id}
+                isSelected={selectedId === item?.id}
+                onClick={() => onSelect(item?.id)}
+                title={displayName}
+                icon={item?.icon}
+              >
+                {item?.icon} {displayName}
+              </Buttons>
+            );
+          })}
         </div>
       </div>
 

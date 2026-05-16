@@ -1,7 +1,8 @@
 import { CheckIcon, Plus } from "lucide-react";
 import React from "react";
 import { Food } from "@/app/lib/data";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { formatNumber } from "@/app/lib/numberUtils";
 
 interface FoodCardProps {
   food: Food;
@@ -15,11 +16,16 @@ export default function FoodCard({
   isSelected,
 }: FoodCardProps) {
   const t = useTranslations("about");
+  const tHome = useTranslations("HomePage");
+  const locale = useLocale();
+  const isArabic = locale === "ar";
+  const displayName = isArabic ? food?.nameAr : food?.name;
+
   return (
     <div
       role="button"
       tabIndex={0}
-      aria-label={`Select ${food?.name}`}
+      aria-label={`Select ${displayName}`}
       onClick={() => onSelect(food)}
       onKeyDown={(e) => e.key === "Enter" && onSelect(food)}
       className={`group hover:border-primary/50 relative m-1 flex cursor-pointer flex-row items-center justify-between overflow-hidden rounded-2xl border border-white/5 bg-white/5 p-4 backdrop-blur-md transition-all hover:bg-white/10 ${isSelected ? "bg-primary/10 border-primary/40" : ""}`}
@@ -33,17 +39,11 @@ export default function FoodCard({
 
         <div className="flex flex-col">
           <h3 className="text-base leading-tight font-black text-white">
-            {food?.name}
+            {displayName}
           </h3>
-          <h4
-            className="text-primary/70 mt-0.5 text-xs leading-none font-bold"
-            dir="rtl"
-          >
-            {food?.nameAr}
-          </h4>
           <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
             <span className="text-primary text-sm font-bold">
-              {food?.caloriesPer100}{" "}
+              {formatNumber(food?.caloriesPer100, locale)}{" "}
               <span className="text-[10px] tracking-tighter uppercase opacity-70">
                 {t("kcal")}
               </span>
@@ -54,21 +54,22 @@ export default function FoodCard({
                   className="size-1 rounded-full"
                   style={{ backgroundColor: "var(--protein)" }}
                 />{" "}
-                P: {food?.proteinPer100}g
+                {tHome("proteinAbbr")}:{" "}
+                {formatNumber(food?.proteinPer100, locale)}g
               </span>
               <span className="flex items-center gap-1">
                 <div
                   className="size-1 rounded-full"
                   style={{ backgroundColor: "var(--carbs)" }}
                 />{" "}
-                C: {food?.carbsPer100}g
+                {tHome("carbsAbbr")}: {formatNumber(food?.carbsPer100, locale)}g
               </span>
               <span className="flex items-center gap-1">
                 <div
                   className="size-1 rounded-full"
                   style={{ backgroundColor: "var(--fat)" }}
                 />{" "}
-                F: {food?.fatPer100}g
+                {tHome("fatAbbr")}: {formatNumber(food?.fatPer100, locale)}g
               </span>
             </div>
           </div>

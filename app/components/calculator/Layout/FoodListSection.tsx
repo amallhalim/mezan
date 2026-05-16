@@ -1,7 +1,9 @@
+import { useTranslations, useLocale } from "next-intl";
 import React from "react";
 import { Search } from "lucide-react";
 import { Food } from "@/app/lib/data";
 import FoodCard from "./FoodCard";
+import { formatNumber } from "@/app/lib/numberUtils";
 
 interface FoodListSectionProps {
   filteredFoods: Food[];
@@ -16,6 +18,8 @@ export default function FoodListSection({
   activeFood,
   setActiveFood,
 }: FoodListSectionProps) {
+  const t = useTranslations("HomePage");
+  const locale = useLocale();
   return (
     <section>
       {filteredFoods.length > 0 ? (
@@ -23,7 +27,9 @@ export default function FoodListSection({
           {/* Section label */}
           <div className="mb-4 flex items-center gap-3 px-1">
             <p className="text-[10px] font-black tracking-[0.2em] text-gray-600 uppercase">
-              {searchQuery ? `Results · ${filteredFoods.length}` : "Foods"}
+              {searchQuery
+                ? `${t("results")} · ${formatNumber(filteredFoods.length, locale)}`
+                : t("foods")}
             </p>
             <div className="h-px flex-1 bg-white/5" />
           </div>
@@ -53,16 +59,18 @@ export default function FoodListSection({
             </div>
             <div className="bg-primary/5 absolute inset-0 -z-10 rounded-3xl blur-2xl" />
           </div>
-          <h3 className="mb-1 text-lg font-black text-white">No results</h3>
+          <h3 className="mb-1 text-lg font-black text-white">
+            {t("noResults")}
+          </h3>
           <p className="mb-6 max-w-[220px] text-sm leading-relaxed text-gray-500">
-            Can&apos;t find{" "}
+            {t("cantFind")}{" "}
             <span className="text-primary font-bold">
               &quot;{searchQuery}&quot;
             </span>{" "}
-            — request it to be added.
+            — {t("requestFood").toLowerCase()}.
           </p>
           <button className="bg-primary/10 hover:bg-primary/20 text-primary border-primary/20 hover:border-primary/40 flex items-center gap-2 rounded-xl border px-6 py-3 text-xs font-black tracking-widest uppercase transition-all">
-            <span>+</span> Request Food
+            <span>+</span> {t("requestFood")}
           </button>
         </div>
       )}

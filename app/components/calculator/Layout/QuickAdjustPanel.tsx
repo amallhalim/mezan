@@ -1,7 +1,9 @@
 "use client";
+import { useTranslations, useLocale } from "next-intl";
 import React from "react";
 import { X, Calculator } from "lucide-react";
 import { Food } from "@/app/lib/data";
+import { formatNumber } from "@/app/lib/numberUtils";
 import { useFoodCalculator } from "@/app/hooks/useFoodCalculator";
 import PortionSizeOptions from "@/app/components/calculator/PortionSelector/PortionSizeOptions";
 import QuantitySelector from "@/app/components/calculator/PortionSelector/QuantitySelector";
@@ -29,6 +31,11 @@ export default function QuickAdjustPanel({
   isEditing = false,
   initialValues,
 }: QuickAdjustPanelProps) {
+  const t = useTranslations("HomePage");
+  const tAbout = useTranslations("about");
+  const locale = useLocale();
+  const isArabic = locale === "ar";
+  const displayName = isArabic ? food.nameAr : food.name;
   const {
     amount,
     setAmount,
@@ -64,15 +71,12 @@ export default function QuickAdjustPanel({
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="text-xl leading-tight font-black text-white">
-                  {food.name}
+                  {displayName}
                 </h3>
-                <span className="text-primary/60 text-sm font-bold" dir="rtl">
-                  {food.nameAr}
-                </span>
               </div>
               <p className="text-primary text-[10px] font-black tracking-widest uppercase opacity-80">
-                {amount}
-                {calculated.unit} • {isRaw ? "RAW" : "COOKED"}
+                {formatNumber(amount, locale)}
+                {calculated.unit} • {isRaw ? t("raw") : t("cooked")}
               </p>
             </div>
           </div>
@@ -80,10 +84,10 @@ export default function QuickAdjustPanel({
           <div className="flex items-center gap-6">
             <div className="text-right">
               <span className="text-primary text-4xl leading-none font-black tabular-nums drop-shadow-[0_0_20px_rgba(16,185,129,0.3)]">
-                {calculated.calories}
+                {formatNumber(calculated.calories, locale)}
               </span>
               <p className="text-[10px] font-black tracking-tighter text-gray-500 uppercase">
-                kcal
+                {tAbout("kcal")}
               </p>
             </div>
             <button
@@ -109,34 +113,34 @@ export default function QuickAdjustPanel({
             presets={presets}
             selectedId={selectedSizeId}
             onSelect={handleSizeSelect}
-            label="Quick Portions"
+            label={t("quickPortions")}
           />
 
           <div className="flex items-end gap-4">
             <QuantitySelector
               quantity={quantity}
               onChange={setQuantity}
-              label="Multiplier"
+              label={t("multiplier")}
               isCompact={true}
             />
 
             {food.isRawCookedToggle && (
               <div className="flex-1 space-y-1.5">
                 <label className="ml-1 text-[9px] font-black tracking-[0.15em] text-gray-500 uppercase">
-                  State
+                  {t("state")}
                 </label>
                 <div className="flex h-10 items-center justify-between rounded-xl border border-white/5 bg-white/5 p-1">
                   <button
                     onClick={() => setIsRaw(false)}
                     className={`h-full flex-1 rounded-lg text-[9px] font-black tracking-widest uppercase transition-all ${!isRaw ? "bg-primary text-secondary" : "text-gray-500 hover:text-white"}`}
                   >
-                    Cooked
+                    {t("cooked")}
                   </button>
                   <button
                     onClick={() => setIsRaw(true)}
                     className={`h-full flex-1 rounded-lg text-[9px] font-black tracking-widest uppercase transition-all ${isRaw ? "bg-primary text-secondary" : "text-gray-500 hover:text-white"}`}
                   >
-                    Raw
+                    {t("raw")}
                   </button>
                 </div>
               </div>
@@ -157,7 +161,7 @@ export default function QuickAdjustPanel({
           <WeightInput
             amount={amount}
             unit={calculated.unit}
-            label="Custom"
+            label={t("custom")}
             onChange={(val) => {
               setAmount(val);
               setSelectedSizeId("custom");
@@ -168,7 +172,7 @@ export default function QuickAdjustPanel({
         {/* Action Buttons Row */}
         <div className="flex gap-4">
           <Button variant="secondary" onClick={() => onAdd(calculated)}>
-            {isEditing ? "UPDATE ITEM" : "ADD TO PLATE   "}
+            {isEditing ? t("updateItem") : t("addToPlate")}
           </Button>
 
           <Button
@@ -176,7 +180,7 @@ export default function QuickAdjustPanel({
             leftIcon={<Calculator className="size-5" />}
             onClick={() => onPreview(calculated)}
           >
-            {isEditing ? "SAVE & PREVIEW" : "PREVIEW RESULT"}
+            {isEditing ? t("savePreview") : t("previewResult")}
           </Button>
         </div>
       </div>

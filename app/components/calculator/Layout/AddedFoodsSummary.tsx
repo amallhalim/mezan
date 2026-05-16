@@ -1,7 +1,9 @@
 "use client";
+import { useTranslations, useLocale } from "next-intl";
 import React from "react";
 import { Trash2, Edit2, RotateCcw } from "lucide-react";
 import { Plate } from "@/app/store/usePlatesStore";
+import { formatNumber } from "@/app/lib/numberUtils";
 
 interface AddedFoodsSummaryProps {
   items: Plate[];
@@ -16,20 +18,25 @@ export default function AddedFoodsSummary({
   onEdit,
   onClearAll,
 }: AddedFoodsSummaryProps) {
+  const t = useTranslations("HomePage");
+  const tAbout = useTranslations("about");
+  const locale = useLocale();
+  const isArabic = locale === "ar";
+
   if (items.length === 0) return null;
 
   return (
     <div className="animate-in fade-in space-y-4 duration-500">
       <div className="flex items-center justify-between px-2">
         <h2 className="text-[10px] font-black tracking-[0.2em] text-gray-500 uppercase">
-          Your Plate ({items.length})
+          {t("yourPlate")} ({formatNumber(items.length, locale)})
         </h2>
         <button
           onClick={onClearAll}
           className="flex items-center gap-1.5 text-[10px] font-black tracking-widest text-rose-500/60 uppercase transition-colors hover:text-rose-500"
         >
           <RotateCcw className="size-3" />
-          Clear All
+          {t("clearAll")}
         </button>
       </div>
 
@@ -49,26 +56,31 @@ export default function AddedFoodsSummary({
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <p className="text-sm font-black text-white">{item?.name}</p>
+                  <p className="text-sm font-black text-white">
+                    {isArabic ? item?.nameAr : item?.name}
+                  </p>
                   <Edit2 className="text-primary size-3 opacity-0 transition-opacity group-hover:opacity-100" />
                 </div>
                 <p className="mt-0.5 text-[10px] font-black tracking-tight text-gray-500 uppercase">
                   {(item?.quantity ?? 0) > 1 ? (
-                    <span className="text-primary">{item?.quantity}x </span>
+                    <span className="text-primary">
+                      {formatNumber(item?.quantity ?? 1, locale)}x{" "}
+                    </span>
                   ) : (
                     ""
                   )}
-                  {item?.selectedAmount}
+                  {formatNumber(item?.selectedAmount ?? 0, locale)}
                   {item?.unit}
                   {item?.sizeType === "DRINK" &&
                     (item?.sugarCount ?? 0) > 0 && (
                       <span className="text-primary">
                         {" "}
-                        + {item.sugarCount} sugar
+                        + {formatNumber(item?.sugarCount ?? 0, locale)}{" "}
+                        {t("sugar")}
                       </span>
                     )}
                   {item?.isRawCookedToggle &&
-                    ` • ${item?.isRaw ? "Raw" : "Cooked"}`}
+                    ` • ${item?.isRaw ? t("raw") : t("cooked")}`}
                 </p>
               </div>
             </div>
@@ -76,10 +88,10 @@ export default function AddedFoodsSummary({
             <div className="flex items-center gap-6">
               <div className="text-right">
                 <p className="text-primary text-base leading-none font-black tabular-nums">
-                  {item?.calories}
+                  {formatNumber(item?.calories ?? 0, locale)}
                 </p>
                 <span className="text-[9px] font-bold tracking-tighter text-gray-600 uppercase">
-                  kcal
+                  {tAbout("kcal")}
                 </span>
               </div>
               <button

@@ -1,3 +1,5 @@
+import { useTranslations, useLocale } from "next-intl";
+import { formatNumber } from "@/app/lib/numberUtils";
 import React from "react";
 import { Search, Activity, Zap, ChevronRight } from "lucide-react";
 import FoodCategoryTabs from "@/app/components/calculator/Layout/FoodCategoryTabs";
@@ -19,63 +21,63 @@ export default function CalculatorHeader({
   selectedCategory,
   setSelectedCategory,
 }: CalculatorHeaderProps) {
+  const t = useTranslations("HomePage");
+  const locale = useLocale();
+
   return (
     <header className="mb-8">
       {/* Brand row */}
-      <div className="flex items-start justify-between mb-7">
+      <div className="mb-7 flex items-start justify-between">
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            <div className="relative flex items-center justify-center size-9 rounded-xl bg-primary/10 border border-primary/20">
+          <div className="mb-1 flex items-center gap-2">
+            <div className="bg-primary/10 border-primary/20 relative flex size-9 items-center justify-center rounded-xl border">
               <Activity className="text-primary size-4" />
-              <span className="absolute -top-0.5 -right-0.5 size-2 rounded-full bg-primary animate-pulse" />
+              <span className="bg-primary absolute -top-0.5 -right-0.5 size-2 animate-pulse rounded-full" />
             </div>
-            <span className="text-[11px] font-black tracking-[0.25em] text-primary/60 uppercase">
+            <span className="text-primary/60 text-[11px] font-black tracking-[0.25em] uppercase">
               Mezan
             </span>
           </div>
-          <h1 className="text-4xl font-black tracking-tighter text-white leading-none">
+          <h1 className="text-4xl leading-none font-black tracking-tighter text-white">
             Macro
             <span className="text-primary ml-2">Calc</span>
-            <span className="text-white/10 ml-2">.</span>
+            <span className="ml-2 text-white/10">.</span>
           </h1>
         </div>
 
         {selectedFoodListLength > 0 && (
           <button
             onClick={() => setShowMealSummary(true)}
-            className="flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl px-4 py-2.5 transition-all group"
+            className="group flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2.5 transition-all hover:bg-white/10"
           >
-            <Zap className="size-3.5 text-primary" />
+            <Zap className="text-primary size-3.5" />
             <span className="text-xs font-black text-white">
-              {selectedFoodListLength} foods
+              {formatNumber(selectedFoodListLength, locale)} {t("foods")}
             </span>
-            <ChevronRight className="size-3.5 text-gray-600 group-hover:text-white transition-colors" />
+            <ChevronRight className="size-3.5 text-gray-600 transition-colors group-hover:text-white" />
           </button>
         )}
       </div>
 
       {/* Search bar */}
       <div className="relative mb-4">
-        <div className="absolute inset-0 rounded-2xl bg-primary/5 blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity -z-10" />
-        <div className="relative group">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-gray-500 group-focus-within:text-primary transition-colors duration-200 z-10" />
+        <div className="bg-primary/5 absolute inset-0 -z-10 rounded-2xl opacity-0 blur-xl transition-opacity group-focus-within:opacity-100" />
+        <div className="group relative">
+          <Search className="group-focus-within:text-primary absolute top-1/2 left-4 z-10 size-4 -translate-y-1/2 text-gray-500 transition-colors duration-200" />
           <input
             type="text"
             data-testid="search-input"
-            aria-label="Search 1000+ foods"
-            placeholder="Search 1000+ foods..."
+            aria-label={t("searchPlaceholder")}
+            placeholder={t("searchPlaceholder")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-white/[0.04] hover:bg-white/[0.06] focus:bg-white/[0.06]
-              border border-white/[0.06] focus:border-primary/40
-              rounded-2xl py-4 pl-12 pr-4 text-white placeholder:text-gray-600
-              font-medium transition-all duration-200 outline-none text-sm"
+            className="focus:border-primary/40 w-full rounded-2xl border border-white/[0.06] bg-white/[0.04] py-4 pr-4 pl-12 text-sm font-medium text-white transition-all duration-200 outline-none placeholder:text-gray-600 hover:bg-white/[0.06] focus:bg-white/[0.06]"
           />
           {searchQuery && (
             <button
               data-testid="search-close-button"
               onClick={() => setSearchQuery("")}
-              className="absolute right-4 top-1/2 -translate-y-1/2 size-5 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all text-gray-400 hover:text-white text-xs font-black"
+              className="absolute top-1/2 right-4 flex size-5 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-xs font-black text-gray-400 transition-all hover:bg-white/20 hover:text-white"
             >
               ✕
             </button>
@@ -85,7 +87,7 @@ export default function CalculatorHeader({
 
       {/* Category tabs */}
       <div
-        className={`transition-all duration-300 overflow-hidden ${searchQuery ? "max-h-0 opacity-0" : "max-h-24 opacity-100"}`}
+        className={`overflow-hidden transition-all duration-300 ${searchQuery ? "max-h-0 opacity-0" : "max-h-24 opacity-100"}`}
       >
         <FoodCategoryTabs
           selectedId={selectedCategory}

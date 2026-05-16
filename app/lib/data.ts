@@ -716,6 +716,5 @@ export const FOODS: Food[] = [
 // Helper for backward compatibility (maps flat foods back into categories for UI)
 export const category = CATEGORIES.map((cat) => ({
   ...cat,
-  name: `${cat.name} | ${cat.nameAr}`,
   foods: FOODS.filter((food) => food.categoryId === cat.id),
 }));

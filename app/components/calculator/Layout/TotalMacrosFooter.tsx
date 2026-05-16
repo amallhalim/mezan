@@ -1,6 +1,8 @@
 "use client";
+import { useTranslations, useLocale } from "next-intl";
 import React from "react";
 import { Zap, ChevronRight } from "lucide-react";
+import { formatNumber } from "@/app/lib/numberUtils";
 
 interface TotalMacrosFooterProps {
   totals: { calories: number; protein: number; carbs: number; fat: number };
@@ -89,6 +91,8 @@ export default function TotalMacrosFooter({
   totals,
   onClick,
 }: TotalMacrosFooterProps) {
+  const t = useTranslations("HomePage");
+  const locale = useLocale();
   const calPct = Math.min((totals.calories / GOALS.calories) * 100, 100);
   const isOver = totals.calories > GOALS.calories;
   const isNear = calPct >= 80 && !isOver;
@@ -101,22 +105,22 @@ export default function TotalMacrosFooter({
   const calDash = (calPct / 100) * CIRC;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 px-3 md:px-4 pb-4 md:pb-5 pt-2 bg-gradient-to-t from-background via-background/90 to-transparent">
+    <div className="from-background via-background/90 fixed right-0 bottom-0 left-0 z-40 bg-gradient-to-t to-transparent px-3 pt-2 pb-4 md:px-4 md:pb-5">
       <div className="container mx-auto max-w-2xl">
         <div
           onClick={onClick}
           role="button"
           aria-label="Calculate Meal Summary"
-          className="relative group bg-card/60 backdrop-blur-xl border border-white/10 rounded-[2rem] overflow-hidden transition-all hover:bg-card/80 cursor-pointer"
+          className="group bg-card/60 hover:bg-card/80 relative cursor-pointer overflow-hidden rounded-[2rem] border border-white/10 backdrop-blur-xl transition-all"
           style={{
             boxShadow: `0 0 0 1px var(--border), 0 24px 48px rgba(0,0,0,0.6), 0 0 60px oklch(from ${calGlow} l c h / 0.12)`,
           }}
         >
           {/* Top shimmer line */}
-          <div className="absolute top-0 left-6 right-6 h-px shimmer-horizontal opacity-30" />
+          <div className="shimmer-horizontal absolute top-0 right-6 left-6 h-px opacity-30" />
 
           {/* Calorie progress bar — ultra thin */}
-          <div className="absolute top-0 left-0 right-0 h-[3px] bg-white/[0.04] overflow-hidden rounded-t-3xl">
+          <div className="absolute top-0 right-0 left-0 h-[3px] overflow-hidden rounded-t-3xl bg-white/[0.04]">
             <div
               className="h-full transition-all duration-1000 ease-out"
               style={{
@@ -129,12 +133,12 @@ export default function TotalMacrosFooter({
             />
           </div>
 
-          <div className="flex items-center gap-3 md:gap-5 px-4 md:px-6 py-2.5 md:py-4">
+          <div className="flex items-center gap-3 px-4 py-2.5 md:gap-5 md:px-6 md:py-4">
             {/* ── Big calorie donut ── */}
-            <div className="relative shrink-0 flex items-center justify-center size-12 md:size-16">
+            <div className="relative flex size-12 shrink-0 items-center justify-center md:size-16">
               {isNear && (
                 <span
-                  className="absolute inset-0 rounded-full border animate-ping opacity-10"
+                  className="absolute inset-0 animate-ping rounded-full border opacity-10"
                   style={{ borderColor: calColor }}
                 />
               )}
@@ -170,42 +174,47 @@ export default function TotalMacrosFooter({
                 className="relative flex flex-col items-center justify-center"
                 style={{ color: calColor }}
               >
-                <Zap className="size-4 md:size-5 fill-current" />
+                <Zap className="size-4 fill-current md:size-5" />
               </div>
             </div>
 
             {/* ── Calorie numbers ── */}
-            <div className="flex flex-col shrink-0">
+            <div className="flex shrink-0 flex-col">
               <span
-                className="text-[8px] md:text-[9px] font-black tracking-[0.2em] uppercase mb-0.5"
+                className="mb-0.5 text-[8px] font-black tracking-[0.2em] uppercase md:text-[9px]"
                 style={{
                   color: isOver ? "var(--error)" : "rgba(255,255,255,0.3)",
                 }}
               >
-                {isOver ? "⚠ OVER" : "Calories"}
+                {isOver ? t("overLimit") : t("calories")}
               </span>
               <div className="flex items-baseline gap-1">
                 <span
                   aria-label="Total Calories"
-                  className="text-xl md:text-[2rem] font-black leading-none tabular-nums tracking-tighter"
+                  className="text-xl leading-none font-black tracking-tighter tabular-nums md:text-[2rem]"
                   style={{ color: calColor, textShadow: `0 0 20px ${calGlow}` }}
                 >
-                  {totals.calories}
+                  {formatNumber(totals.calories, locale)}
                 </span>
-                <span className="text-[10px] font-bold text-white/20 hidden md:inline">
-                  /{GOALS.calories}
+                <span className="hidden text-[10px] font-bold text-white/20 md:inline">
+                  /{formatNumber(GOALS.calories, locale)}
                 </span>
               </div>
-              <span className="text-[8px] md:text-[9px] font-black tracking-widest uppercase mt-0.5 opacity-40 hidden md:block">
-                {Math.max(GOALS.calories - totals.calories, 0)} kcal left
+              <span className="mt-0.5 hidden text-[8px] font-black tracking-widest uppercase opacity-40 md:block md:text-[9px]">
+                {t("kcalLeft", {
+                  count: formatNumber(
+                    Math.max(GOALS.calories - totals.calories, 0),
+                    locale
+                  ),
+                })}
               </span>
             </div>
 
             {/* Divider */}
-            <div className="w-px h-8 md:h-12 bg-white/5 mx-0.5 md:mx-1 shrink-0" />
+            <div className="mx-0.5 h-8 w-px shrink-0 bg-white/5 md:mx-1 md:h-12" />
 
             {/* ── Macro rings ── */}
-            <div className="flex-1 flex items-center justify-around gap-2 md:gap-4 overflow-hidden">
+            <div className="flex flex-1 items-center justify-around gap-2 overflow-hidden md:gap-4">
               {MACROS.map((m) => {
                 const val = totals[m.key];
                 const goal = GOALS[m.key];
@@ -214,9 +223,9 @@ export default function TotalMacrosFooter({
                 return (
                   <div
                     key={m.key}
-                    className="flex flex-col items-center gap-1 md:gap-1.5 shrink-0"
+                    className="flex shrink-0 flex-col items-center gap-1 md:gap-1.5"
                   >
-                    <div className="relative flex items-center justify-center size-9 md:size-12">
+                    <div className="relative flex size-9 items-center justify-center md:size-12">
                       <ArcRing
                         percent={pct}
                         color={m.color}
@@ -226,15 +235,15 @@ export default function TotalMacrosFooter({
                       />
                       <div className="absolute flex items-center justify-center">
                         <span
-                          className="text-[10px] md:text-[11px] font-black leading-none tabular-nums"
+                          className="text-[10px] leading-none font-black tabular-nums md:text-[11px]"
                           style={{ color: m.color }}
                         >
-                          {Math.round(val)}
+                          {formatNumber(Math.round(val), locale)}
                         </span>
                       </div>
                     </div>
-                    <span className="text-[7px] md:text-[8px] font-black tracking-[0.1em] uppercase opacity-40">
-                      {m.short}
+                    <span className="text-[7px] font-black tracking-[0.1em] uppercase opacity-40 md:text-[8px]">
+                      {t(m.key)}
                     </span>
                   </div>
                 );
@@ -242,8 +251,8 @@ export default function TotalMacrosFooter({
             </div>
 
             {/* ── CTA button ── */}
-            <div className="shrink-0 flex items-center justify-center size-9 md:size-11 rounded-xl md:rounded-2xl transition-all duration-200 group-hover:bg-primary/20 bg-white/5 border border-white/10">
-              <ChevronRight className="size-4 md:size-5 text-white/40 group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+            <div className="group-hover:bg-primary/20 flex size-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition-all duration-200 md:size-11 md:rounded-2xl">
+              <ChevronRight className="group-hover:text-primary size-4 text-white/40 transition-all group-hover:translate-x-0.5 md:size-5" />
             </div>
           </div>
         </div>
