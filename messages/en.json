@@ -12,7 +12,9 @@
     "liveSyncing": "Live & Syncing",
     "architecture": "Architecture",
     "openCalculator": "Open Calculator",
-    "returnEngine": "Return to the macro engine"
+    "returnEngine": "Return to the macro engine",
+    "currentDate": "Current Date",
+    "currentTime": "Current Time"
   },
   "about": {
     "kcal": "kcal",

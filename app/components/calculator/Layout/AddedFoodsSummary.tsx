@@ -1,12 +1,12 @@
 "use client";
 import React from "react";
 import { Trash2, Edit2, RotateCcw } from "lucide-react";
-import Button from "../Common/Button";
+import { Plate } from "@/app/store/usePlatesStore";
 
 interface AddedFoodsSummaryProps {
-  items: any[];
+  items: Plate[];
   onRemove: (index: number) => void;
-  onEdit: (item: any, index: number) => void;
+  onEdit: (item: Plate, index: number) => void;
   onClearAll: () => void;
 }
 
@@ -19,14 +19,14 @@ export default function AddedFoodsSummary({
   if (items.length === 0) return null;
 
   return (
-    <div className="space-y-4 animate-in fade-in duration-500">
+    <div className="animate-in fade-in space-y-4 duration-500">
       <div className="flex items-center justify-between px-2">
-        <h2 className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em]">
+        <h2 className="text-[10px] font-black tracking-[0.2em] text-gray-500 uppercase">
           Your Plate ({items.length})
         </h2>
         <button
           onClick={onClearAll}
-          className="flex items-center gap-1.5 text-[10px] font-black text-rose-500/60 hover:text-rose-500 transition-colors uppercase tracking-widest"
+          className="flex items-center gap-1.5 text-[10px] font-black tracking-widest text-rose-500/60 uppercase transition-colors hover:text-rose-500"
         >
           <RotateCcw className="size-3" />
           Clear All
@@ -37,35 +37,36 @@ export default function AddedFoodsSummary({
         {items.map((item, idx) => (
           <div
             key={`${item?.id}-${idx}`}
-            className="group relative flex items-center justify-between bg-white/5 backdrop-blur-md hover:bg-white/[0.08] p-4 rounded-[1.5rem] border border-white/5 hover:border-white/10 transition-all animate-in slide-in-from-right duration-500"
+            className="group animate-in slide-in-from-right relative flex items-center justify-between rounded-[1.5rem] border border-white/5 bg-white/5 p-4 backdrop-blur-md transition-all duration-500 hover:border-white/10 hover:bg-white/[0.08]"
             style={{ animationDelay: `${idx * 50}ms` }}
           >
             <div
-              className="flex items-center gap-4 flex-1 cursor-pointer"
+              className="flex flex-1 cursor-pointer items-center gap-4"
               onClick={() => onEdit(item, idx)}
             >
-              <div className="size-12 rounded-2xl bg-white/5 flex items-center justify-center text-2xl shadow-inner group-hover:scale-110 transition-transform">
+              <div className="flex size-12 items-center justify-center rounded-2xl bg-white/5 text-2xl shadow-inner transition-transform group-hover:scale-110">
                 {item?.icon}
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <p className="text-white font-black text-sm">{item?.name}</p>
-                  <Edit2 className="size-3 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <p className="text-sm font-black text-white">{item?.name}</p>
+                  <Edit2 className="text-primary size-3 opacity-0 transition-opacity group-hover:opacity-100" />
                 </div>
-                <p className="text-gray-500 text-[10px] uppercase font-black tracking-tight mt-0.5">
-                  {item?.quantity > 1 ? (
+                <p className="mt-0.5 text-[10px] font-black tracking-tight text-gray-500 uppercase">
+                  {(item?.quantity ?? 0) > 1 ? (
                     <span className="text-primary">{item?.quantity}x </span>
                   ) : (
                     ""
                   )}
                   {item?.selectedAmount}
                   {item?.unit}
-                  {item?.sizeType === "DRINK" && item?.sugarCount > 0 && (
-                    <span className="text-primary">
-                      {" "}
-                      + {item.sugarCount} sugar
-                    </span>
-                  )}
+                  {item?.sizeType === "DRINK" &&
+                    (item?.sugarCount ?? 0) > 0 && (
+                      <span className="text-primary">
+                        {" "}
+                        + {item.sugarCount} sugar
+                      </span>
+                    )}
                   {item?.isRawCookedToggle &&
                     ` • ${item?.isRaw ? "Raw" : "Cooked"}`}
                 </p>
@@ -74,10 +75,10 @@ export default function AddedFoodsSummary({
 
             <div className="flex items-center gap-6">
               <div className="text-right">
-                <p className="text-primary font-black text-base tabular-nums leading-none">
+                <p className="text-primary text-base leading-none font-black tabular-nums">
                   {item?.calories}
                 </p>
-                <span className="text-[9px] text-gray-600 font-bold uppercase tracking-tighter">
+                <span className="text-[9px] font-bold tracking-tighter text-gray-600 uppercase">
                   kcal
                 </span>
               </div>
@@ -86,7 +87,7 @@ export default function AddedFoodsSummary({
                   e.stopPropagation();
                   onRemove(idx);
                 }}
-                className="size-8 rounded-xl bg-rose-500/5 flex items-center justify-center text-gray-600 hover:bg-rose-500/10 hover:text-rose-500 transition-all active:scale-90"
+                className="flex size-8 items-center justify-center rounded-xl bg-rose-500/5 text-gray-600 transition-all hover:bg-rose-500/10 hover:text-rose-500 active:scale-90"
               >
                 <Trash2 className="size-4" />
               </button>

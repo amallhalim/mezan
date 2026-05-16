@@ -1,16 +1,25 @@
 "use client";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { ArrowRight, ShieldCheck, Cpu } from "lucide-react";
+import { ArrowRight, ShieldCheck, Cpu, Clock, Calendar } from "lucide-react";
 import { useTheme } from "./context/ThemeContext";
 import Counter from "./Counter";
 import ShowData from "./ShowData";
-import { useTranslations } from "next-intl";
+import { useTranslations, useFormatter } from "next-intl";
 import LanguageSwitcher from "./components/LanguageSwitcher";
 import { Link } from "../i18n/navigation";
 
 export default function HomeClient() {
   const { theme, toggleTheme } = useTheme();
   const t = useTranslations("HomePage");
+  const format = useFormatter();
+  const [now, setNow] = useState(new Date());
+
+  // Update time every minute
+  useEffect(() => {
+    const timer = setInterval(() => setNow(new Date()), 60000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div
@@ -153,6 +162,44 @@ export default function HomeClient() {
                 >
                   v1.0.4-stable
                 </span>
+              </div>
+            </section>
+
+            <section className="grid grid-cols-2 gap-4">
+              <div className="flex items-center gap-4 rounded-[2rem] border border-white/5 bg-white/[0.03] p-5 backdrop-blur-xl transition-all hover:bg-white/5">
+                <div className="bg-primary/10 border-primary/20 flex size-10 items-center justify-center rounded-xl border">
+                  <Clock className="text-primary size-5" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[9px] font-black tracking-widest text-gray-500 uppercase">
+                    {t("currentTime")}
+                  </span>
+                  <span className="text-sm font-black text-white tabular-nums">
+                    {format.dateTime(now, {
+                      hour: "numeric",
+                      minute: "numeric",
+                      hour12: true,
+                    })}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 rounded-[2rem] border border-white/5 bg-white/[0.03] p-5 backdrop-blur-xl transition-all hover:bg-white/5">
+                <div className="bg-primary/10 border-primary/20 flex size-10 items-center justify-center rounded-xl border">
+                  <Calendar className="text-primary size-5" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[9px] font-black tracking-widest text-gray-500 uppercase">
+                    {t("currentDate")}
+                  </span>
+                  <span className="text-sm font-black text-white">
+                    {format.dateTime(now, {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    })}
+                  </span>
+                </div>
               </div>
             </section>
 

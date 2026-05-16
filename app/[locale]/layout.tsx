@@ -38,7 +38,7 @@ const tajawal = Tajawal({
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Metadata" });
@@ -57,7 +57,7 @@ export function generateStaticParams() {
 export default async function LocaleLayout({
   children,
   params,
-}: PropsWithChildren<{ params: { locale: string } }>) {
+}: PropsWithChildren<{ params: Promise<{ locale: string }> }>) {
   const { locale } = await params;
 
   // 1. Security Check

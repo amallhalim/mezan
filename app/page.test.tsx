@@ -1,6 +1,6 @@
 import { render, screen } from "./tests/test-utils";
 
-import Home from "./page";
+import Home from "./HomeClient";
 import userEvent from "@testing-library/user-event";
 
 /**
