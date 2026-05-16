@@ -2,16 +2,17 @@
 import React, { useState } from "react";
 import { X, Scale, Info } from "lucide-react";
 import { SIZE_PRESETS, Food, SizePreset } from "@/app/lib/data";
+import { Plate } from "@/app/store/usePlatesStore";
 import { calculateNutrients } from "@/app/lib/calculatorUtils";
-import NutrientDisplay from "./PortionSelector/NutrientDisplay";
-import QuantityStepper from "./PortionSelector/QuantityStepper";
-import SizePresets from "./PortionSelector/SizePresets";
-import PreviewCard from "./PortionSelector/PreviewCard";
+import MacroNutrientStats from "./PortionSelector/MacroNutrientStats";
+import QuantitySelector from "./PortionSelector/QuantitySelector";
+import PortionSizeOptions from "./PortionSelector/PortionSizeOptions";
+import SelectedPortionPreview from "./PortionSelector/SelectedPortionPreview";
 
 interface PortionSelectorProps {
   food: Food | null;
   onClose: () => void;
-  onConfirm: (calculatedFood: any) => void;
+  onConfirm: (calculatedFood: Plate) => void;
 }
 
 export default function PortionSelector({
@@ -31,9 +32,10 @@ export default function PortionSelector({
   // Calculation Logic
   const nutrients = calculateNutrients(food, amount, quantity, isRaw);
 
-  const calculated = {
+  const calculated: Plate = {
     ...food,
     ...nutrients,
+    id: food.id,
     selectedAmount: amount,
     unit: presets[0]?.unit || "g",
     isRaw,
@@ -46,24 +48,24 @@ export default function PortionSelector({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-zinc-950 w-full max-w-lg rounded-t-3xl sm:rounded-3xl border border-white/10 shadow-2xl overflow-hidden animate-in slide-in-from-bottom duration-300">
+    <div className="animate-in fade-in fixed inset-0 z-50 flex items-end justify-center bg-black/60 p-0 backdrop-blur-sm duration-200 sm:items-center sm:p-4">
+      <div className="animate-in slide-in-from-bottom w-full max-w-lg overflow-hidden rounded-t-3xl border border-white/10 bg-zinc-950 shadow-2xl duration-300 sm:rounded-3xl">
         {/* Header */}
-        <div className="relative p-6 border-b border-white/5 bg-white/5">
+        <div className="relative border-b border-white/5 bg-white/5 p-6">
           <button
             onClick={onClose}
-            className="absolute right-4 top-4 p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors"
+            className="absolute top-4 right-4 rounded-full bg-white/5 p-2 transition-colors hover:bg-white/10"
           >
             <X className="size-5 text-gray-400" />
           </button>
 
           <div className="flex items-center gap-4">
-            <div className="size-16 rounded-2xl bg-primary/20 flex items-center justify-center text-4xl shadow-inner">
+            <div className="bg-primary/20 flex size-16 items-center justify-center rounded-2xl text-4xl shadow-inner">
               {food?.icon}
             </div>
             <div>
               <h2 className="text-2xl font-bold text-white">{food.name}</h2>
-              <p className="text-gray-400 text-sm flex items-center gap-1">
+              <p className="flex items-center gap-1 text-sm text-gray-400">
                 <Info className="size-3" /> {food.caloriesPer100} kcal / 100
                 {presets[0]?.unit}
               </p>
@@ -71,47 +73,49 @@ export default function PortionSelector({
           </div>
         </div>
 
-        <div className="p-6 space-y-6 max-h-[80vh] overflow-y-auto custom-scrollbar">
-          <PreviewCard
+        <div className="custom-scrollbar max-h-[80vh] space-y-6 overflow-y-auto p-6">
+          <SelectedPortionPreview
             quantity={quantity}
             sizeLabel={currentSize?.label || "Custom"}
             foodName={food.name}
+            nameAr={food.nameAr}
             totalAmount={amount * quantity}
             unit={presets[0]?.unit || "g"}
             isRaw={isRaw}
             calories={calculated.calories}
+            icon={food.icon}
           />
 
-          <NutrientDisplay
+          <MacroNutrientStats
             protein={calculated.protein}
             carbs={calculated.carbs}
             fat={calculated.fat}
           />
 
-          <QuantityStepper
+          <QuantitySelector
             quantity={quantity}
             onChange={setQuantity}
             label={`Number of ${food.sizeType === "UNIT" ? "Pieces" : "Portions"}`}
           />
 
           {food.isRawCookedToggle && (
-            <div className="flex items-center justify-between p-1 bg-white/5 rounded-xl border border-white/5">
+            <div className="flex items-center justify-between rounded-xl border border-white/5 bg-white/5 p-1">
               <button
                 onClick={() => setIsRaw(false)}
-                className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${!isRaw ? "bg-primary text-secondary shadow-lg" : "text-gray-400 hover:text-white"}`}
+                className={`flex-1 rounded-lg py-2 text-sm font-bold transition-all ${!isRaw ? "bg-primary text-secondary shadow-lg" : "text-gray-400 hover:text-white"}`}
               >
                 Cooked
               </button>
               <button
                 onClick={() => setIsRaw(true)}
-                className={`flex-1 py-2 rounded-lg text-sm font-bold transition-all ${isRaw ? "bg-primary text-secondary shadow-lg" : "text-gray-400 hover:text-white"}`}
+                className={`flex-1 rounded-lg py-2 text-sm font-bold transition-all ${isRaw ? "bg-primary text-secondary shadow-lg" : "text-gray-400 hover:text-white"}`}
               >
                 Raw
               </button>
             </div>
           )}
 
-          <SizePresets
+          <PortionSizeOptions
             presets={presets}
             selectedId={selectedSizeId}
             onSelect={handleSizeSelect}
@@ -119,9 +123,9 @@ export default function PortionSelector({
           />
 
           {/* Custom Input */}
-          <div className="relative group">
-            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-              <Scale className="size-5 text-gray-500 group-focus-within:text-primary transition-colors" />
+          <div className="group relative">
+            <div className="pointer-events-none absolute inset-y-0 left-4 flex items-center">
+              <Scale className="group-focus-within:text-primary size-5 text-gray-500 transition-colors" />
             </div>
             <input
               type="number"
@@ -131,10 +135,10 @@ export default function PortionSelector({
                 setSelectedSizeId("custom");
               }}
               placeholder="Custom amount..."
-              className="w-full bg-white/5 border border-white/5 focus:border-primary focus:bg-white/10 rounded-2xl py-4 pl-12 pr-16 text-white font-bold transition-all outline-none"
+              className="focus:border-primary w-full rounded-2xl border border-white/5 bg-white/5 py-4 pr-16 pl-12 font-bold text-white transition-all outline-none focus:bg-white/10"
             />
             <div className="absolute inset-y-0 right-4 flex items-center">
-              <span className="text-gray-500 font-bold">
+              <span className="font-bold text-gray-500">
                 {presets[0]?.unit || "g"}
               </span>
             </div>
@@ -142,7 +146,7 @@ export default function PortionSelector({
 
           <button
             onClick={() => onConfirm(calculated)}
-            className="w-full bg-primary hover:bg-primary/90 text-secondary font-black py-5 rounded-2xl shadow-[0_10px_20px_rgba(16,185,129,0.3)] transition-all transform active:scale-[0.98]"
+            className="bg-primary hover:bg-primary/90 text-secondary w-full transform rounded-2xl py-5 font-black shadow-[0_10px_20px_rgba(16,185,129,0.3)] transition-all active:scale-[0.98]"
           >
             ADD TO PLATE dd
           </button>

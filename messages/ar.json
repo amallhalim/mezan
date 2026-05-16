@@ -12,7 +12,9 @@
     "liveSyncing": "مباشر ومتزامن",
     "architecture": "البنية",
     "openCalculator": "فتح الحاسبة",
-    "returnEngine": "العودة إلى محرك الماكرو"
+    "returnEngine": "العودة إلى محرك الماكرو",
+    "currentDate": "التاريخ الحالي",
+    "currentTime": "الوقت الحالي"
   },
   "about": {
     "kcal": "سعرة",

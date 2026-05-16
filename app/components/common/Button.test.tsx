@@ -5,7 +5,7 @@ import Button from "./Button";
 describe("main btn", () => {
   test("test click labal", () => {
     render(<Button> click </Button>);
-    expect(screen.getByText("click").toBeInTheDocument);
+    expect(screen.getByText("click")).toBeInTheDocument();
     render(<Button> 🐔 </Button>);
     expect(screen.getByText("🐔")).toBeInTheDocument();
   });

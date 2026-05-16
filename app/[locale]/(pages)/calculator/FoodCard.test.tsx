@@ -12,7 +12,9 @@ import { mockFoodData } from "@/app/tests/fixtures";
 describe("FoodCard Component", () => {
   describe("Visual Rendering", () => {
     test("renders all food data correctly", () => {
-      render(<FoodCard food={mockFoodData} />);
+      render(
+        <FoodCard food={mockFoodData} isSelected={false} onSelect={vi.fn()} />
+      );
 
       expect(screen.getByText("Chicken Breast")).toBeInTheDocument();
       expect(screen.getByText("صدر دجاج")).toBeInTheDocument();
@@ -25,7 +27,7 @@ describe("FoodCard Component", () => {
 
     test("shows active styles when selected", () => {
       const { container } = render(
-        <FoodCard food={mockFoodData} isSelected={true} />
+        <FoodCard food={mockFoodData} isSelected={true} onSelect={vi.fn()} />
       );
       // Check if the primary color classes are applied to the card
       expect(container.firstChild).toHaveClass("bg-primary/10");
@@ -38,7 +40,9 @@ describe("FoodCard Component", () => {
       const user = userEvent.setup();
       const onSelect = vi.fn();
 
-      render(<FoodCard food={mockFoodData} onSelect={onSelect} />);
+      render(
+        <FoodCard food={mockFoodData} isSelected={false} onSelect={onSelect} />
+      );
 
       /**
        * 💡 WHY getByRole?
@@ -58,7 +62,9 @@ describe("FoodCard Component", () => {
       const user = userEvent.setup();
       const onSelect = vi.fn();
 
-      render(<FoodCard food={mockFoodData} onSelect={onSelect} />);
+      render(
+        <FoodCard food={mockFoodData} isSelected={false} onSelect={onSelect} />
+      );
 
       screen.getByRole("button", {
         name: /Select Chicken Breast/i,
@@ -81,7 +87,9 @@ describe("FoodCard Component", () => {
         carbsPer100: 0,
         fatPer100: 0,
       };
-      render(<FoodCard food={zeroFood} />);
+      render(
+        <FoodCard food={zeroFood} isSelected={false} onSelect={vi.fn()} />
+      );
 
       // Ensure '0' is visible and not replaced by empty strings or null
       const zeros = screen.getAllByText(/0/);
@@ -91,7 +99,9 @@ describe("FoodCard Component", () => {
     test("does NOT call onSelect when non-action keys are pressed", async () => {
       const user = userEvent.setup();
       const onSelect = vi.fn();
-      render(<FoodCard food={mockFoodData} onSelect={onSelect} />);
+      render(
+        <FoodCard food={mockFoodData} isSelected={false} onSelect={onSelect} />
+      );
 
       screen.getByRole("button");
       await user.tab(); // Focus the card

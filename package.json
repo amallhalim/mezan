@@ -14,6 +14,7 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:ui:coverage": "vitest --ui --coverage",
+    "type-check": "tsc --noEmit",
     "prepare": "husky"
   },
   "dependencies": {

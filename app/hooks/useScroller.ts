@@ -7,7 +7,7 @@ interface UseScrollableTabsOptions {
 }
 
 interface UseScrollableTabsReturn {
-  scrollRef: React.RefObject<HTMLDivElement>;
+  scrollRef: React.RefObject<HTMLDivElement | null>;
   canScrollLeft: boolean;
   canScrollRight: boolean;
   scrollLeft: () => void;

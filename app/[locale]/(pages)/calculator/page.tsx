@@ -184,6 +184,7 @@ export default function CalculatorPage() {
       {showMealSummary && (
         <ResultModal
           item={{
+            id: "summary",
             ...totals,
             name: "My Full Plate",
             nameAr: "وجبتي بالكامل",

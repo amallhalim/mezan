@@ -10,6 +10,7 @@ Check out our documentation in the [docs/](./docs) folder:
 
 - [🧪 Testing Guide](./docs/testing.md)
 - [🛠️ Tech Stack](./docs/tech-stack.md)
+- [⚙️ Scripts Guide](./docs/SCRIPTS.md)
 
 First, run the development server:
 

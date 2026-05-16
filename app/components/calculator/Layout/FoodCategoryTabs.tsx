@@ -2,7 +2,6 @@
 import { useScroller } from "@/app/hooks/useScroller";
 import { category } from "@/app/lib/data";
 import ScrollArrow from "../../common/ScrollArrow";
-import Button from "../../Common/Button";
 import Buttons from "../../common/Buttons";
 
 interface FoodCategoryTabsProps {
@@ -28,7 +27,7 @@ export default function FoodCategoryTabs({
       <div className="relative flex-1 overflow-hidden">
         <div
           ref={scrollRef}
-          className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide px-1"
+          className="scrollbar-hide flex gap-2 overflow-x-auto px-1 pb-2"
         >
           {category.map((item) => (
             <Buttons

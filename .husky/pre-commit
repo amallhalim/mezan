@@ -1,1 +1,7 @@
+# 🛡️ QUALITY GATE: Verify types before committing
+# Why: This ensures that a change in one file hasn't broken another part of the project.
+# It prevents "broken" code from being saved to Git.
+npm run type-check
+
+# 🧹 AUTO-FORMAT & LINT: Clean up the code
 npx lint-staged

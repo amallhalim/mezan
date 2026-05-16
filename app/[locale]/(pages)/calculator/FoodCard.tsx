@@ -24,13 +24,6 @@ export default function FoodCard({
       onKeyDown={(e) => e.key === "Enter" && onSelect(food)}
       className={`group hover:border-primary/50 relative m-1 flex cursor-pointer flex-row items-center justify-between overflow-hidden rounded-2xl border border-white/5 bg-white/5 p-4 backdrop-blur-md transition-all hover:bg-white/10 ${isSelected ? "bg-primary/10 border-primary/40" : ""}`}
     >
-      {/* 🔴 UNTESTED BRANCH: This will show up as "Uncovered" in your report! */}
-      {food?.isPremium && (
-        <div className="absolute top-0 right-0 rounded-bl-lg bg-amber-500 px-2 py-0.5 text-[10px] font-bold text-white">
-          {t("premium")}
-        </div>
-      )}
-
       <div className="flex items-center gap-4">
         {food?.icon && (
           <div className="flex size-14 items-center justify-center rounded-2xl bg-white/5 text-2xl shadow-inner transition-transform group-hover:scale-110">
