@@ -16,48 +16,25 @@ In a professional development environment, you want to ensure that:
 
 ---
 
-## 🛠️ How it was Created (Setup)
-
-To set up Husky in this project, we followed these steps:
-
-1. **Installation**:
-
-   ```bash
-   npm install husky --save-dev
-   ```
-
-2. **Initialization**:
-
-   ```bash
-   npx husky init
-   ```
-
-   This created the `.husky/` directory and added a `prepare` script to `package.json`.
-
-3. **Configuring Hooks**:
-   We created the `pre-commit` hook by editing the `.husky/pre-commit` file to include our quality checks.
-
----
-
-## 🚀 How to Use it
+## 🚀 How to Use it (Quick Guide)
 
 As a developer, **you don't have to do anything special!** Husky works silently in the background.
 
 ### 1. The Automatic Check
 
-When you run `git commit`, Husky automatically triggers the scripts in order:
+When you run `git commit`, Husky automatically triggers:
 
 - **`npm run type-check`**: Validates TypeScript types.
-- **`npm test`**: Runs all unit tests.
 - **`npx lint-staged`**: Formats and lints only the files you changed.
+- _(Optional)_ **`npm test`**: Runs unit tests (if enabled).
 
 ### 2. If it Fails ❌
 
-If your code has an error (e.g., a failing test), Husky will **block the commit**. You will see an error message in your terminal. You must fix the error before you can successfully commit.
+Husky will **block the commit** if there's an error. You must fix the error before you can successfully commit.
 
 ### 3. If it Passes ✅
 
-If everything is perfect, the commit will proceed as normal. You can be 100% confident that the code you just saved is high-quality and working.
+The commit will proceed as normal.
 
 ---
 
@@ -65,7 +42,7 @@ If everything is perfect, the commit will proceed as normal. You can be 100% con
 
 Husky runs scripts, but running `eslint` or `prettier` on your _entire_ codebase every time you commit would be incredibly slow. This is where **`lint-staged`** comes in.
 
-`lint-staged` is configured in our `package.json` to only run linters and formatters against files that are currently staged for commit (the files you just added via `git add`).
+`lint-staged` only runs against files that are currently staged for commit.
 
 ### Why use `lint-staged`?
 
@@ -96,17 +73,109 @@ This is how `lint-staged` is configured in our project:
 
 ---
 
-## ⚙️ Current Configuration
+## 🛠️ Advanced Usage & Troubleshooting
 
-Your project is currently protected by these rules in `.husky/pre-commit`:
+This section contains tips for common scenarios and troubleshooting.
+
+### 1. Skipping Git Hooks
+
+**For a Single Command:**
+Use the `-n` or `--no-verify` flag:
 
 ```bash
-# 🛡️ QUALITY GATE: Verify types
-npm run type-check
-
-# 🧪 TEST RUNNER: Verify logic
-npm test
-
-# 🧹 AUTO-FORMAT: Clean up code
-npx lint-staged
+git commit -m "..." -n # Skips Git hooks
 ```
+
+**Temporarily for multiple commands:**
+
+```bash
+export HUSKY=0 # Disables all Git hooks
+git commit ...
+unset HUSKY # Re-enables hooks
+```
+
+**Globally (on your machine):**
+Modify your local config (e.g., `~/.config/husky/init.sh`):
+
+```bash
+export HUSKY=0 # Husky won't run hooks on your machine
+```
+
+### 2. CI Server and Docker
+
+To avoid installing Git Hooks on CI servers or in Docker, use `HUSKY=0`. In GitHub Actions:
+
+```yaml
+env:
+  HUSKY: 0
+```
+
+### 3. Production Safe "Prepare" Script
+
+To ensure `npm install` doesn't fail in production/CI when Husky is missing, we use a custom install script at `.husky/install.mjs`:
+
+```js
+// 🛡️ PRODUCTION-SAFE HUSKY INSTALLER
+// Why: This script prevents Husky from trying to install in production or CI environments,
+// which avoids errors when devDependencies (like Husky) are missing.
+
+if (process.env.NODE_ENV === "production" || process.env.CI === "true") {
+  console.log("🚀 Skipping Husky install (Production/CI)");
+  process.exit(0);
+}
+
+try {
+  const husky = (await import("husky")).default;
+  console.log("🐕 Initializing Husky...");
+  console.log(husky());
+} catch (error) {
+  console.error("⚠️ Could not initialize Husky:", error.message);
+}
+```
+
+**What this file does:**
+
+1. **Checks the Environment**: It looks at system variables (`NODE_ENV` and `CI`).
+2. **Aborts Safely**: If it detects a production or CI server, it stops executing successfully (`process.exit(0)`). This prevents `npm install` from failing when trying to install development tools.
+3. **Installs Husky Locally**: If it's your local machine, it imports Husky and runs the setup.
+
+In `package.json`, we configure the `prepare` script to use this file:
+
+```json
+"prepare": "node .husky/install.mjs"
+```
+
+### 4. Testing Hooks Without Committing
+
+To test a hook without creating a real commit, add `exit 1` to the hook script to abort:
+
+```bash
+# .husky/pre-commit
+# Your script...
+exit 1
+```
+
+### 5. Node Version Managers and GUIs
+
+If you use a GUI (like VS Code Git UI) with Node installed via `nvm` or `fnm`, you might get a "command not found" error.
+
+**Solution:** Copy your version manager initialization code to `~/.config/husky/init.sh`.
+Example for `nvm`:
+
+```bash
+# ~/.config/husky/init.sh
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+```
+
+---
+
+## ⚙️ Project Setup Reference
+
+1. **Installation**: `npm install husky --save-dev`
+2. **Initialization**: `npx husky init`
+3. **Current Hook ([.husky/pre-commit](file:///e:/mezan/.husky/pre-commit))**:
+   ```bash
+   npm run type-check
+   npx lint-staged
+   ```
