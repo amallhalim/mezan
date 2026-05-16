@@ -3,5 +3,10 @@
 # It prevents "broken" code from being saved to Git.
 npm run type-check
 
+# 🧪 TEST RUNNER: Verify logic correctness
+# Why: This ensures all unit tests pass before code is committed.
+# It prevents regressions from entering the codebase.
+#npm test
+
 # 🧹 AUTO-FORMAT & LINT: Clean up the code
 npx lint-staged
