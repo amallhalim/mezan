@@ -45,17 +45,17 @@ export default function Button({
       {...props}
     >
       {isLoading ? (
-        <div className="size-4 border-2 border-current border-t-transparent rounded-full animate-spin mr-2" />
+        <div className="me-2 size-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
       ) : (
         <>
           {leftIcon && (
-            <span className="mr-2 group-hover:scale-110 transition-transform">
+            <span className="me-2 transition-transform group-hover:scale-110">
               {leftIcon}
             </span>
           )}
           {children}
           {rightIcon && (
-            <span className="ml-2 group-hover:scale-110 transition-transform">
+            <span className="ms-2 transition-transform group-hover:scale-110">
               {rightIcon}
             </span>
           )}

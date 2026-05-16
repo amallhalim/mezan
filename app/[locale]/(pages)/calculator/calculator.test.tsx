@@ -15,7 +15,10 @@ beforeEach(() => {
  * Next.js Images don't work in a testing environment without it.
  */
 vi.mock("next/image", () => ({
-  default: (props: any) => <img {...props} />,
+  // eslint-disable-next-line @next/next/no-img-element
+  default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
+    <img alt="" {...props} />
+  ),
 }));
 
 test("full calculator workflow: search, add, and verify", async () => {

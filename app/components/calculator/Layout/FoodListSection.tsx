@@ -1,7 +1,7 @@
 import React from "react";
 import { Search } from "lucide-react";
 import { Food } from "@/app/lib/data";
-import FoodCard from "@/app/(pages)/calculator/FoodCard";
+import FoodCard from "./FoodCard";
 
 interface FoodListSectionProps {
   filteredFoods: Food[];
@@ -21,11 +21,11 @@ export default function FoodListSection({
       {filteredFoods.length > 0 ? (
         <>
           {/* Section label */}
-          <div className="flex items-center gap-3 mb-4 px-1">
+          <div className="mb-4 flex items-center gap-3 px-1">
             <p className="text-[10px] font-black tracking-[0.2em] text-gray-600 uppercase">
               {searchQuery ? `Results · ${filteredFoods.length}` : "Foods"}
             </p>
-            <div className="flex-1 h-px bg-white/5" />
+            <div className="h-px flex-1 bg-white/5" />
           </div>
 
           <div className="space-y-2">
@@ -46,26 +46,22 @@ export default function FoodListSection({
         </>
       ) : (
         /* Empty state */
-        <div className="flex flex-col items-center text-center py-16 px-6">
+        <div className="flex flex-col items-center px-6 py-16 text-center">
           <div className="relative mb-6">
-            <div className="size-20 rounded-3xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-center">
+            <div className="flex size-20 items-center justify-center rounded-3xl border border-white/[0.06] bg-white/[0.03]">
               <Search className="size-8 text-gray-700" />
             </div>
-            <div className="absolute inset-0 rounded-3xl bg-primary/5 blur-2xl -z-10" />
+            <div className="bg-primary/5 absolute inset-0 -z-10 rounded-3xl blur-2xl" />
           </div>
-          <h3 className="text-lg font-black text-white mb-1">No results</h3>
-          <p className="text-gray-500 text-sm mb-6 max-w-[220px] leading-relaxed">
+          <h3 className="mb-1 text-lg font-black text-white">No results</h3>
+          <p className="mb-6 max-w-[220px] text-sm leading-relaxed text-gray-500">
             Can&apos;t find{" "}
             <span className="text-primary font-bold">
               &quot;{searchQuery}&quot;
             </span>{" "}
             — request it to be added.
           </p>
-          <button
-            className="flex items-center gap-2 bg-primary/10 hover:bg-primary/20 text-primary
-            font-black text-xs py-3 px-6 rounded-xl transition-all border border-primary/20
-            hover:border-primary/40 tracking-widest uppercase"
-          >
+          <button className="bg-primary/10 hover:bg-primary/20 text-primary border-primary/20 hover:border-primary/40 flex items-center gap-2 rounded-xl border px-6 py-3 text-xs font-black tracking-widest uppercase transition-all">
             <span>+</span> Request Food
           </button>
         </div>

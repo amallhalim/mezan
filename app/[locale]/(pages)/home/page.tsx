@@ -15,9 +15,9 @@ export default function page() {
   return <div>page</div>;
 }
 function test() {
-  let x = 10;
-  let y = 20;
-  let sum = x + y;
+  const x = 10;
+  const y = 20;
+  const sum = x + y;
 
   debugger;
 

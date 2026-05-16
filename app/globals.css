@@ -96,10 +96,19 @@
   * {
     border-color: var(--color-border);
   }
+
+  :root {
+    font-family: var(--font-sans);
+  }
+
+  [dir="rtl"],
+  [dir="rtl"] * {
+    font-family: var(--font-arabic) !important;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
 
     /* Premium background atmospheric glow */
@@ -115,10 +124,5 @@
         transparent 50%
       );
     background-attachment: fixed;
-  }
-
-  /* Support for Right-to-Left (Arabic) font switching */
-  [dir="rtl"] body {
-    font-family: var(--font-arabic);
   }
 }

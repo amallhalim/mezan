@@ -13,8 +13,10 @@ import {
 } from "lucide-react";
 import MacroPieChart from "../Common/MacroPieChart";
 
+import { Plate } from "@/app/store/usePlatesStore";
+
 interface ResultModalProps {
-  item: any;
+  item: Plate;
   onClose: () => void;
 }
 
@@ -70,45 +72,45 @@ export default function ResultModal({ item, onClose }: ResultModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-xl animate-in fade-in duration-500">
-      <div className="relative bg-[#09090b] w-full max-w-[440px] rounded-[3.5rem] border border-white/10 shadow-[0_0_100px_rgba(16,185,129,0.1)] overflow-hidden animate-in zoom-in-95 duration-500">
+    <div className="animate-in fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-xl duration-500">
+      <div className="animate-in zoom-in-95 relative w-full max-w-[440px] overflow-hidden rounded-[3.5rem] border border-white/10 bg-[#09090b] shadow-[0_0_100px_rgba(16,185,129,0.1)] duration-500">
         {/* Animated Background Glow */}
-        <div className="absolute -top-24 -left-24 size-64 bg-primary/20 blur-[100px] rounded-full animate-pulse" />
+        <div className="bg-primary/20 absolute -top-24 -left-24 size-64 animate-pulse rounded-full blur-[100px]" />
 
         {/* Header/Banner */}
-        <div className="relative h-20 bg-gradient-to-b from-white/5 to-transparent flex items-center justify-center border-b border-white/5">
+        <div className="relative flex h-20 items-center justify-center border-b border-white/5 bg-gradient-to-b from-white/5 to-transparent">
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 size-11 rounded-full bg-black/40 border border-white/10 flex items-center justify-center text-white hover:bg-black/60 hover:scale-110 transition-all z-20"
+            className="absolute top-6 right-6 z-20 flex size-11 items-center justify-center rounded-full border border-white/10 bg-black/40 text-white transition-all hover:scale-110 hover:bg-black/60"
           >
             <X className="size-5" />
           </button>
 
-          <div className="size-20 absolute -bottom-10 left-1/2 -translate-x-1/2 rounded-[2rem] bg-zinc-900 border-4 border-[#09090b] flex items-center justify-center text-5xl shadow-2xl z-10 transform rotate-3 hover:rotate-0 transition-transform duration-500">
+          <div className="absolute -bottom-10 left-1/2 z-10 flex size-20 -translate-x-1/2 rotate-3 transform items-center justify-center rounded-[2rem] border-4 border-[#09090b] bg-zinc-900 text-5xl shadow-2xl transition-transform duration-500 hover:rotate-0">
             {item.icon}
           </div>
         </div>
 
-        <div className="p-8 pt-16 space-y-8">
+        <div className="space-y-8 p-8 pt-16">
           {/* Title Section */}
-          <div className="text-center space-y-2">
-            <h2 className="text-4xl font-black text-white tracking-tighter leading-none">
+          <div className="space-y-2 text-center">
+            <h2 className="text-4xl leading-none font-black tracking-tighter text-white">
               {item.name}
             </h2>
             <div className="flex items-center justify-center gap-3">
-              <span className="h-px w-8 bg-gradient-to-r from-transparent to-primary/40" />
-              <p className="text-primary font-black text-xl" dir="rtl">
+              <span className="to-primary/40 h-px w-8 bg-gradient-to-r from-transparent" />
+              <p className="text-primary text-xl font-black" dir="rtl">
                 {item.nameAr}
               </p>
-              <span className="h-px w-8 bg-gradient-to-l from-transparent to-primary/40" />
+              <span className="to-primary/40 h-px w-8 bg-gradient-to-l from-transparent" />
             </div>
 
             {/* Badges */}
-            <div className="flex flex-wrap justify-center gap-2 mt-4">
+            <div className="mt-4 flex flex-wrap justify-center gap-2">
               {getBadges().map((badge, i) => (
                 <div
                   key={i}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-[9px] font-black uppercase tracking-widest ${badge.color}`}
+                  className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[9px] font-black tracking-widest uppercase ${badge.color}`}
                 >
                   {badge.icon}
                   {badge.text}
@@ -118,18 +120,18 @@ export default function ResultModal({ item, onClose }: ResultModalProps) {
           </div>
 
           {/* Main Content Grid */}
-          <div className="bg-white/[0.02] border border-white/5 rounded-[2.5rem] p-6 space-y-6">
-            <div className="grid grid-cols-2 gap-8 items-center">
+          <div className="space-y-6 rounded-[2.5rem] border border-white/5 bg-white/[0.02] p-6">
+            <div className="grid grid-cols-2 items-center gap-8">
               <div className="space-y-6">
                 <div className="space-y-1">
-                  <p className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em]">
+                  <p className="text-[10px] font-black tracking-[0.2em] text-gray-500 uppercase">
                     Total Energy
                   </p>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-6xl font-black text-primary tabular-nums tracking-tighter drop-shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+                    <span className="text-primary text-6xl font-black tracking-tighter tabular-nums drop-shadow-[0_0_20px_rgba(16,185,129,0.3)]">
                       {item.calories}
                     </span>
-                    <span className="text-xs font-black text-gray-600 uppercase tracking-widest">
+                    <span className="text-xs font-black tracking-widest text-gray-600 uppercase">
                       kcal
                     </span>
                   </div>
@@ -151,14 +153,14 @@ export default function ResultModal({ item, onClose }: ResultModalProps) {
                   ].map((m) => (
                     <div
                       key={m.label}
-                      className="flex items-center justify-between group"
+                      className="group flex items-center justify-between"
                     >
                       <div className="flex items-center gap-2">
                         <div
                           className="size-1.5 rounded-full"
                           style={{ backgroundColor: m.color }}
                         />
-                        <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest group-hover:text-white transition-colors">
+                        <span className="text-[10px] font-black tracking-widest text-gray-400 uppercase transition-colors group-hover:text-white">
                           {m.label}
                         </span>
                       </div>
@@ -173,7 +175,7 @@ export default function ResultModal({ item, onClose }: ResultModalProps) {
                 </div>
               </div>
 
-              <div className="flex justify-center transform hover:scale-105 transition-transform duration-500">
+              <div className="flex transform justify-center transition-transform duration-500 hover:scale-105">
                 <MacroPieChart
                   protein={item.protein}
                   carbs={item.carbs}
@@ -186,19 +188,19 @@ export default function ResultModal({ item, onClose }: ResultModalProps) {
 
           {/* Action Row */}
           <div className="flex gap-4">
-            <button className="size-16 rounded-3xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white transition-all active:scale-90 group">
-              <Share2 className="size-6 group-hover:rotate-12 transition-transform" />
+            <button className="group flex size-16 items-center justify-center rounded-3xl border border-white/10 bg-white/5 text-white transition-all hover:bg-white/10 active:scale-90">
+              <Share2 className="size-6 transition-transform group-hover:rotate-12" />
             </button>
             <button
               onClick={handleSave}
-              className={`flex-1 font-black rounded-3xl flex items-center justify-center gap-3 transition-all active:scale-[0.98] ${
+              className={`flex flex-1 items-center justify-center gap-3 rounded-3xl font-black transition-all active:scale-[0.98] ${
                 isSaved
                   ? "bg-emerald-500 text-white shadow-[0_0_30px_rgba(16,185,129,0.4)]"
-                  : "bg-primary text-secondary shadow-[0_15px_30px_rgba(16,185,129,0.2)] hover:bg-primary/90 hover:-translate-y-1"
+                  : "bg-primary text-secondary hover:bg-primary/90 shadow-[0_15px_30px_rgba(16,185,129,0.2)] hover:-translate-y-1"
               }`}
             >
               <Heart className={`size-6 ${isSaved ? "fill-white" : ""}`} />
-              <span className="text-sm tracking-widest font-black uppercase">
+              <span className="text-sm font-black tracking-widest uppercase">
                 {isSaved ? "SAVED!" : "SAVE TO DIARY"}
               </span>
             </button>
@@ -209,9 +211,9 @@ export default function ResultModal({ item, onClose }: ResultModalProps) {
             {shareOptions.map((opt) => (
               <button
                 key={opt.name}
-                className={`${opt.color} size-12 rounded-2xl border border-transparent hover:border-white/10 flex items-center justify-center transition-all hover:-translate-y-1 active:scale-95 group`}
+                className={`${opt.color} group flex size-12 items-center justify-center rounded-2xl border border-transparent transition-all hover:-translate-y-1 hover:border-white/10 active:scale-95`}
               >
-                <div className="group-hover:scale-125 transition-transform">
+                <div className="transition-transform group-hover:scale-125">
                   {opt.icon}
                 </div>
               </button>

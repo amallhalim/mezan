@@ -60,7 +60,7 @@ describe("FoodCard Component", () => {
 
       render(<FoodCard food={mockFoodData} onSelect={onSelect} />);
 
-      const card = screen.getByRole("button", {
+      screen.getByRole("button", {
         name: /Select Chicken Breast/i,
       });
 
@@ -93,7 +93,7 @@ describe("FoodCard Component", () => {
       const onSelect = vi.fn();
       render(<FoodCard food={mockFoodData} onSelect={onSelect} />);
 
-      const card = screen.getByRole("button");
+      screen.getByRole("button");
       await user.tab(); // Focus the card
       await user.keyboard("a"); // Press a random letter
       await user.keyboard("{Shift}"); // Press Shift

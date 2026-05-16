@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## 🌍 Localization
+
+This project is fully internationalized. Please refer to the [Localization Guide](./LOCALIZATION.md) for details on how to add new translations and manage localized routes.
+
 ## Getting Started
 
 Check out our documentation in the [docs/](./docs) folder:

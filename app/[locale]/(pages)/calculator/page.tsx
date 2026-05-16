@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import { category, Food } from "@/app/lib/data";
 
 // Components
@@ -12,12 +12,11 @@ import ResultModal from "@/app/components/calculator/Layout/ResultModal";
 
 // Hooks & Store
 import { useMealSummary } from "@/app/hooks/useMealSummary";
-import { usePlatesStore } from "@/app/store/usePlatesStore";
+import { usePlatesStore, Plate } from "@/app/store/usePlatesStore";
 
 export default function CalculatorPage() {
   // --- Global Store ---
   const plates = usePlatesStore((state) => state.plates);
-  console.log("plates", plates);
   const addPlate = usePlatesStore((state) => state.addPlate);
   const updatePlate = usePlatesStore((state) => state.updatePlate);
   const clearPlates = usePlatesStore((state) => state.clearPlates);
@@ -25,9 +24,8 @@ export default function CalculatorPage() {
 
   // --- Local UI State ---
   const [selectedCategory, setSelectedCategory] = useState(1);
-  // const [selectedFoodList, setSelectedFoodList] = useState<any[]>([]);
   const [activeFood, setActiveFood] = useState<Food | null>(null);
-  const [resultItem, setResultItem] = useState<any | null>(null);
+  const [resultItem, setResultItem] = useState<Plate | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [showMealSummary, setShowMealSummary] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
@@ -53,7 +51,7 @@ export default function CalculatorPage() {
     setTimeout(() => setToastMessage(null), 3000);
   };
 
-  const handleAddFood = (calculated: any) => {
+  const handleAddFood = (calculated: Plate) => {
     if (!calculated) return;
 
     if (editingIndex !== null) {
@@ -61,15 +59,13 @@ export default function CalculatorPage() {
       setEditingIndex(null);
       showToast(`Updated ${calculated.name}`);
     } else {
-      // Add new
-      // setSelectedFoodList(prev => [...prev, calculated]);
       addPlate(calculated);
       showToast(`Added ${calculated.name} to plate`);
     }
     setActiveFood(null);
   };
 
-  const handlePreviewFood = (calculated: any) => {
+  const handlePreviewFood = (calculated: Plate) => {
     if (!calculated) return;
     setResultItem(calculated);
 
@@ -83,7 +79,7 @@ export default function CalculatorPage() {
     setActiveFood(null);
   };
 
-  const handleEditItem = (item: any, index: number) => {
+  const handleEditItem = (item: Plate, index: number) => {
     setEditingIndex(index);
     const baseFood = category
       .flatMap((c) => c.foods)
@@ -105,7 +101,7 @@ export default function CalculatorPage() {
 
   return (
     <div
-      className="min-h-screen text-white selection:bg-primary selection:text-secondary "
+      className="selection:bg-primary selection:text-secondary min-h-screen text-white"
       style={{
         background:
           "radial-gradient(ellipse 80% 60% at 50% -10%, var(--primary-glow) 0%, var(--background) 20%)",
@@ -113,7 +109,7 @@ export default function CalculatorPage() {
       }}
     >
       <div
-        className="fixed inset-0 pointer-events-none"
+        className="pointer-events-none fixed inset-0"
         style={{
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)",
@@ -122,7 +118,7 @@ export default function CalculatorPage() {
       />
 
       <div
-        className="relative container mx-auto px-4 max-w-2xl pb-44 pt-6"
+        className="relative container mx-auto max-w-2xl px-4 pt-6 pb-44"
         id="calculator"
       >
         <CalculatorHeader
@@ -200,8 +196,8 @@ export default function CalculatorPage() {
       )}
 
       {toastMessage && (
-        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 animate-in slide-in-from-top-10 fade-in duration-300">
-          <div className="bg-primary text-secondary font-black px-6 py-3 rounded-full shadow-[0_10px_30px_rgba(16,185,129,0.3)] flex items-center gap-2 border border-primary/20">
+        <div className="animate-in slide-in-from-top-10 fade-in fixed top-6 left-1/2 z-50 -translate-x-1/2 duration-300">
+          <div className="bg-primary text-secondary border-primary/20 flex items-center gap-2 rounded-full border px-6 py-3 font-black shadow-[0_10px_30px_rgba(16,185,129,0.3)]">
             <span className="text-xl">✅</span> {toastMessage}
           </div>
         </div>
