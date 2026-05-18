@@ -1,6 +1,9 @@
 {
   "HomePage": {
     "greeting": "Testing Sandbox",
+    "greetingMorning": "Good morning!",
+    "greetingAfternoon": "Good afternoon!",
+    "greetingEvening": "Good evening!",
     "systemOperational": "System Operational",
     "mode": "Mode",
     "identitySearch": "Identity & Search",
