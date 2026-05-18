@@ -152,3 +152,11 @@
     Please run 'npm test' locally and fix the failing tests.
 🚫 ================================================================= 🚫
 
+
+🚫 ================================================================= 🚫
+    ERROR: Full Test Suite Failed!
+    Your push was blocked because some unit tests are failing.
+
+    Please run 'npm test' locally and fix the failing tests.
+🚫 ================================================================= 🚫
+
