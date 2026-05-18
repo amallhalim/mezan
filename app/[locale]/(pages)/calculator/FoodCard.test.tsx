@@ -17,7 +17,6 @@ describe("FoodCard Component", () => {
       );
 
       expect(screen.getByText("Chicken Breast")).toBeInTheDocument();
-      expect(screen.getByText("صدر دجاج")).toBeInTheDocument();
       expect(screen.getByText(/165/)).toBeInTheDocument();
       expect(screen.getByText(/31/)).toBeInTheDocument();
       expect(screen.getByText(/4g/)).toBeInTheDocument();

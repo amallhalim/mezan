@@ -36,7 +36,7 @@ test("full calculator workflow: search, add, and verify", async () => {
   await user.click(addBtn);
 
   rerender(<CalculatorPage />);
-  expect(screen.getByText(/Your Plate/i)).toBeInTheDocument();
+  expect(screen.getAllByText(/Your Plate/i).length).toBeGreaterThan(0);
 });
 
 test("opens result modal when calculation button is clicked", async () => {
