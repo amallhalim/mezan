@@ -44,7 +44,7 @@ export default function AddedFoodsSummary({
         {items.map((item, idx) => (
           <div
             key={`${item?.id}-${idx}`}
-            className="group animate-in slide-in-from-right relative flex items-center justify-between rounded-[1.5rem] border border-white/5 bg-white/5 p-4 backdrop-blur-md transition-all duration-500 hover:border-white/10 hover:bg-white/[0.08]"
+            className={`group animate-in ${isArabic ? "slide-in-from-left" : "slide-in-from-right"} relative flex items-center justify-between rounded-[1.5rem] border border-white/5 bg-white/5 p-4 backdrop-blur-md transition-all duration-500 hover:border-white/10 hover:bg-white/[0.08]`}
             style={{ animationDelay: `${idx * 50}ms` }}
           >
             <div

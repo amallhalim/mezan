@@ -1,12 +1,12 @@
 import { useTranslations, useLocale } from "next-intl";
 import { formatNumber } from "@/app/lib/numberUtils";
 import React from "react";
-import { Search, Activity, Zap, ChevronRight } from "lucide-react";
+import { Search, Activity, Utensils } from "lucide-react";
 import FoodCategoryTabs from "./FoodCategoryTabs";
 
 interface CalculatorHeaderProps {
   selectedFoodListLength: number;
-  setShowMealSummary: (show: boolean) => void;
+  setShowCart: (show: boolean) => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   selectedCategory: number;
@@ -15,7 +15,7 @@ interface CalculatorHeaderProps {
 
 export default function CalculatorHeader({
   selectedFoodListLength,
-  setShowMealSummary,
+  setShowCart,
   searchQuery,
   setSearchQuery,
   selectedCategory,
@@ -47,14 +47,13 @@ export default function CalculatorHeader({
 
         {selectedFoodListLength > 0 && (
           <button
-            onClick={() => setShowMealSummary(true)}
-            className="group flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-4 py-2.5 transition-all hover:bg-white/10"
+            onClick={() => setShowCart(true)}
+            className="group relative flex size-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 transition-all hover:scale-105 hover:bg-white/10"
           >
-            <Zap className="text-primary size-3.5" />
-            <span className="text-xs font-black text-white">
-              {formatNumber(selectedFoodListLength, locale)} {t("foods")}
+            <Utensils className="size-5 text-emerald-400" />
+            <span className="absolute -top-2 -right-2 flex size-6 items-center justify-center rounded-full bg-emerald-500 text-[11px] font-black text-[#04120c] shadow-lg">
+              {formatNumber(selectedFoodListLength, locale)}
             </span>
-            <ChevronRight className="size-3.5 text-gray-600 transition-colors group-hover:text-white" />
           </button>
         )}
       </div>
@@ -87,7 +86,7 @@ export default function CalculatorHeader({
 
       {/* Category tabs */}
       <div
-        className={`overflow-hidden transition-all duration-300 ${searchQuery ? "max-h-0 opacity-0" : "max-h-24 opacity-100"}`}
+        className={`overflow-hidden transition-all duration-500 ${searchQuery ? "max-h-0 opacity-0" : "max-h-[800px] opacity-100"}`}
       >
         <FoodCategoryTabs
           selectedId={selectedCategory}

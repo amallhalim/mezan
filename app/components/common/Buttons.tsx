@@ -1,23 +1,29 @@
 import { CheckIcon } from "lucide-react";
 import React from "react";
 
+interface ButtonsProps {
+  title: React.ReactNode;
+  icon?: React.ReactNode;
+  isSelected?: boolean;
+  onClick: () => void;
+  className?: string;
+  props?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+}
+
 export default function Buttons({
   title,
   icon,
   onClick,
   isSelected,
   className,
-}: any) {
+  ...props
+}: ButtonsProps) {
   return (
     <button
       onClick={onClick}
-      className={`flex flex-row justify-center items-center
-         gap-2  font-bold px-4 py-2 rounded-full
-          border-1 border-primary/20 
-           whitespace-nowrap
-          ${isSelected ? "bg-primary text-secondary" : "bg-primary/20 text-gray-300"}
-          ${className}
-          `}
+      data-active={isSelected ? "true" : "false"}
+      {...props}
+      className={`border-primary/20 flex flex-row items-center justify-center gap-2 rounded-full border-1 px-4 py-2 font-bold whitespace-nowrap ${isSelected ? "bg-primary text-secondary" : "bg-primary/20 text-gray-300"} ${className} `}
     >
       {icon}
       {title}

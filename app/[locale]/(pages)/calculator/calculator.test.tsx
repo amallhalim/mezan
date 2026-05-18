@@ -16,6 +16,7 @@ beforeEach(() => {
  */
 vi.mock("next/image", () => ({
   default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
+    // eslint-disable-next-line @next/next/no-img-element
     <img alt="" {...props} />
   ),
 }));
@@ -123,7 +124,7 @@ describe("Comparison: fireEvent vs userEvent", () => {
         selectedCategory={1}
         setSelectedCategory={vi.fn()}
         selectedFoodListLength={0}
-        setShowMealSummary={vi.fn()}
+        setShowCart={vi.fn()}
       />
     );
 
@@ -144,7 +145,7 @@ describe("Comparison: fireEvent vs userEvent", () => {
         selectedCategory={1}
         setSelectedCategory={vi.fn()}
         selectedFoodListLength={0}
-        setShowMealSummary={vi.fn()}
+        setShowCart={vi.fn()}
       />
     );
 
@@ -163,7 +164,7 @@ describe("Comparison: fireEvent vs userEvent", () => {
         selectedCategory={1}
         setSelectedCategory={vi.fn()}
         selectedFoodListLength={1}
-        setShowMealSummary={vi.fn()}
+        setShowCart={vi.fn()}
       />
     );
 

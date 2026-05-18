@@ -1,6 +1,8 @@
 "use client";
 import React, { useState, useMemo } from "react";
 import { category, Food } from "@/app/lib/data";
+import { X } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 // Components
 import CalculatorHeader from "./_components/Layout/CalculatorHeader";
@@ -28,6 +30,7 @@ export default function CalculatorPage() {
   const [resultItem, setResultItem] = useState<Plate | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [showMealSummary, setShowMealSummary] = useState(false);
+  const [showCart, setShowCart] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
@@ -44,6 +47,7 @@ export default function CalculatorPage() {
   }, [selectedCategory, searchQuery]);
 
   const { totals } = useMealSummary(plates);
+  const t = useTranslations("HomePage");
 
   // --- Handlers ---
   const showToast = (msg: string) => {
@@ -57,29 +61,24 @@ export default function CalculatorPage() {
     if (editingIndex !== null) {
       updatePlate(editingIndex, calculated);
       setEditingIndex(null);
-      showToast(`Updated ${calculated.name}`);
+      showToast(t("toastUpdated", { name: calculated.name }));
     } else {
       addPlate(calculated);
-      showToast(`Added ${calculated.name} to plate`);
+      showToast(t("toastAdded", { name: calculated.name }));
     }
     setActiveFood(null);
   };
 
   const handlePreviewFood = (calculated: Plate) => {
     if (!calculated) return;
+    // Only show the result modal — do NOT silently add to plate.
+    // The user must explicitly click "Add to Plate" to commit.
     setResultItem(calculated);
-
-    // Preview often implies adding to the session in this UI flow
-    if (editingIndex !== null) {
-      updatePlate(editingIndex, calculated);
-      setEditingIndex(null);
-    } else {
-      addPlate(calculated);
-    }
     setActiveFood(null);
   };
 
   const handleEditItem = (item: Plate, index: number) => {
+    setShowCart(false);
     setEditingIndex(index);
     const baseFood = category
       .flatMap((c) => c.foods)
@@ -123,7 +122,7 @@ export default function CalculatorPage() {
       >
         <CalculatorHeader
           selectedFoodListLength={plates.length}
-          setShowMealSummary={setShowMealSummary}
+          setShowCart={setShowCart}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           selectedCategory={selectedCategory}
@@ -136,17 +135,6 @@ export default function CalculatorPage() {
           activeFood={activeFood}
           setActiveFood={setActiveFood}
         />
-
-        {plates.length > 0 && (
-          <div className="mt-8">
-            <AddedFoodsSummary
-              items={plates}
-              onRemove={handleRemoveItem}
-              onEdit={handleEditItem}
-              onClearAll={handleClearAll}
-            />
-          </div>
-        )}
       </div>
 
       <TotalMacrosFooter
@@ -189,11 +177,42 @@ export default function CalculatorPage() {
             name: "My Full Plate",
             nameAr: "وجبتي بالكامل",
             icon: "🍽️",
-            selectedAmount: plates.length,
-            unit: "items",
+            selectedAmount: totals.calories,
+            unit: "kcal",
           }}
           onClose={() => setShowMealSummary(false)}
         />
+      )}
+
+      {showCart && (
+        <div className="animate-in fade-in fixed inset-0 z-50 flex items-end justify-center bg-black/60 p-4 backdrop-blur-sm sm:items-center">
+          <div className="animate-in slide-in-from-bottom-full sm:zoom-in-95 flex max-h-[85vh] w-full max-w-[500px] flex-col overflow-y-auto rounded-t-[2.5rem] border border-emerald-500/10 bg-[#04120c] p-6 pb-10 shadow-2xl sm:rounded-[2.5rem] sm:pb-6">
+            <div className="mb-6 flex w-full items-center justify-between">
+              <h2 className="flex items-center gap-2 text-xl font-black text-white">
+                <span className="text-emerald-400">🍽️</span> {t("yourPlate")}
+              </h2>
+              <button
+                onClick={() => setShowCart(false)}
+                className="flex size-10 shrink-0 items-center justify-center rounded-2xl border border-white/5 bg-white/5 text-gray-400 transition-colors hover:bg-white/10 hover:text-white"
+              >
+                <X className="size-5" />
+              </button>
+            </div>
+            {plates.length > 0 ? (
+              <AddedFoodsSummary
+                items={plates}
+                onRemove={handleRemoveItem}
+                onEdit={handleEditItem}
+                onClearAll={handleClearAll}
+              />
+            ) : (
+              <div className="flex flex-col items-center justify-center py-10 text-center">
+                <span className="mb-4 text-4xl opacity-50">🍽️</span>
+                <p className="font-bold text-gray-400">{t("plateEmpty")}</p>
+              </div>
+            )}
+          </div>
+        </div>
       )}
 
       {toastMessage && (

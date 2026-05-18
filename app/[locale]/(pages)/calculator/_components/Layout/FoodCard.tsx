@@ -3,6 +3,7 @@ import React from "react";
 import { Food } from "@/app/lib/data";
 import { useTranslations, useLocale } from "next-intl";
 import { formatNumber } from "@/app/lib/numberUtils";
+import { usePlatesStore } from "@/app/store/usePlatesStore";
 
 interface FoodCardProps {
   food: Food;
@@ -21,6 +22,9 @@ export default function FoodCard({
   const isArabic = locale === "ar";
   const displayName = isArabic ? food?.nameAr : food?.name;
 
+  const plates = usePlatesStore((state) => state.plates);
+  const isAdded = plates.some((p) => p.id === food.id);
+
   return (
     <div
       role="button"
@@ -28,7 +32,7 @@ export default function FoodCard({
       aria-label={`Select ${displayName}`}
       onClick={() => onSelect(food)}
       onKeyDown={(e) => e.key === "Enter" && onSelect(food)}
-      className={`group hover:border-primary/50 relative m-1 flex cursor-pointer flex-row items-center justify-between overflow-hidden rounded-2xl border border-white/5 bg-white/5 p-4 backdrop-blur-md transition-all hover:bg-white/10 ${isSelected ? "bg-primary/10 border-primary/40" : ""}`}
+      className={`group hover:border-primary/50 relative m-1 flex cursor-pointer flex-row items-center justify-between overflow-hidden rounded-2xl border border-white/5 bg-white/5 p-4 backdrop-blur-md transition-all hover:bg-white/10 ${isSelected ? "ring-primary/60 border-primary/60 bg-primary/10 shadow-[0_0_20px_rgba(16,185,129,0.15)] ring-2" : ""} ${isAdded && !isSelected ? "border-emerald-500/20 bg-emerald-500/5" : ""}`}
     >
       <div className="flex items-center gap-4">
         {food?.icon && (
@@ -83,9 +87,9 @@ export default function FoodCard({
           </p>
         </div>
         <div
-          className={`flex size-8 items-center justify-center rounded-full transition-all ${isSelected ? "bg-primary text-secondary" : "group-hover:bg-primary/20 group-hover:text-primary bg-white/10 text-gray-400"}`}
+          className={`flex size-8 items-center justify-center rounded-full transition-all ${isAdded ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/20" : "group-hover:bg-primary/20 group-hover:text-primary bg-white/10 text-gray-400"}`}
         >
-          {isSelected ? (
+          {isAdded ? (
             <CheckIcon className="size-5" />
           ) : (
             <Plus className="size-5" />

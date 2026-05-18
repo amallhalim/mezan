@@ -1,3 +1,5 @@
+import { useLocale } from "next-intl";
+
 interface ScrollArrowProps {
   direction: "left" | "right";
   visible: boolean;
@@ -9,14 +11,25 @@ export default function ScrollArrow({
   visible,
   onClick,
 }: ScrollArrowProps) {
+  const locale = useLocale();
+  const isRTL = locale === "ar";
+
+  // In RTL the visual chevron should point the opposite way
+  const visualDirection = isRTL
+    ? direction === "left"
+      ? "right"
+      : "left"
+    : direction;
+
+  // Hide by sliding toward the edge it sits on
+  const hideTranslate =
+    direction === "left" ? "-translate-x-2" : "translate-x-2";
+
   return (
     <button
       onClick={onClick}
       aria-label={`Scroll ${direction}`}
-      className={`shrink-0 flex items-center justify-center w-8 h-8 rounded-full
-        bg-white/10 border border-white/10 text-gray-400
-        hover:text-white hover:bg-white/20 transition-all duration-200
-        ${visible ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/10 bg-[#04120c]/90 text-white shadow-xl shadow-black/50 backdrop-blur-md transition-all duration-300 hover:scale-110 hover:border-emerald-500/50 hover:text-emerald-400 ${visible ? "pointer-events-auto translate-x-0 opacity-100" : `pointer-events-none opacity-0 ${hideTranslate}`}`}
     >
       <svg
         width="14"
@@ -28,7 +41,9 @@ export default function ScrollArrow({
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <path d={direction === "left" ? "M15 18l-6-6 6-6" : "M9 18l6-6-6-6"} />
+        <path
+          d={visualDirection === "left" ? "M15 18l-6-6 6-6" : "M9 18l6-6-6-6"}
+        />
       </svg>
     </button>
   );

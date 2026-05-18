@@ -5,14 +5,10 @@ import { X, Calculator } from "lucide-react";
 import { Food } from "@/app/lib/data";
 import { formatNumber } from "@/app/lib/numberUtils";
 import { useFoodCalculator } from "@/app/hooks/useFoodCalculator";
-import PortionSizeOptions from "../PortionSelector/PortionSizeOptions";
-import QuantitySelector from "../PortionSelector/QuantitySelector";
-
-import MacroNutrientStats from "../PortionSelector/MacroNutrientStats";
 import Button from "@/app/components/common/Button";
-import WeightInput from "@/app/components/common/WeightInput";
-import SugarSelector from "../PortionSelector/SugarSelector";
 import { Plate } from "@/app/store/usePlatesStore";
+import PresetSelector from "./PresetSelector";
+import SugarSelector from "./SugarSelector";
 
 interface QuickAdjustPanelProps {
   food: Food;
@@ -32,10 +28,10 @@ export default function QuickAdjustPanel({
   initialValues,
 }: QuickAdjustPanelProps) {
   const t = useTranslations("HomePage");
-  const tAbout = useTranslations("about");
   const locale = useLocale();
   const isArabic = locale === "ar";
   const displayName = isArabic ? food.nameAr : food.name;
+
   const {
     amount,
     setAmount,
@@ -57,120 +53,197 @@ export default function QuickAdjustPanel({
   if (!calculated) return null;
 
   return (
-    <div className="animate-in slide-in-from-bottom-10 fixed inset-x-0 bottom-24 z-40 flex justify-center px-4 duration-500">
-      <div className="w-100 rounded-[2.5rem] border border-white/10 bg-zinc-900/95 p-6 backdrop-blur-2xl">
-        {/* Pull Handle (Visual only) */}
-        <div className="mx-auto mb-6 h-1 w-12 rounded-full bg-white/10" />
-
-        {/* Header */}
-        <div className="mb-6 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="flex size-14 items-center justify-center rounded-2xl border border-white/5 bg-white/5 text-3xl shadow-inner transition-transform group-hover:scale-110">
-              {food?.icon}
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h3 className="text-xl leading-tight font-black text-white">
-                  {displayName}
-                </h3>
-              </div>
-              <p className="text-primary text-[10px] font-black tracking-widest uppercase opacity-80">
-                {formatNumber(amount, locale)}
-                {calculated.unit} • {isRaw ? t("raw") : t("cooked")}
-              </p>
-            </div>
+    <div className="animate-in fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm duration-300">
+      {/* Premium Forest-Green Card Dialog */}
+      <div className="animate-in zoom-in-95 w-100 rounded-[2.5rem] border border-emerald-500/10 bg-[#04120c] p-6 shadow-2xl shadow-emerald-950/20 duration-300">
+        {/* Header Row (Close left, details middle, icon right in RTL) */}
+        <div className="mb-6 flex items-center justify-between gap-4">
+          {/* Food Icon Card */}
+          <div className="flex size-14 items-center justify-center rounded-2xl border border-emerald-500/10 bg-emerald-500/5 text-3xl shadow-inner shadow-emerald-500/10">
+            {food?.icon}
           </div>
 
-          <div className="flex items-center gap-6">
-            <div className="text-right">
-              <span className="text-primary text-4xl leading-none font-black tabular-nums drop-shadow-[0_0_20px_rgba(16,185,129,0.3)]">
-                {formatNumber(calculated.calories, locale)}
-              </span>
-              <p className="text-[10px] font-black tracking-tighter text-gray-500 uppercase">
-                {tAbout("kcal")}
-              </p>
-            </div>
-            <button
-              onClick={onClose}
-              className="flex size-10 items-center justify-center rounded-full border border-white/5 bg-white/5 text-gray-400 transition-colors hover:text-white"
-            >
-              <X className="size-5" />
-            </button>
+          {/* Title & Subtitle */}
+          <div className="flex-1 text-right">
+            <h3 className="text-xl leading-tight font-black text-white">
+              {displayName}
+            </h3>
+            <p className="mt-0.5 text-xs font-bold text-emerald-400">
+              {isRaw ? t("raw") : t("cooked")}
+            </p>
           </div>
+
+          {/* Close Button */}
+          <button
+            onClick={onClose}
+            className="flex size-10 items-center justify-center rounded-2xl border border-white/5 bg-white/5 text-gray-400 transition-colors hover:bg-white/10 hover:text-white"
+          >
+            <X className="size-5" />
+          </button>
         </div>
 
-        {/* Live Macros Reveal */}
-        <MacroNutrientStats
-          protein={calculated.protein}
-          carbs={calculated.carbs}
-          fat={calculated.fat}
-          isCompact={true}
-        />
-
-        {/* Controls Row */}
-        <div className="mb-6 space-y-4">
-          <PortionSizeOptions
-            presets={presets}
-            selectedId={selectedSizeId}
-            onSelect={handleSizeSelect}
-            label={t("quickPortions")}
-          />
-
-          <div className="flex items-end gap-4">
-            <QuantitySelector
-              quantity={quantity}
-              onChange={setQuantity}
-              label={t("multiplier")}
-              isCompact={true}
-            />
-
-            {food.isRawCookedToggle && (
-              <div className="flex-1 space-y-1.5">
-                <label className="ml-1 text-[9px] font-black tracking-[0.15em] text-gray-500 uppercase">
-                  {t("state")}
-                </label>
-                <div className="flex h-10 items-center justify-between rounded-xl border border-white/5 bg-white/5 p-1">
-                  <button
-                    onClick={() => setIsRaw(false)}
-                    className={`h-full flex-1 rounded-lg text-[9px] font-black tracking-widest uppercase transition-all ${!isRaw ? "bg-primary text-secondary" : "text-gray-500 hover:text-white"}`}
-                  >
-                    {t("cooked")}
-                  </button>
-                  <button
-                    onClick={() => setIsRaw(true)}
-                    className={`h-full flex-1 rounded-lg text-[9px] font-black tracking-widest uppercase transition-all ${isRaw ? "bg-primary text-secondary" : "text-gray-500 hover:text-white"}`}
-                  >
-                    {t("raw")}
-                  </button>
-                </div>
+        {/* Controls Column */}
+        <div className="space-y-4">
+          {/* 1. Food State (حالة الطعام) Row */}
+          {food.isRawCookedToggle && (
+            <div className="flex items-center justify-between border-b border-white/5 py-3">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-black text-gray-300">
+                  {t("foodState")}
+                </span>
               </div>
-            )}
-          </div>
 
-          {/* Sugar Selection for Drinks */}
-          {food.sizeType === "DRINK" && (
-            <SugarSelector
-              sugarCount={sugarCount}
-              setSugarCount={setSugarCount}
-              sugarType={sugarType}
-              setSugarType={setSugarType}
-            />
+              {/* Toggle Switch */}
+              <div className="flex h-10 w-44 items-center rounded-xl border border-white/5 bg-white/[0.02] p-1">
+                <button
+                  onClick={() => setIsRaw(true)}
+                  className={`h-full flex-1 rounded-lg text-xs font-black transition-all ${
+                    isRaw
+                      ? "border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 shadow-sm"
+                      : "text-gray-500 hover:text-white"
+                  }`}
+                >
+                  {t("raw")}
+                </button>
+                <button
+                  onClick={() => setIsRaw(false)}
+                  className={`h-full flex-1 rounded-lg text-xs font-black transition-all ${
+                    !isRaw
+                      ? "border border-emerald-500/30 bg-emerald-500/20 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.2)]"
+                      : "text-gray-500 hover:text-white"
+                  }`}
+                >
+                  {t("cooked")}
+                </button>
+              </div>
+            </div>
           )}
 
-          {/* Compact Custom Input */}
-          <WeightInput
-            amount={amount}
-            unit={calculated.unit}
-            label={t("custom")}
-            onChange={(val) => {
-              setAmount(val);
-              setSelectedSizeId("custom");
-            }}
-          />
+          {/* 2. Quantity (الكمية) Row */}
+          <div className="space-y-4 border-b border-white/5 py-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-black text-gray-300">
+                  {t("quantity")}
+                </span>
+              </div>
+            </div>
+
+            {/* Custom Weight Input */}
+            <div className="relative flex h-14 w-full items-center justify-between rounded-2xl border border-white/5 bg-white/[0.02] px-4 transition-all focus-within:border-emerald-500/30">
+              <span className="text-lg font-black text-emerald-500 select-none">
+                {calculated.unit}
+              </span>
+              <input
+                type="number"
+                value={amount || ""}
+                onChange={(e) => {
+                  const val = parseFloat(e.target.value) || 0;
+                  setAmount(val);
+                  setSelectedSizeId("custom");
+                }}
+                className="w-1/2 bg-transparent text-right text-2xl font-black text-white placeholder:text-gray-600 focus:ring-0 focus:outline-none"
+              />
+            </div>
+
+            {/* Preset Servings Picker */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-center gap-2">
+                <div className="h-px flex-1 bg-white/5" />
+                <span className="text-[10px] font-black text-gray-600">
+                  {t("orChoosePreset")}
+                </span>
+                <div className="h-px flex-1 bg-white/5" />
+              </div>
+
+              {/* Horizontal Presets List */}
+              <PresetSelector
+                presets={presets}
+                selectedSizeId={selectedSizeId}
+                onSizeSelect={handleSizeSelect}
+              />
+            </div>
+
+            {/* Sugar Selection for Drinks (Beautiful Forest Green style) */}
+            {food.sizeType === "DRINK" &&
+              sugarCount !== undefined &&
+              setSugarCount &&
+              sugarType !== undefined &&
+              setSugarType && (
+                <SugarSelector
+                  sugarCount={sugarCount}
+                  setSugarCount={setSugarCount}
+                  sugarType={sugarType}
+                  setSugarType={setSugarType}
+                  locale={locale}
+                />
+              )}
+          </div>
+
+          {/* 3. Number of Servings (عدد الحصص) Row */}
+          <div className="space-y-3 border-b border-white/5 py-2">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-black text-gray-300">
+                  {t("servingsNumber")}
+                </span>
+              </div>
+            </div>
+
+            {/* Serving Counter */}
+            <div className="flex h-16 w-full items-center justify-between gap-4 rounded-2xl border border-white/5 bg-white/[0.02] p-1">
+              <button
+                onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                className="flex h-full w-16 items-center justify-center rounded-xl bg-white/5 text-xl font-bold text-white transition-all hover:bg-white/10 active:scale-95"
+              >
+                —
+              </button>
+
+              <div className="flex flex-col items-center justify-center">
+                <span className="text-2xl font-black text-white">
+                  {formatNumber(quantity, locale)}
+                </span>
+                <span className="text-[10px] font-black text-emerald-500">
+                  {t("servingUnit")}
+                </span>
+              </div>
+
+              <button
+                onClick={() => setQuantity(quantity + 1)}
+                className="flex h-full w-16 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-xl font-bold text-white transition-all hover:bg-white/10 active:scale-95"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          {/* 4. Calories Summary Section */}
+          <div className="space-y-1 py-2">
+            <div className="flex items-center justify-between">
+              <div className="text-right">
+                <span className="block text-xs font-black text-gray-400">
+                  {t("totalCalories")}
+                </span>
+                <span className="text-[10px] font-bold text-gray-500">
+                  {t("servingUnit")} · {isRaw ? t("raw") : t("cooked")}{" "}
+                  {formatNumber(quantity, locale)} x{" "}
+                  {formatNumber(amount, locale)}
+                  {calculated.unit}
+                </span>
+              </div>
+
+              <div className="flex items-baseline gap-1 text-emerald-400">
+                <span className="text-4xl font-black tabular-nums">
+                  {formatNumber(calculated.calories * quantity, locale)}
+                </span>
+                <span className="text-xs font-bold">{t("kcal")}</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Action Buttons Row */}
-        <div className="flex gap-4">
+        <div className="mt-4 flex gap-4">
           <Button variant="secondary" onClick={() => onAdd(calculated)}>
             {isEditing ? t("updateItem") : t("addToPlate")}
           </Button>

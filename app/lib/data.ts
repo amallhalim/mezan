@@ -49,6 +49,7 @@ export interface Category {
   name: string;
   nameAr: string;
   icon: string;
+  popular?: boolean;
 }
 
 export interface Food {
@@ -67,13 +68,36 @@ export interface Food {
 }
 
 export const CATEGORIES: Category[] = [
-  { id: 1, name: "Proteins", nameAr: "بروتينات", icon: "🥩" },
+  { id: 1, name: "Proteins", nameAr: "بروتين", icon: "🥩", popular: true },
+  { id: 13, name: "Salads", nameAr: "سلطات", icon: "🥗", popular: true },
+  { id: 3, name: "Carbs", nameAr: "كربوهيدرات", icon: "🍚", popular: true },
+  {
+    id: 20,
+    name: "Traditional Egyptian",
+    nameAr: "أكل مصري",
+    icon: "🇪🇬",
+    popular: true,
+  },
+
+  { id: 4, name: "Fruits", nameAr: "فاكهة", icon: "🍎" },
+  { id: 6, name: "Drinks", nameAr: "مشروبات", icon: "🥤" },
+  { id: 17, name: "Supplements", nameAr: "مكملات", icon: "💪" },
+  { id: 5, name: "Desserts", nameAr: "حلويات", icon: "🍰" },
+
+  { id: 10, name: "Dairy", nameAr: "ألبان", icon: "🧀" },
+  { id: 12, name: "Snacks", nameAr: "مكسرات", icon: "🥜" },
+  { id: 19, name: "Ramadan Foods", nameAr: "رمضان", icon: "🌙" },
+  { id: 18, name: "Kids Meals", nameAr: "أطفال", icon: "👶" },
+
+  // Remaining background categories if needed
   { id: 2, name: "Middle East Staples", nameAr: "أكلات شعبية", icon: "🥙" },
-  { id: 3, name: "Carbs", nameAr: "نشويات", icon: "🍚" },
-  { id: 4, name: "Veggies & Fruits", nameAr: "خضروات وفاكهة", icon: "🥦" },
-  { id: 5, name: "Desserts", nameAr: "حلويات", icon: "🥐" },
-  { id: 6, name: "Drinks", nameAr: "مشروبات", icon: "☕" },
   { id: 7, name: "Sauces & Extras", nameAr: "صوصات وإضافات", icon: "🍯" },
+  { id: 8, name: "Fast Food", nameAr: "وجبات سريعة", icon: "🍔" },
+  { id: 9, name: "Seafood", nameAr: "مأكولات بحرية", icon: "🦐" },
+  { id: 11, name: "Breakfast", nameAr: "فطار", icon: "🍳" },
+  { id: 14, name: "Street Food", nameAr: "أكل الشارع", icon: "🌮" },
+  { id: 15, name: "Bakery", nameAr: "مخبوزات", icon: "🥖" },
+  { id: 16, name: "Frozen Foods", nameAr: "أطعمة مجمدة", icon: "🧊" },
 ];
 
 export const FOODS: Food[] = [
@@ -709,6 +733,222 @@ export const FOODS: Food[] = [
     proteinPer100: 20,
     carbsPer100: 20,
     fatPer100: 50,
+    sizeType: "FOOD",
+  },
+
+  // --- Fast Food (Category 8) ---
+  {
+    id: "ff1",
+    categoryId: 8,
+    name: "Burger",
+    nameAr: "برجر",
+    icon: "🍔",
+    caloriesPer100: 295,
+    proteinPer100: 14,
+    carbsPer100: 24,
+    fatPer100: 14,
+    sizeType: "UNIT",
+    weightPerUnit: 200,
+  },
+  {
+    id: "ff2",
+    categoryId: 8,
+    name: "Pizza",
+    nameAr: "بيتزا",
+    icon: "🍕",
+    caloriesPer100: 266,
+    proteinPer100: 11,
+    carbsPer100: 33,
+    fatPer100: 10,
+    sizeType: "UNIT",
+    weightPerUnit: 150,
+  },
+
+  // --- Seafood (Category 9) ---
+  {
+    id: "sf1",
+    categoryId: 9,
+    name: "Shrimp",
+    nameAr: "جمبري",
+    icon: "🍤",
+    caloriesPer100: 99,
+    proteinPer100: 24,
+    carbsPer100: 0.2,
+    fatPer100: 0.3,
+    sizeType: "FOOD",
+    isRawCookedToggle: true,
+  },
+
+  // --- Dairy (Category 10) ---
+  {
+    id: "dy1",
+    categoryId: 10,
+    name: "Greek Yogurt",
+    nameAr: "زبادي يوناني",
+    icon: "🥣",
+    caloriesPer100: 59,
+    proteinPer100: 10,
+    carbsPer100: 3.6,
+    fatPer100: 0.4,
+    sizeType: "UNIT",
+    weightPerUnit: 150,
+  },
+  {
+    id: "dy2",
+    categoryId: 10,
+    name: "Cheddar Cheese",
+    nameAr: "جبنة شيدر",
+    icon: "🧀",
+    caloriesPer100: 402,
+    proteinPer100: 25,
+    carbsPer100: 1.3,
+    fatPer100: 33,
+    sizeType: "FOOD",
+  },
+
+  // --- Breakfast (Category 11) ---
+  {
+    id: "bf1",
+    categoryId: 11,
+    name: "Pancakes",
+    nameAr: "بان كيك",
+    icon: "🥞",
+    caloriesPer100: 227,
+    proteinPer100: 6.4,
+    carbsPer100: 28,
+    fatPer100: 9.7,
+    sizeType: "UNIT",
+    weightPerUnit: 100,
+  },
+
+  // --- Snacks (Category 12) ---
+  {
+    id: "sn1",
+    categoryId: 12,
+    name: "Popcorn",
+    nameAr: "فشار",
+    icon: "🍿",
+    caloriesPer100: 387,
+    proteinPer100: 13,
+    carbsPer100: 78,
+    fatPer100: 4.5,
+    sizeType: "FOOD",
+  },
+
+  // --- Salads (Category 13) ---
+  {
+    id: "sl1",
+    categoryId: 13,
+    name: "Caesar Salad",
+    nameAr: "سلطة سيزر",
+    icon: "🥗",
+    caloriesPer100: 150,
+    proteinPer100: 5,
+    carbsPer100: 8,
+    fatPer100: 11,
+    sizeType: "FOOD",
+  },
+
+  // --- Supplements (Category 17) ---
+  {
+    id: "sp1",
+    categoryId: 17,
+    name: "Whey Protein",
+    nameAr: "واي بروتين",
+    icon: "💪",
+    caloriesPer100: 379,
+    proteinPer100: 79,
+    carbsPer100: 7,
+    fatPer100: 4,
+    sizeType: "SPOON",
+    weightPerUnit: 30,
+  },
+
+  // --- Ramadan (Category 19) ---
+  {
+    id: "rm1",
+    categoryId: 19,
+    name: "Qatayef",
+    nameAr: "قطايف",
+    icon: "🥟",
+    caloriesPer100: 330,
+    proteinPer100: 6,
+    carbsPer100: 55,
+    fatPer100: 10,
+    sizeType: "UNIT",
+    weightPerUnit: 50,
+  },
+
+  // --- Traditional Egyptian (Category 20) ---
+  {
+    id: "eg1",
+    categoryId: 20,
+    name: "Feseekh",
+    nameAr: "فسيخ",
+    icon: "🐟",
+    caloriesPer100: 200,
+    proteinPer100: 22,
+    carbsPer100: 0,
+    fatPer100: 12,
+    sizeType: "FOOD",
+  },
+
+  // --- Street Food (Category 14) ---
+  {
+    id: "st1",
+    categoryId: 14,
+    name: "Sweet Potato",
+    nameAr: "بطاطا مشوية",
+    icon: "🍠",
+    caloriesPer100: 90,
+    proteinPer100: 2,
+    carbsPer100: 21,
+    fatPer100: 0.2,
+    sizeType: "UNIT",
+    weightPerUnit: 150,
+  },
+
+  // --- Bakery (Category 15) ---
+  {
+    id: "bk1",
+    categoryId: 15,
+    name: "Croissant",
+    nameAr: "كرواسون",
+    icon: "🥐",
+    caloriesPer100: 406,
+    proteinPer100: 8,
+    carbsPer100: 46,
+    fatPer100: 21,
+    sizeType: "UNIT",
+    weightPerUnit: 60,
+  },
+
+  // --- Frozen Foods (Category 16) ---
+  {
+    id: "fz1",
+    categoryId: 16,
+    name: "Chicken Nuggets",
+    nameAr: "ناجتس دجاج",
+    icon: "🍗",
+    caloriesPer100: 296,
+    proteinPer100: 15,
+    carbsPer100: 16,
+    fatPer100: 20,
+    sizeType: "UNIT",
+    weightPerUnit: 20,
+  },
+
+  // --- Kids Meals (Category 18) ---
+  {
+    id: "km1",
+    categoryId: 18,
+    name: "Mac and Cheese",
+    nameAr: "مكرونة بالجبنة",
+    icon: "🧀",
+    caloriesPer100: 164,
+    proteinPer100: 7,
+    carbsPer100: 22,
+    fatPer100: 5,
     sizeType: "FOOD",
   },
 ];

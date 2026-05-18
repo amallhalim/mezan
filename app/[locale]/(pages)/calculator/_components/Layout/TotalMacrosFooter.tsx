@@ -196,11 +196,11 @@ export default function TotalMacrosFooter({
                 >
                   {formatNumber(totals.calories, locale)}
                 </span>
-                <span className="hidden text-[10px] font-bold text-white/20 md:inline">
+                <span className="text-[10px] font-bold text-white/20">
                   /{formatNumber(GOALS.calories, locale)}
                 </span>
               </div>
-              <span className="mt-0.5 hidden text-[8px] font-black tracking-widest uppercase opacity-40 md:block md:text-[9px]">
+              <span className="mt-0.5 text-[8px] font-black tracking-widest uppercase opacity-40 md:text-[9px]">
                 {t("kcalLeft", {
                   count: formatNumber(
                     Math.max(GOALS.calories - totals.calories, 0),
