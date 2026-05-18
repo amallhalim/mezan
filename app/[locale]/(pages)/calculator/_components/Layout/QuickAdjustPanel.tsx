@@ -242,7 +242,7 @@ export default function QuickAdjustPanel({
           </div>
         </div>
 
-        {/* Action Buttons Row */}
+        {/* Action Button Row */}
         <div className="mt-4 flex gap-4">
           <Button variant="secondary" onClick={() => onAdd(calculated)}>
             {isEditing ? t("updateItem") : t("addToPlate")}

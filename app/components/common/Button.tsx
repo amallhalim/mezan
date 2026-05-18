@@ -2,11 +2,13 @@
 import React from "react";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline" | "ghost";
+  variant?: "primary" | "secondary" | "outline" | "ghost" | "category";
   size?: "sm" | "md" | "lg" | "xl";
   isLoading?: boolean;
+
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
+  isSelected?: boolean;
 }
 
 export default function Button({
@@ -17,6 +19,7 @@ export default function Button({
   leftIcon,
   rightIcon,
   className = "",
+  isSelected = false,
   ...props
 }: ButtonProps) {
   const variants = {
@@ -26,6 +29,7 @@ export default function Button({
     outline:
       "bg-transparent border-2 border-primary/50 text-primary hover:bg-primary/10",
     ghost: "bg-transparent hover:bg-white/5 text-gray-400 hover:text-white",
+    category: `border-primary/20 border whitespace-nowrap !tracking-normal !normal-case !font-bold !rounded-full transition-colors ${isSelected ? "bg-primary text-secondary" : "bg-primary/20 text-gray-300"}`,
   };
 
   const sizes = {
@@ -40,7 +44,7 @@ export default function Button({
 
   return (
     <button
-      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
+      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${isSelected && variant !== "category" ? "ring-primary ring-offset-background ring-2 ring-offset-2" : ""} ${className}`}
       disabled={isLoading || props.disabled}
       {...props}
     >

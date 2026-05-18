@@ -4,7 +4,8 @@ import { useLocale, useTranslations } from "next-intl";
 import { useScroller } from "@/app/hooks/useScroller";
 import { category } from "@/app/lib/data";
 import ScrollArrow from "@/app/components/common/ScrollArrow";
-import Buttons from "@/app/components/common/Buttons";
+import { CheckIcon } from "lucide-react";
+import Button from "@/app/components/common/Button";
 
 interface FoodCategoryTabsProps {
   selectedId: number;
@@ -79,13 +80,20 @@ export default function FoodCategoryTabs({
             {visibleCategories.map((item) => {
               const displayName = isArabic ? item.nameAr : item.name;
               return (
-                <Buttons
+                <Button
                   key={item.id}
+                  variant="category"
                   isSelected={selectedId === item.id}
                   onClick={() => onSelect(item.id)}
-                  title={displayName}
-                  icon={item.icon}
-                />
+                  leftIcon={item.icon}
+                  rightIcon={
+                    selectedId === item.id ? (
+                      <CheckIcon className="size-4" />
+                    ) : undefined
+                  }
+                >
+                  {displayName}
+                </Button>
               );
             })}
 
@@ -128,14 +136,21 @@ export default function FoodCategoryTabs({
             const displayName = isArabic ? item.nameAr : item.name;
 
             return (
-              <Buttons
+              <Button
                 key={item.id}
+                variant="category"
                 isSelected={selectedId === item.id}
                 onClick={() => onSelect(item.id)}
-                title={displayName}
-                icon={item.icon}
+                leftIcon={item.icon}
+                rightIcon={
+                  selectedId === item.id ? (
+                    <CheckIcon className="size-4" />
+                  ) : undefined
+                }
                 data-active={isSelected ? "true" : "false"}
-              />
+              >
+                {displayName}
+              </Button>
             );
           })}
         </div>
