@@ -13,17 +13,17 @@ interface ButtonsProps {
 export default function Buttons({
   title,
   icon,
+  isSelected = false,
+  className = "",
   onClick,
-  isSelected,
-  className,
-  ...props
+  props,
 }: ButtonsProps) {
   return (
     <button
       onClick={onClick}
       data-active={isSelected ? "true" : "false"}
       {...props}
-      className={`border-primary/20 flex flex-row items-center justify-center gap-2 rounded-full border-1 px-4 py-2 font-bold whitespace-nowrap ${isSelected ? "bg-primary text-secondary" : "bg-primary/20 text-gray-300"} ${className} `}
+      className={`border-primary/20 flex flex-row items-center justify-center gap-2 rounded-full border px-4 py-2 font-bold whitespace-nowrap ${isSelected ? "bg-primary text-secondary" : "bg-primary/20 text-gray-300"} ${className}`}
     >
       {icon}
       {title}

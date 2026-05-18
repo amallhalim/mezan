@@ -6,7 +6,7 @@ import FoodCategoryTabs from "./FoodCategoryTabs";
 
 interface CalculatorHeaderProps {
   selectedFoodListLength: number;
-  setShowCart: (show: boolean) => void;
+  setShowCart?: (show: boolean) => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   selectedCategory: number;
@@ -15,7 +15,7 @@ interface CalculatorHeaderProps {
 
 export default function CalculatorHeader({
   selectedFoodListLength,
-  setShowCart,
+  setShowCart = () => {},
   searchQuery,
   setSearchQuery,
   selectedCategory,
