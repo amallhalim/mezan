@@ -87,12 +87,20 @@ export default function FoodCard({
           </p>
         </div>
         <div
+          role="button"
+          aria-label="Add food"
+          tabIndex={0}
+          onClick={() => onSelect(food)}
           className={`flex size-8 items-center justify-center rounded-full transition-all ${isAdded ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/20" : "group-hover:bg-primary/20 group-hover:text-primary bg-white/10 text-gray-400"}`}
         >
           {isAdded ? (
-            <CheckIcon className="size-5" />
+            <CheckIcon
+              data-testid="added-icon"
+              aria-label="added"
+              className="size-5"
+            />
           ) : (
-            <Plus className="size-5" />
+            <Plus role="icon" aria-label="add" className="size-5" />
           )}
         </div>
       </div>
