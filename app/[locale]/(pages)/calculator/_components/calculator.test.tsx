@@ -1,9 +1,9 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { expect, test, vi, beforeEach, describe } from "vitest";
-import CalculatorPage from "./page";
+import CalculatorPage from "../page";
 import userEvent from "@testing-library/user-event";
 import { usePlatesStore } from "@/app/store/usePlatesStore";
-import CalculatorHeader from "./_components/Layout/CalculatorHeader";
+import CalculatorHeader from "./Layout/CalculatorHeader";
 
 // 🧹 This resets the plate before EVERY test starts
 beforeEach(() => {
