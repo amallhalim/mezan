@@ -11,7 +11,7 @@ import {
   Flame,
   Award,
 } from "lucide-react";
-import MacroPieChart from "../Common/MacroPieChart";
+import MacroPieChart from "../../../../../components/chart/MacroPieChart";
 import { formatNumber } from "@/app/lib/numberUtils";
 
 import { useLocale, useTranslations } from "next-intl";
