@@ -21,7 +21,7 @@ export default function FoodListSection({
   const t = useTranslations("HomePage");
   const locale = useLocale();
   return (
-    <section>
+    <section aria-label="Foods list">
       {filteredFoods.length > 0 ? (
         <>
           {/* Section label */}
