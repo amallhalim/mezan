@@ -55,6 +55,18 @@ describe("Login Page", () => {
 });
 ```
 
+## 🧹 Linting & Code Quality (ESLint)
+
+When writing E2E tests, it's important to remember that Cypress tests run in a completely different environment than our Next.js React application. Because of this, we use a dedicated package called **`eslint-plugin-cypress`**.
+
+### ❓ Why do we use `eslint-plugin-cypress`?
+
+1. **Global Variables:** Cypress uses global variables like `cy` and `Cypress`. Standard Next.js linting rules would flag these as "undefined variables" and crash our builds. This plugin tells ESLint that these globals are allowed and expected.
+2. **Different Code Styles:** In standard React code, writing an unassigned property (e.g., `myVariable.true;`) is an error ("unused expression"). However, in Cypress, this is exactly how we write assertions (e.g., `expect(value).to.be.true`). This plugin configures ESLint to accept these valid testing patterns.
+3. **Best Practices:** It enforces Cypress-specific best practices, such as warning you if you use `cy.wait()` (which is generally discouraged in favor of waiting for elements to appear).
+
+_Note: The configuration for this is handled inside the `eslint.config.mjs` file at the root of the project._
+
 ## 🚀 How to Run E2E Tests
 
 **Important:** Make sure your local development server (`npm run dev`) is running in another terminal before starting Cypress, so that Cypress can interact with your application!
