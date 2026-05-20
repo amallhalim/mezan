@@ -2,6 +2,9 @@
 
 This project uses **Vitest** and **React Testing Library** for unit and integration testing. We use **Global APIs**, so functions like `test`, `expect`, and `describe` are available everywhere without imports.
 
+> [!NOTE]
+> For End-to-End (E2E) testing with Cypress, please refer to the [E2E Testing Guide](./e2e-testing.md).
+
 ---
 
 ## 🚀 Running Tests (Modes)
