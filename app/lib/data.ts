@@ -64,6 +64,7 @@ export interface Food {
   fatPer100: number;
   sizeType: "FOOD" | "DRINK" | "UNIT" | "SUGAR" | "SPOON";
   isRawCookedToggle?: boolean;
+  rawMultiplier?: number;
   weightPerUnit?: number; // Optional: grams per piece
 }
 

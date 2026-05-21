@@ -10,6 +10,9 @@ beforeEach(() => {
   usePlatesStore.getState().clearPlates();
 });
 
+// 🛠️ FIX: Mock scrollIntoView since jsdom doesn't support it
+window.HTMLElement.prototype.scrollIntoView = vi.fn();
+
 /**
  * 🛠️ FIX: We need this small "Mock" for the Image component.
  * Next.js Images don't work in a testing environment without it.
@@ -26,17 +29,17 @@ test("full calculator workflow: search, add, and verify", async () => {
   const user = userEvent.setup();
   const { rerender } = render(<CalculatorPage />);
 
-  const searchInput = screen.getByPlaceholderText(/Search 1000\+ foods/i);
+  const searchInput = screen.getByTestId("search-input");
   await user.type(searchInput, "Chicken");
 
   const chickenItem = screen.getAllByText(/Chicken Breast/i)[0];
   await user.click(chickenItem);
 
-  const addBtn = screen.getByRole("button", { name: /ADD TO PLATE/i });
+  const addBtn = screen.getByRole("button", { name: /addToPlate/i });
   await user.click(addBtn);
 
   rerender(<CalculatorPage />);
-  expect(screen.getAllByText(/Your Plate/i).length).toBeGreaterThan(0);
+  expect(screen.getAllByText(/yourPlate/i).length).toBeGreaterThan(0);
 });
 
 test("opens result modal when calculation button is clicked", async () => {
@@ -64,7 +67,7 @@ test("test exist calculator page", () => {
 
 test("expect plate section is hidden when no food added", () => {
   render(<CalculatorPage />);
-  expect(screen.queryByText(/Your Plate/i)).not.toBeInTheDocument();
+  expect(screen.queryByText(/yourPlate/i)).not.toBeInTheDocument();
 });
 
 test("expect element exists once", () => {
@@ -80,7 +83,7 @@ test("query all headings", () => {
 
 test("verify search label exists", () => {
   render(<CalculatorPage />);
-  expect(screen.getByLabelText(/Search 1000\+ foods/i)).toBeInTheDocument();
+  expect(screen.getByTestId("search-input")).toBeInTheDocument();
 });
 
 test("shows 'No results' message for unknown food", async () => {
@@ -88,10 +91,10 @@ test("shows 'No results' message for unknown food", async () => {
   // simulates real human behavior (like mouse clicks and key presses).
   const user = userEvent.setup();
   render(<CalculatorPage />);
-  const searchInput = screen.getByPlaceholderText(/Search 1000\+ foods/i);
+  const searchInput = screen.getByTestId("search-input");
   await user.type(searchInput, "Xyz123");
-  expect(screen.getByText(/No results/i)).toBeInTheDocument();
-  expect(screen.getByText(/Can't find/i)).toBeInTheDocument();
+  expect(screen.getByText(/noResults/i)).toBeInTheDocument();
+  expect(screen.getByText(/cantFind/i)).toBeInTheDocument();
   expect(screen.getByText(/"Xyz123"/i)).toBeInTheDocument();
 });
 
@@ -100,15 +103,15 @@ test("Integration: Adding multiple foods calculates correct total macros", async
   const user = userEvent.setup();
   render(<CalculatorPage />);
 
-  const searchInput = screen.getByPlaceholderText(/Search 1000\+ foods/i);
+  const searchInput = screen.getByTestId("search-input");
   await user.type(searchInput, "Chicken");
   await user.click(screen.getAllByText(/Chicken Breast/i)[0]);
-  await user.click(screen.getByRole("button", { name: /ADD TO PLATE/i }));
+  await user.click(screen.getByRole("button", { name: /addToPlate/i }));
 
   await user.clear(searchInput);
   await user.type(searchInput, "Rice");
   await user.click(screen.getAllByText(/White Rice/i)[0]);
-  await user.click(screen.getByRole("button", { name: /ADD TO PLATE/i }));
+  await user.click(screen.getByRole("button", { name: /addToPlate/i }));
 
   const totalDisplay = screen.getByLabelText(/Total Calories/i);
   expect(totalDisplay).toHaveTextContent("295");
@@ -177,11 +180,11 @@ describe("Comparison: fireEvent vs userEvent", () => {
 describe("UI & Attributes Verification", () => {
   test("search input has correct initial attributes and classes", () => {
     render(<CalculatorPage />);
-    const input = screen.getByPlaceholderText(/Search 1000\+ foods/i);
+    const input = screen.getByTestId("search-input");
 
     // 1. Check HTML Attributes
     expect(input).toHaveAttribute("type", "text");
-    expect(input).toHaveAttribute("aria-label", "Search 1000+ foods");
+    expect(input).toHaveAttribute("aria-label", "searchPlaceholder");
 
     // 2. Check CSS Classes (Tailwind)
     expect(input).toHaveClass("bg-white/[0.04]");
