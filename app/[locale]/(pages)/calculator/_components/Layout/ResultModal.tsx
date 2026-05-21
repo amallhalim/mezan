@@ -1,16 +1,6 @@
 "use client";
 import React from "react";
-import {
-  X,
-  Zap,
-  Share2,
-  Heart,
-  Send,
-  MessageSquare,
-  Copy,
-  Flame,
-  Award,
-} from "lucide-react";
+import { X, Zap, Share2, Flame, Award } from "lucide-react";
 import MacroPieChart from "../../../../../components/chart/MacroPieChart";
 import { formatNumber } from "@/app/lib/numberUtils";
 
@@ -23,35 +13,10 @@ interface ResultModalProps {
 }
 
 export default function ResultModal({ item, onClose }: ResultModalProps) {
-  const tHome = useTranslations("HomePage");
+  const t = useTranslations("HomePage");
   const locale = useLocale();
   const isArabic = locale === "ar";
-  const [isSaved, setIsSaved] = React.useState(false);
-
   if (!item) return null;
-
-  const handleSave = () => {
-    setIsSaved(true);
-    setTimeout(() => setIsSaved(false), 2000);
-  };
-
-  const shareOptions = [
-    {
-      name: "X",
-      icon: <Send className="size-4" />,
-      color: "bg-white/5 text-white",
-    },
-    {
-      name: "WA",
-      icon: <MessageSquare className="size-4" />,
-      color: "bg-[#25D366]/10 text-[#25D366]",
-    },
-    {
-      name: "Copy",
-      icon: <Copy className="size-4" />,
-      color: "bg-white/5 text-white",
-    },
-  ];
 
   const getBadges = () => {
     const badges = [];
@@ -91,7 +56,7 @@ export default function ResultModal({ item, onClose }: ResultModalProps) {
             <X className="size-5" />
           </button>
 
-          <div className="absolute -bottom-10 left-1/2 z-10 flex size-20 -translate-x-1/2 rotate-3 transform items-center justify-center rounded-[2rem] border-4 border-[#09090b] bg-zinc-900 text-5xl shadow-2xl transition-transform duration-500 hover:rotate-0">
+          <div className="absolute -bottom-10 left-1/2 z-10 flex size-20 -translate-x-1/2 rotate-3 transform items-center justify-center rounded-4xl border-4 border-[#09090b] bg-zinc-900 text-5xl shadow-2xl transition-transform duration-500 hover:rotate-0">
             {item.icon}
           </div>
         </div>
@@ -118,12 +83,12 @@ export default function ResultModal({ item, onClose }: ResultModalProps) {
           </div>
 
           {/* Main Content Grid */}
-          <div className="space-y-6 rounded-[2.5rem] border border-white/5 bg-white/[0.02] p-6">
+          <div className="space-y-6 rounded-[2.5rem] border border-white/5 bg-white/2 p-6">
             <div className="grid grid-cols-2 items-center gap-8">
               <div className="space-y-6">
                 <div className="space-y-1">
                   <p className="text-[10px] font-black tracking-[0.2em] text-gray-500 uppercase">
-                    {tHome("totalEnergy") || "Total Energy"}
+                    {t("totalEnergy")}
                   </p>
                   <div className="flex items-baseline gap-2">
                     <span className="text-primary text-6xl font-black tracking-tighter tabular-nums drop-shadow-[0_0_20px_rgba(16,185,129,0.3)]">
@@ -138,17 +103,17 @@ export default function ResultModal({ item, onClose }: ResultModalProps) {
                 <div className="space-y-4">
                   {[
                     {
-                      label: tHome("proteins"),
+                      label: t("proteins"),
                       value: item.protein,
                       color: "var(--protein)",
                     },
                     {
-                      label: tHome("carbs"),
+                      label: t("carbs"),
                       value: item.carbs,
                       color: "var(--carbs)",
                     },
                     {
-                      label: tHome("fat"),
+                      label: t("fat"),
                       value: item.fat,
                       color: "var(--fat)",
                     },
@@ -190,38 +155,24 @@ export default function ResultModal({ item, onClose }: ResultModalProps) {
 
           {/* Action Row */}
           <div className="flex gap-4">
-            <button className="group flex size-16 items-center justify-center rounded-3xl border border-white/10 bg-white/5 text-white transition-all hover:bg-white/10 active:scale-90">
-              <Share2 className="size-6 transition-transform group-hover:rotate-12" />
-            </button>
             <button
-              onClick={handleSave}
-              className={`flex flex-1 items-center justify-center gap-3 rounded-3xl font-black transition-all active:scale-[0.98] ${
-                isSaved
-                  ? "bg-emerald-500 text-white shadow-[0_0_30px_rgba(16,185,129,0.4)]"
-                  : "bg-primary text-secondary hover:bg-primary/90 shadow-[0_15px_30px_rgba(16,185,129,0.2)] hover:-translate-y-1"
-              }`}
+              onClick={() => {
+                if (navigator.share) {
+                  navigator
+                    .share({
+                      title: isArabic ? item.nameAr : item.name,
+                      text: `${isArabic ? item.nameAr : item.name}\n${t("totalEnergy")}: ${formatNumber(item.calories, locale)} kcal\n${t("proteins")}: ${formatNumber(item.protein, locale)}g | ${t("carbs")}: ${formatNumber(item.carbs, locale)}g | ${t("fat")}: ${formatNumber(item.fat, locale)}g`,
+                    })
+                    .catch(console.error);
+                }
+              }}
+              className="bg-primary text-secondary hover:bg-primary/90 flex w-full items-center justify-center gap-3 rounded-3xl py-4 font-black shadow-[0_15px_30px_rgba(16,185,129,0.2)] transition-all hover:-translate-y-1 active:scale-[0.98]"
             >
-              <Heart className={`size-6 ${isSaved ? "fill-white" : ""}`} />
+              <Share2 className="size-6" />
               <span className="text-sm font-black tracking-widest uppercase">
-                {isSaved
-                  ? tHome("saved") || "SAVED!"
-                  : tHome("saveToDiary") || "SAVE TO DIARY"}
+                {t("share")}
               </span>
             </button>
-          </div>
-
-          {/* Social Grid */}
-          <div className="flex justify-center gap-4 py-2">
-            {shareOptions.map((opt) => (
-              <button
-                key={opt.name}
-                className={`${opt.color} group flex size-12 items-center justify-center rounded-2xl border border-transparent transition-all hover:-translate-y-1 hover:border-white/10 active:scale-95`}
-              >
-                <div className="transition-transform group-hover:scale-125">
-                  {opt.icon}
-                </div>
-              </button>
-            ))}
           </div>
         </div>
       </div>
