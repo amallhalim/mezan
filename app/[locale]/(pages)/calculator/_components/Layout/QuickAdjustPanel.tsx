@@ -54,12 +54,12 @@ export default function QuickAdjustPanel({
   if (!calculated) return null;
 
   return (
-    <div
-      aria-label="Food details"
-      className="animate-in fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm duration-300"
-    >
+    <div className="animate-in fade-in fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm duration-300">
       {/* Premium Forest-Green Card Dialog */}
-      <div className="animate-in zoom-in-95 w-100 rounded-[2.5rem] border border-emerald-500/10 bg-[#04120c] p-6 shadow-2xl shadow-emerald-950/20 duration-300">
+      <div
+        aria-label="Food details dialog"
+        className="animate-in zoom-in-95 w-100 rounded-[2.5rem] border border-emerald-500/10 bg-[#04120c] p-6 shadow-2xl shadow-emerald-950/20 duration-300"
+      >
         {/* Header Row (Close left, details middle, icon right in RTL) */}
         <div className="mb-6 flex items-center justify-between gap-4">
           {/* Food Icon Card */}
@@ -216,7 +216,12 @@ export default function QuickAdjustPanel({
 
         {/* Action Button Row */}
         <div className="mt-4 flex gap-4">
-          <Button variant="secondary" onClick={() => onAdd(calculated)}>
+          <Button
+            aria-label={isEditing ? t("updateItem") : t("addToPlate")}
+            data-testid="plate-submit-button"
+            variant="secondary"
+            onClick={() => onAdd(calculated)}
+          >
             {isEditing ? t("updateItem") : t("addToPlate")}
           </Button>
 

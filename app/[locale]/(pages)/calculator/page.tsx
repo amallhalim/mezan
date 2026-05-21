@@ -216,7 +216,11 @@ export default function CalculatorPage() {
       )}
 
       {toastMessage && (
-        <div className="animate-in slide-in-from-top-10 fade-in fixed top-6 left-1/2 z-50 -translate-x-1/2 duration-300">
+        <div
+          aria-live="polite"
+          data-testid="toast"
+          className="animate-in slide-in-from-top-10 fade-in fixed top-6 left-1/2 z-50 -translate-x-1/2 duration-300"
+        >
           <div className="bg-primary text-secondary border-primary/20 flex items-center gap-2 rounded-full border px-6 py-3 font-black shadow-[0_10px_30px_rgba(16,185,129,0.3)]">
             <span className="text-xl">✅</span> {toastMessage}
           </div>
