@@ -33,7 +33,7 @@ export const calculateNutrients = (
         : cappedAmount;
 
   const factor = effectiveWeight / 100;
-  const cookingFactor = isRaw ? 1.2 : 1.0;
+  const cookingFactor = isRaw ? (food.rawMultiplier ?? 1.2) : 1.0;
 
   return {
     calories: Math.round(

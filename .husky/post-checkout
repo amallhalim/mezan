@@ -1,0 +1,2 @@
+echo "🌿 Switched branches! Clearing Next.js cache to avoid stale data..."
+npm run clean

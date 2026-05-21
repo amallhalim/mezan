@@ -1,0 +1,2 @@
+echo "🔄 Code pulled/merged! Syncing dependencies..."
+npm install

@@ -1,0 +1,162 @@
+
+🚫 ================================================================= 🚫
+    ERROR: Invalid Commit Message Format
+    Your commit was blocked because it doesn't follow the rules.
+    You MUST start your message with a type (feat:, fix:, chore:, etc)
+
+    ✅ CORRECT: git commit -m "feat: added new login button"
+    ❌ WRONG:   git commit -m "added new login button"
+🚫 ================================================================= 🚫
+
+
+🚫 ================================================================= 🚫
+    ERROR: Invalid Commit Message Format
+    Your commit was blocked because it doesn't follow the rules.
+    You MUST start your message with a type (feat:, fix:, chore:, etc)
+
+    ✅ CORRECT: git commit -m "feat: added new login button"
+    ❌ WRONG:   git commit -m "added new login button"
+🚫 ================================================================= 🚫
+
+
+🚫 ================================================================= 🚫
+    ERROR: Invalid Commit Message Format
+    Your commit was blocked because it doesn't follow the rules.
+    You MUST start your message with a type (feat:, fix:, chore:, etc)
+
+    ✅ CORRECT: git commit -m "feat: added new login button"
+    ❌ WRONG:   git commit -m "added new login button"
+🚫 ================================================================= 🚫
+
+
+🚫 ================================================================= 🚫
+    ERROR: Invalid Commit Message Format
+    Your commit was blocked because it doesn't follow the rules.
+    You MUST start your message with a type (feat:, fix:, chore:, etc)
+
+    ✅ CORRECT: git commit -m "feat: added new login button"
+    ❌ WRONG:   git commit -m "added new login button"
+🚫 ================================================================= 🚫
+
+
+🚫 ================================================================= 🚫
+    ERROR: Invalid Commit Message Format
+    Your commit was blocked because it doesn't follow the rules.
+    You MUST start your message with a type (feat:, fix:, chore:, etc)
+
+    ✅ CORRECT: git commit -m "feat: added new login button"
+    ❌ WRONG:   git commit -m "added new login button"
+🚫 ================================================================= 🚫
+
+
+🚫 ================================================================= 🚫
+    ERROR: Invalid Commit Message Format
+    Your commit was blocked because it doesn't follow the rules.
+    You MUST start your message with a type (feat:, fix:, chore:, etc)
+
+    ✅ CORRECT: git commit -m "feat: added new login button"
+    ❌ WRONG:   git commit -m "added new login button"
+🚫 ================================================================= 🚫
+
+
+🚫 ================================================================= 🚫
+    ERROR: Invalid Commit Message Format
+    Your commit was blocked because it doesn't follow the rules.
+    You MUST start your message with a type (feat:, fix:, chore:, etc)
+
+    ✅ CORRECT: git commit -m "feat: added new login button"
+    ❌ WRONG:   git commit -m "added new login button"
+🚫 ================================================================= 🚫
+
+
+🚫 ================================================================= 🚫
+    ERROR: Invalid Commit Message Format
+    Your commit was blocked because it doesn't follow the rules.
+    You MUST start your message with a type (feat:, fix:, chore:, etc)
+
+    ✅ CORRECT: git commit -m "feat: added new login button"
+    ❌ WRONG:   git commit -m "added new login button"
+🚫 ================================================================= 🚫
+
+
+🚫 ================================================================= 🚫
+    ERROR: Invalid Commit Message Format
+    Your commit was blocked because it doesn't follow the rules.
+    You MUST start your message with a type (feat:, fix:, chore:, etc)
+
+    ✅ CORRECT: git commit -m "feat: added new login button"
+    ❌ WRONG:   git commit -m "added new login button"
+🚫 ================================================================= 🚫
+
+
+🚫 ================================================================= 🚫
+    ERROR: Invalid Commit Message Format
+    Please check the specific error message from commitlint above.
+
+    💡 Remember the rules:
+    1. Start with a type (feat:, fix:, chore:, etc.)
+    2. Keep the first line under 100 characters.
+
+    ✅ CORRECT: git commit -m "feat: setup husky hooks"
+🚫 ================================================================= 🚫
+
+
+🚫 ================================================================= 🚫
+    ERROR: Invalid Commit Message Format
+    Please check the specific error message from commitlint above.
+
+    💡 Remember the rules:
+    1. Start with a type (feat:, fix:, chore:, etc.)
+    2. Keep the first line under 100 characters.
+
+    ✅ CORRECT: git commit -m "feat: setup husky hooks"
+🚫 ================================================================= 🚫
+
+
+🚫 ================================================================= 🚫
+    ERROR: Invalid Commit Message Format
+    Please check the specific error message from commitlint above.
+
+    💡 Remember the rules:
+    1. Start with a type (feat:, fix:, chore:, etc.)
+    2. Keep the first line under 100 characters.
+
+    ✅ CORRECT: git commit -m "feat: setup husky hooks"
+🚫 ================================================================= 🚫
+
+
+🚫 ================================================================= 🚫
+    ERROR: Invalid Commit Message Format
+    Please check the specific error message from commitlint above.
+
+    💡 Remember the rules:
+    1. Start with a type (feat:, fix:, chore:, etc.)
+    2. Keep the first line under 200 characters.
+
+    ✅ CORRECT: git commit -m "feat: setup husky hooks"
+🚫 ================================================================= 🚫
+
+
+🚫 ================================================================= 🚫
+    ERROR: Full Test Suite Failed!
+    Your push was blocked because some unit tests are failing.
+
+    Please run 'npm test' locally and fix the failing tests.
+🚫 ================================================================= 🚫
+
+
+🚫 ================================================================= 🚫
+    ERROR: Full Test Suite Failed!
+    Your push was blocked because some unit tests are failing.
+
+    Please run 'npm test' locally and fix the failing tests.
+🚫 ================================================================= 🚫
+
+
+🚫 ================================================================= 🚫
+    ERROR: Full Test Suite Failed!
+    Your push was blocked because some unit tests are failing.
+
+    Please run 'npm test' locally and fix the failing tests.
+🚫 ================================================================= 🚫
+

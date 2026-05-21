@@ -5,21 +5,30 @@ import { ArrowRight, ShieldCheck, Cpu, Clock, Calendar } from "lucide-react";
 import { useTheme } from "./context/ThemeContext";
 import Counter from "./Counter";
 import ShowData from "./ShowData";
-import { useTranslations, useFormatter } from "next-intl";
-import LanguageSwitcher from "./components/LanguageSwitcher";
+import { useTranslations, useFormatter, useLocale } from "next-intl";
+import LanguageSwitcher from "./components/common/LanguageSwitcher";
 import { Link } from "../i18n/navigation";
 
 export default function HomeClient() {
+  const locale = useLocale();
+  const isArabic = locale === "ar";
   const { theme, toggleTheme } = useTheme();
   const t = useTranslations("HomePage");
   const format = useFormatter();
   const [now, setNow] = useState(new Date());
 
-  // Update time every minute
+  // 🕒 LIVE CLOCK: Update time every second
   useEffect(() => {
-    const timer = setInterval(() => setNow(new Date()), 60000);
+    const timer = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
+
+  const getGreetingKey = () => {
+    const hours = now.getHours();
+    if (hours < 12) return "greetingMorning";
+    if (hours < 18) return "greetingAfternoon";
+    return "greetingEvening";
+  };
 
   return (
     <div
@@ -57,7 +66,7 @@ export default function HomeClient() {
             </button>
           </div>
           <h1 className="bg-gradient-to-br from-white via-white to-white/40 bg-clip-text text-5xl font-bold tracking-tight text-transparent lg:text-7xl">
-            {t("greeting")}
+            {t(getGreetingKey())}
           </h1>
         </header>
 
@@ -178,7 +187,10 @@ export default function HomeClient() {
                     {format.dateTime(now, {
                       hour: "numeric",
                       minute: "numeric",
+                      second: "numeric",
                       hour12: true,
+                      timeZoneName: "short",
+                      numberingSystem: isArabic ? "arab" : "latn",
                     })}
                   </span>
                 </div>
@@ -197,6 +209,7 @@ export default function HomeClient() {
                       month: "short",
                       day: "numeric",
                       year: "numeric",
+                      numberingSystem: isArabic ? "arab" : "latn",
                     })}
                   </span>
                 </div>

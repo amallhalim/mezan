@@ -2,7 +2,7 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 
 interface UseScrollableTabsOptions {
-  selectedId: number;
+  selectedId: number | string;
   scrollAmount?: number;
 }
 
@@ -25,8 +25,23 @@ export function useScroller({
   const checkScroll = useCallback(() => {
     const el = scrollRef.current;
     if (!el) return;
-    setCanScrollLeft(el.scrollLeft > 8);
-    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 8);
+
+    const isRTL = getComputedStyle(el).direction === "rtl";
+
+    if (isRTL) {
+      // In RTL, scrollLeft starts at 0 (far right) and goes negative as we scroll left
+      const scrollLeftAbs = Math.abs(el.scrollLeft);
+      const maxScroll = el.scrollWidth - el.clientWidth;
+
+      // Can scroll left if we haven't reached the maximum negative scroll
+      setCanScrollLeft(scrollLeftAbs < maxScroll - 8);
+      // Can scroll right if we have scrolled left (negative scroll) and can return towards 0
+      setCanScrollRight(scrollLeftAbs > 8);
+    } else {
+      // In LTR, scrollLeft starts at 0 (far left) and goes positive as we scroll right
+      setCanScrollLeft(el.scrollLeft > 8);
+      setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 8);
+    }
   }, []);
 
   useEffect(() => {

@@ -1,0 +1,15 @@
+branch=$(git rev-parse --abbrev-ref HEAD)
+if [ "$branch" = "main" ] || [ "$branch" = "master" ]; then
+  {
+    echo ""
+    echo "🚫 ================================================================= 🚫"
+    echo "    CRITICAL ERROR: Main Branch Protection!"
+    echo "    You are trying to rebase the '$branch' branch."
+    echo ""
+    echo "    Rebasing main/master is extremely dangerous for the team."
+    echo "    This action has been blocked by Husky."
+    echo "🚫 ================================================================= 🚫"
+    echo ""
+  } | tee -a husky-errors.log
+  exit 1
+fi

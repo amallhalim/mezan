@@ -1,0 +1,17 @@
+if ! npx --no -- commitlint --edit "${1}"; then
+  {
+    echo ""
+    echo "🚫 ================================================================= 🚫"
+    echo "    ERROR: Invalid Commit Message Format"
+    echo "    Please check the specific error message from commitlint above."
+    echo ""
+    echo "    💡 Remember the rules:"
+    echo "    1. Start with a type (feat:, fix:, chore:, etc.)"
+    echo "    2. Keep the first line under 200 characters."
+    echo ""
+    echo "    ✅ CORRECT: git commit -m \"feat: setup husky hooks\""
+    echo "🚫 ================================================================= 🚫"
+    echo ""
+  } | tee -a husky-errors.log
+  exit 1
+fi

@@ -13,16 +13,6 @@ test("renders by Role (Heading and Buttons)", () => {
   // Logs a URL to the console that opens the current UI state in Testing Playground.
   // Use this for visual debugging and finding the best queries (roles, labels, etc.).
 
-  // console.log("prettyDOM-----------------------")
-  // console.log("prettyDOM", prettyDOM())
-  // console.log("prettyDOM-----------------------")
-  // console.log(" screen.debug-----------------------")
-  // screen.debug(container)
-  // console.log(" screen.debug-----------------------")
-  // console.log("logRoles--11---------------------")
-  // logRoles(container);
-  // console.log("logRoles---33--------------------")
-
   const heading = screen.getByRole("heading", { name: /Testing Sandbox/i });
   expect(heading).toBeInTheDocument();
 

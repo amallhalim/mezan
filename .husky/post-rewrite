@@ -1,0 +1,3 @@
+echo "🔄 History rewritten (amend/rebase)! Syncing and cleaning..."
+npm install
+npm run clean

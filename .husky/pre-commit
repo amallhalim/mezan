@@ -3,5 +3,68 @@
 # It prevents "broken" code from being saved to Git.
 npm run type-check
 
+# 🧪 TEST RUNNER: Verify logic correctness
+# Why: This ensures all unit tests pass before code is committed.
+# It prevents regressions from entering the codebase.
+#npm test
+
 # 🧹 AUTO-FORMAT & LINT: Clean up the code
 npx lint-staged
+
+# 🛡️ SECRET SCANNER: Basic check for obvious secrets
+if git diff --cached -- ':!.husky' | grep -iE "AKIA[0-9A-Z]{16}|sk_live_[0-9a-zA-Z]{24}|BEGIN RSA PRIVATE KEY"; then
+  {
+    echo ""
+    echo "🚫 ================================================================= 🚫"
+    echo "    ERROR: Potential Secret Leaked!"
+    echo "    Your commit was blocked because it contains sensitive data."
+    echo ""
+    echo "    DETECTED: Potential AWS Key, Stripe Key, or RSA Private Key."
+    echo "    Please REMOVE the secret from your code before committing."
+    echo "🚫 ================================================================= 🚫"
+    echo ""
+  } | tee -a husky-errors.log
+  exit 1
+fi
+
+# 🌿 BRANCH NAME ENFORCER: Block bad branch names
+BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
+
+# 🔒 WORKFLOW PROTECTION: Block direct commits to main/develop
+if [[ "$BRANCH_NAME" == "main" || "$BRANCH_NAME" == "master" || "$BRANCH_NAME" == "develop" ]]; then
+  {
+    echo ""
+    echo "🚫 ================================================================= 🚫"
+    echo "    CRITICAL ERROR: Direct Commit to '$BRANCH_NAME' is Blocked!"
+    echo "    You are trying to commit directly to a protected branch."
+    echo ""
+    echo "    🛠️ REQUIRED WORKFLOW: "
+    echo "    1. Create a feature branch: git checkout -b feature/your-task"
+    echo "    2. Commit your work there."
+    echo "    3. Merge to 'develop' -> then merge to 'main'."
+    echo ""
+    echo "    💡 Move your changes to a new branch now!"
+    echo "🚫 ================================================================= 🚫"
+    echo ""
+  } | tee -a husky-errors.log
+  exit 1
+fi
+
+VALID_BRANCH_REGEX="^(feature\/|bugfix\/|hotfix\/|release\/|chore\/)"
+
+if [[ ! $BRANCH_NAME =~ $VALID_BRANCH_REGEX ]]; then
+  {
+    echo ""
+    echo "🚫 ================================================================= 🚫"
+    echo "    ERROR: Invalid Branch Name: '$BRANCH_NAME'"
+    echo "    Your branch does not follow the project naming conventions."
+    echo ""
+    echo "    ✅ CORRECT: feature/login, bugfix/header, chore/husky"
+    echo "    ❌ WRONG:   my-test-branch, fixing-bugs"
+    echo ""
+    echo "    Please rename your branch: git branch -m feature/your-name"
+    echo "🚫 ================================================================= 🚫"
+    echo ""
+  } | tee -a husky-errors.log
+  exit 1
+fi

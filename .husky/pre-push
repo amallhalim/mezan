@@ -1,0 +1,14 @@
+# echo "🧪 Running full test suite before push..."
+# if ! npm test; then
+#   {
+#     echo ""
+#     echo "🚫 ================================================================= 🚫"
+#     echo "    ERROR: Full Test Suite Failed!"
+#     echo "    Your push was blocked because some unit tests are failing."
+#     echo ""
+#     echo "    Please run 'npm test' locally and fix the failing tests."
+#     echo "🚫 ================================================================= 🚫"
+#     echo ""
+#   } | tee -a husky-errors.log
+#   exit 1
+# fi
