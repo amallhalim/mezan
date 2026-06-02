@@ -21,6 +21,7 @@ npm run commit:skip -m "Your commit message"
 
 Check out our documentation in the [docs/](./docs) folder:
 
+- [📖 Project Overview](./docs/project-overview.md)
 - [🧪 Testing Guide](./docs/testing.md)
 - [🛠️ Tech Stack](./docs/tech-stack.md)
 - [⚙️ Scripts Guide](./docs/SCRIPTS.md)
