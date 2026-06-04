@@ -1,5 +1,7 @@
 # 📖 Project Overview: Mizan Health Suite
 
+📚 **External Documentation**: [Mizan Mintlify Docs](https://amal-13ec13d1.mintlify.app/introduction)
+
 Welcome to the **Mizan Health Suite**, a modern, fully-internationalized web application built on **Next.js** (App Router). The project heavily emphasizes high-quality, scalable code and a premium user experience.
 
 ## 🏗️ Architectural & Tech Stack Details
