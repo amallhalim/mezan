@@ -55,6 +55,26 @@ Instead of writing complex React Class Components manually, we leverage the Next
 - **Global Error Handling:** Our app has a root `app/global-error.tsx` file (configured with Sentry). If a critical failure occurs, this boundary catches it, automatically logs the exception via `Sentry.captureException()`, and provides a generic fallback.
 - **Localized Error Handling:** We have implemented `app/[locale]/error.tsx` which serves as the primary error boundary for all localized application routes. This ensures that any crashes within the main application content are caught, logged to Sentry, and the user is presented with a graceful fallback UI featuring a recovery mechanism (a "Try again" button) instead of a broken application. You can further isolate errors by creating nested `error.tsx` files inside specific feature route folders.
 
+## 🛡️ Security Architecture & Environment Variables
+
+### Secure Environment Usage
+
+**Never expose secrets in the frontend.**
+
+- In Next.js, any environment variable prefixed with `NEXT_PUBLIC_` (e.g., `NEXT_PUBLIC_API_URL`) is bundled and shipped to the browser. These should **only** be used for non-sensitive configuration.
+
+- Standard environment variables (e.g., `DATABASE_URL`, `API_SECRET`) are stripped from the frontend bundle. They are secure and only accessible on the server (Server Components, API Routes, Middleware).
+
+### Role-Based Access Control (RBAC)
+
+**Strong Opinion:** _If you rely only on frontend role checks, your security model is broken._
+
+- **Frontend (UI Gating):** The React frontend is only responsible for hiding/showing elements (like an "Admin" button) based on the user's role for UX purposes.
+
+- **Backend (True Security):** The actual enforcement must happen on the server. In this project, we enforce permissions via Next.js **Middleware** or within **Server Components/API Routes**.
+
+Even if a user bypasses the UI gate, the backend will reject their request.
+
 ---
 
 _Mizan Health Suite is designed to be a premium, highly-tested, and localized health tool, starting with robust nutritional calculation._
