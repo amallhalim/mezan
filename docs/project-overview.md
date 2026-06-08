@@ -24,6 +24,37 @@ A highly-precise, client-side nutritional calculator designed to help users accu
 - **Data Persistence:** The user's "Plate" is saved to LocalStorage so data is preserved across page reloads.
 - **Premium UX:** Includes features like automatically merging duplicate foods on the plate, providing a sticky mobile summary, and capping maximum weights (5000g) to prevent overflow errors.
 
+## 🐞 Monitoring & Error Tracking
+
+**Sentry** is integrated to automatically track and report errors across the application.
+
+### Sentry SDK Setup & Verification
+
+To verify that Sentry is correctly capturing errors on your local environment:
+
+1. **Start the Next.js development server**:
+   ```bash
+   npm run dev
+   ```
+2. **Visit the test page**: Open your browser and navigate to `http://localhost:3000/sentry-example-page`.
+3. **Trigger the error**: Click the **"Throw Sample Error"** button. This will send a test exception to the Sentry dashboard, confirming that the integration is active.
+
+### Error Boundaries (Senior-level Practice)
+
+**Why use them?**
+Without Error Boundaries, a single component crash causes the entire React UI to crash, resulting in a blank screen. Error Boundaries catch rendering errors and child component crashes to:
+
+- Show a graceful fallback UI instead of raw error text.
+- Allow a retry mechanism (e.g., a "Try Again" button).
+- Log the exact error to an external service (like **Sentry**) so the engineering team is notified.
+  _A React application without Error Boundaries is not considered production-ready._
+
+**How we apply them in Next.js:**
+Instead of writing complex React Class Components manually, we leverage the Next.js App Router conventions:
+
+- **Global Error Handling:** Our app has a root `app/global-error.tsx` file (configured with Sentry). If a critical failure occurs, this boundary catches it, automatically logs the exception via `Sentry.captureException()`, and provides a generic fallback.
+- **Localized Error Handling:** To isolate errors (e.g., ensuring a sidebar stays alive even if the main content crashes), you simply create an `error.tsx` Client Component inside any specific route folder. Next.js automatically wraps that specific route segment in a boundary, allowing you to provide localized fallback UI and reset functionality.
+
 ---
 
 _Mizan Health Suite is designed to be a premium, highly-tested, and localized health tool, starting with robust nutritional calculation._
