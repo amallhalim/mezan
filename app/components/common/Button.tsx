@@ -1,14 +1,24 @@
 "use client";
 import React from "react";
 
+export type ButtonTypes =
+  | "primary"
+  | "secondary"
+  | "outline"
+  | "ghost"
+  | "category";
+export type buttonSizes = "sm" | "md" | "lg" | "xl";
+type NoGhost = Exclude<ButtonTypes, "ghost">;
+
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline" | "ghost" | "category";
-  size?: "sm" | "md" | "lg" | "xl";
+  variant?: NoGhost;
+  size?: buttonSizes;
   isLoading?: boolean;
 
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   isSelected?: boolean;
+  children: string;
 }
 
 export default function Button({
