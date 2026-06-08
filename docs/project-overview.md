@@ -53,7 +53,7 @@ Without Error Boundaries, a single component crash causes the entire React UI to
 Instead of writing complex React Class Components manually, we leverage the Next.js App Router conventions:
 
 - **Global Error Handling:** Our app has a root `app/global-error.tsx` file (configured with Sentry). If a critical failure occurs, this boundary catches it, automatically logs the exception via `Sentry.captureException()`, and provides a generic fallback.
-- **Localized Error Handling:** To isolate errors (e.g., ensuring a sidebar stays alive even if the main content crashes), you simply create an `error.tsx` Client Component inside any specific route folder. Next.js automatically wraps that specific route segment in a boundary, allowing you to provide localized fallback UI and reset functionality.
+- **Localized Error Handling:** We have implemented `app/[locale]/error.tsx` which serves as the primary error boundary for all localized application routes. This ensures that any crashes within the main application content are caught, logged to Sentry, and the user is presented with a graceful fallback UI featuring a recovery mechanism (a "Try again" button) instead of a broken application. You can further isolate errors by creating nested `error.tsx` files inside specific feature route folders.
 
 ---
 
