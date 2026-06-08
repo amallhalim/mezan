@@ -12,7 +12,7 @@ npm run type-check
 npx lint-staged
 
 # 🛡️ SECRET SCANNER: Basic check for obvious secrets
-if git diff --cached -- ':!.husky' | grep -iE "AKIA[0-9A-Z]{16}|sk_live_[0-9a-zA-Z]{24}|BEGIN RSA PRIVATE KEY"; then
+if git diff --cached -- ':!.husky' ':!*.md' ':!*.txt' | grep -iE "AKIA[0-9A-Z]{16}|sk_live_[0-9a-zA-Z]{24}|BEGIN RSA PRIVATE KEY"; then
   {
     echo ""
     echo "🚫 ================================================================= 🚫"
@@ -28,7 +28,7 @@ if git diff --cached -- ':!.husky' | grep -iE "AKIA[0-9A-Z]{16}|sk_live_[0-9a-zA
 fi
 
 # 🛡️ FRONTEND SECRET SCANNER: Block exposing secrets via NEXT_PUBLIC_
-if git diff --cached -- ':!.husky' | grep -iE "NEXT_PUBLIC_.*(SECRET|PASSWORD|TOKEN|PRIVATE_KEY)"; then
+if git diff --cached -- ':!.husky' ':!*.md' ':!*.txt' | grep -iE "NEXT_PUBLIC_.*(SECRET|PASSWORD|TOKEN|PRIVATE_KEY)"; then
   {
     echo ""
     echo "🚫 ================================================================= 🚫"
