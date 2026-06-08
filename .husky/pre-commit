@@ -27,6 +27,24 @@ if git diff --cached -- ':!.husky' | grep -iE "AKIA[0-9A-Z]{16}|sk_live_[0-9a-zA
   exit 1
 fi
 
+# 🛡️ FRONTEND SECRET SCANNER: Block exposing secrets via NEXT_PUBLIC_
+if git diff --cached -- ':!.husky' | grep -iE "NEXT_PUBLIC_.*(SECRET|PASSWORD|TOKEN|PRIVATE_KEY)"; then
+  {
+    echo ""
+    echo "🚫 ================================================================= 🚫"
+    echo "    ERROR: Potential Frontend Secret Leaked!"
+    echo "    Your commit was blocked because you are exposing a secret to the browser."
+    echo ""
+    echo "    DETECTED: A 'NEXT_PUBLIC_' variable containing SECRET, PASSWORD, or TOKEN."
+    echo "    RULE: Never expose secrets in the frontend. Only config goes in NEXT_PUBLIC_."
+    echo "    Please REMOVE the NEXT_PUBLIC_ prefix if this is a true secret,"
+    echo "    or rename the variable if it's just public configuration."
+    echo "🚫 ================================================================= 🚫"
+    echo ""
+  } | tee -a husky-errors.log
+  exit 1
+fi
+
 # 🌿 BRANCH NAME ENFORCER: Block bad branch names
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 
