@@ -3,7 +3,8 @@ import { formatNumber } from "@/app/lib/numberUtils";
 import React from "react";
 import { Search, Activity, Utensils } from "lucide-react";
 import FoodCategoryTabs from "./FoodCategoryTabs";
-
+import { useTheme } from "@/app/context/ThemeContext";
+import LanguageSwitcher from "@/app/components/common/LanguageSwitcher";
 interface CalculatorHeaderProps {
   selectedFoodListLength: number;
   setShowCart?: (show: boolean) => void;
@@ -23,6 +24,7 @@ export default function CalculatorHeader({
 }: CalculatorHeaderProps) {
   const t = useTranslations("HomePage");
   const locale = useLocale();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <header className="mb-8">
@@ -38,24 +40,34 @@ export default function CalculatorHeader({
               Mezan
             </span>
           </div>
-          <h1 className="text-4xl leading-none font-black tracking-tighter text-white">
+          <h1 className="text-text-heading text-4xl leading-none font-black tracking-tighter">
             Macro
             <span className="text-primary ml-2">Calc</span>
-            <span className="ml-2 text-white/10">.</span>
+            <span className="text-foreground/10 ml-2">.</span>
           </h1>
         </div>
 
-        {selectedFoodListLength > 0 && (
+        <div className="flex items-center gap-3">
+          <LanguageSwitcher />
           <button
-            onClick={() => setShowCart(true)}
-            className="group relative flex size-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 transition-all hover:scale-105 hover:bg-white/10"
+            onClick={toggleTheme}
+            className="border-border bg-surface text-foreground hover:bg-surface-elevated flex items-center justify-center rounded-xl border px-4 py-2 text-sm transition-all"
           >
-            <Utensils className="size-5 text-emerald-400" />
-            <span className="absolute -top-2 -right-2 flex size-6 items-center justify-center rounded-full bg-emerald-500 text-[11px] font-black text-[#04120c] shadow-lg">
-              {formatNumber(selectedFoodListLength, locale)}
-            </span>
+            {t("mode")}: {theme}
           </button>
-        )}
+
+          {selectedFoodListLength > 0 && (
+            <button
+              onClick={() => setShowCart(true)}
+              className="group border-border bg-surface hover:bg-surface-elevated relative flex size-12 items-center justify-center rounded-2xl border transition-all hover:scale-105"
+            >
+              <Utensils className="text-primary size-5" />
+              <span className="bg-primary text-secondary absolute -top-2 -right-2 flex size-6 items-center justify-center rounded-full text-[11px] font-black shadow-lg">
+                {formatNumber(selectedFoodListLength, locale)}
+              </span>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Search bar */}
@@ -70,13 +82,13 @@ export default function CalculatorHeader({
             placeholder={t("searchPlaceholder")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="focus:border-primary/40 w-full rounded-2xl border border-white/[0.06] bg-white/[0.04] py-4 pr-4 pl-12 text-sm font-medium text-white transition-all duration-200 outline-none placeholder:text-gray-600 hover:bg-white/[0.06] focus:bg-white/[0.06]"
+            className="focus:border-primary/40 border-border bg-surface text-foreground placeholder:text-text-dim hover:bg-surface-elevated focus:bg-surface-elevated w-full rounded-2xl border py-4 pr-4 pl-12 text-sm font-medium transition-all duration-200 outline-none"
           />
           {searchQuery && (
             <button
               data-testid="search-close-button"
               onClick={() => setSearchQuery("")}
-              className="absolute top-1/2 right-4 flex size-5 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-xs font-black text-gray-400 transition-all hover:bg-white/20 hover:text-white"
+              className="bg-surface-elevated text-foreground hover:bg-primary hover:text-secondary absolute top-1/2 right-4 flex size-5 -translate-y-1/2 items-center justify-center rounded-full text-xs font-black transition-all"
             >
               ✕
             </button>

@@ -32,9 +32,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     // Whatever you put in 'value' is what children components will receive.
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {/* We apply a CSS class based on the theme state */}
-      <div className={theme === "dark" ? "dark-theme" : "light-theme"}>
-        {children}
-      </div>
+      <div className={theme === "dark" ? "dark" : "light"}>{children}</div>
     </ThemeContext.Provider>
   );
 }
