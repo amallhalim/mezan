@@ -86,7 +86,8 @@
     "toastAdded": "تمت إضافة {name} للصحن",
     "toastUpdated": "تم تحديث {name}",
     "goalOf": "/ {goal}",
-    "plateEmpty": "صحنك فارغ"
+    "plateEmpty": "صحنك فارغ",
+    "share": "مشاركة"
   },
   "about": {
     "kcal": "سعرة",

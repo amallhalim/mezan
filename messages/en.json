@@ -86,7 +86,8 @@
     "toastAdded": "Added {name} to plate",
     "toastUpdated": "Updated {name}",
     "goalOf": "/ {goal}",
-    "plateEmpty": "Your plate is empty"
+    "plateEmpty": "Your plate is empty",
+    "share": "Share"
   },
   "about": {
     "kcal": "kcal",
