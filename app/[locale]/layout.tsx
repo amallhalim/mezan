@@ -10,6 +10,7 @@ import "../globals.css";
 import { PropsWithChildren } from "react";
 import { notFound } from "next/navigation";
 import { routing } from "../../i18n/routing";
+import Test from "./Test";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -81,6 +82,7 @@ export default async function LocaleLayout({
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider messages={messages} locale={locale}>
           <ThemeProvider>{children}</ThemeProvider>
+          <Test />
         </NextIntlClientProvider>
       </body>
     </html>

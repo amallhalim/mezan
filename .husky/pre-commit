@@ -12,7 +12,7 @@ npm run type-check
 npx lint-staged
 
 # 🛡️ SECRET SCANNER: Basic check for obvious secrets
-if git diff --cached -- ':!.husky' | grep -iE "AKIA[0-9A-Z]{16}|sk_live_[0-9a-zA-Z]{24}|BEGIN RSA PRIVATE KEY"; then
+if git diff --cached -- ':!.husky' ':!*.md' ':!*.txt' | grep -iE "AKIA[0-9A-Z]{16}|sk_live_[0-9a-zA-Z]{24}|BEGIN RSA PRIVATE KEY"; then
   {
     echo ""
     echo "🚫 ================================================================= 🚫"
@@ -21,6 +21,24 @@ if git diff --cached -- ':!.husky' | grep -iE "AKIA[0-9A-Z]{16}|sk_live_[0-9a-zA
     echo ""
     echo "    DETECTED: Potential AWS Key, Stripe Key, or RSA Private Key."
     echo "    Please REMOVE the secret from your code before committing."
+    echo "🚫 ================================================================= 🚫"
+    echo ""
+  } | tee -a husky-errors.log
+  exit 1
+fi
+
+# 🛡️ FRONTEND SECRET SCANNER: Block exposing secrets via NEXT_PUBLIC_
+if git diff --cached -- ':!.husky' ':!*.md' ':!*.txt' | grep -iE "NEXT_PUBLIC_.*(SECRET|PASSWORD|TOKEN|PRIVATE_KEY)"; then
+  {
+    echo ""
+    echo "🚫 ================================================================= 🚫"
+    echo "    ERROR: Potential Frontend Secret Leaked!"
+    echo "    Your commit was blocked because you are exposing a secret to the browser."
+    echo ""
+    echo "    DETECTED: A 'NEXT_PUBLIC_' variable containing SECRET, PASSWORD, or TOKEN."
+    echo "    RULE: Never expose secrets in the frontend. Only config goes in NEXT_PUBLIC_."
+    echo "    Please REMOVE the NEXT_PUBLIC_ prefix if this is a true secret,"
+    echo "    or rename the variable if it's just public configuration."
     echo "🚫 ================================================================= 🚫"
     echo ""
   } | tee -a husky-errors.log

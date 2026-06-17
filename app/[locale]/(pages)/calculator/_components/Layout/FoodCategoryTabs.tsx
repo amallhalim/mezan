@@ -102,8 +102,8 @@ export default function FoodCategoryTabs({
               onClick={() => setIsExpanded(!isExpanded)}
               className={`flex shrink-0 flex-row items-center justify-center gap-1.5 rounded-full border px-4 py-2 text-xs font-black whitespace-nowrap transition-all active:scale-[0.97] ${
                 isExpanded
-                  ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.1)] hover:bg-emerald-500/20"
-                  : "border-white/5 bg-white/[0.02] text-gray-400 hover:border-white/10 hover:text-white"
+                  ? "border-primary/30 bg-primary/10 text-primary hover:bg-primary/20 shadow-[0_0_15px_rgba(16,185,129,0.1)]"
+                  : "border-border bg-surface text-text-dim hover:border-primary hover:text-primary"
               }`}
             >
               {isExpanded ? (
@@ -130,7 +130,7 @@ export default function FoodCategoryTabs({
 
       {/* 🚀 EXPANDED INLINE GRID DROPDOWN */}
       {isExpanded && (
-        <div className="animate-in slide-in-from-top-4 grid grid-cols-4 gap-2 rounded-[1.5rem] border border-white/5 bg-[#0a1e16]/80 p-4 shadow-xl backdrop-blur-md duration-300">
+        <div className="animate-in slide-in-from-top-4 border-border bg-surface-elevated grid grid-cols-4 gap-2 rounded-[1.5rem] border p-4 shadow-xl backdrop-blur-md duration-300">
           {gridCategories.map((item) => {
             const isSelected = selectedId === item.id;
             const displayName = isArabic ? item.nameAr : item.name;

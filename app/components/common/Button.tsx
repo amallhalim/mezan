@@ -1,14 +1,24 @@
 "use client";
 import React from "react";
 
+export type ButtonTypes =
+  | "primary"
+  | "secondary"
+  | "outline"
+  | "ghost"
+  | "category";
+export type buttonSizes = "sm" | "md" | "lg" | "xl";
+type NoGhost = Exclude<ButtonTypes, "ghost">;
+
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline" | "ghost" | "category";
-  size?: "sm" | "md" | "lg" | "xl";
+  variant?: NoGhost;
+  size?: buttonSizes;
   isLoading?: boolean;
 
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   isSelected?: boolean;
+  children: string;
 }
 
 export default function Button({
@@ -25,11 +35,13 @@ export default function Button({
   const variants = {
     primary:
       "bg-gradient-to-r from-primary to-emerald-600 hover:from-emerald-400 hover:to-primary text-secondary shadow-[0_10px_30px_rgba(16,185,129,0.3)]",
-    secondary: "bg-white/5 hover:bg-white/10 text-white border border-white/10",
+    secondary:
+      "bg-surface hover:bg-surface-elevated text-foreground border border-border",
     outline:
       "bg-transparent border-2 border-primary/50 text-primary hover:bg-primary/10",
-    ghost: "bg-transparent hover:bg-white/5 text-gray-400 hover:text-white",
-    category: `border-primary/20 border whitespace-nowrap !tracking-normal !normal-case !font-bold !rounded-full transition-colors ${isSelected ? "bg-primary text-secondary" : "bg-primary/20 text-gray-300"}`,
+    ghost:
+      "bg-transparent hover:bg-surface text-text-dim hover:text-foreground",
+    category: `border-primary/20 border whitespace-nowrap !tracking-normal !normal-case !font-bold !rounded-full transition-colors ${isSelected ? "bg-primary text-secondary" : "bg-primary/20 text-foreground"}`,
   };
 
   const sizes = {

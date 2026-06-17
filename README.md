@@ -21,6 +21,8 @@ npm run commit:skip -m "Your commit message"
 
 Check out our documentation in the [docs/](./docs) folder:
 
+- [📖 Project Overview](./docs/project-overview.md)
+- [🌐 Online Documentation (Mintlify)](https://amal-13ec13d1.mintlify.app/introduction)
 - [🧪 Testing Guide](./docs/testing.md)
 - [🛠️ Tech Stack](./docs/tech-stack.md)
 - [⚙️ Scripts Guide](./docs/SCRIPTS.md)
