@@ -66,7 +66,7 @@ function ArcRing({
         cy={cy}
         r={r}
         fill="none"
-        stroke="rgba(255,255,255,0.05)"
+        stroke="var(--border)"
         strokeWidth={stroke}
       />
       <circle
@@ -111,7 +111,7 @@ export default function TotalMacrosFooter({
           onClick={onClick}
           role="button"
           aria-label="Calculate Meal Summary"
-          className="group bg-card/60 hover:bg-card/80 relative cursor-pointer overflow-hidden rounded-[2rem] border border-white/10 backdrop-blur-xl transition-all"
+          className="group bg-card/60 hover:bg-card/80 border-border relative cursor-pointer overflow-hidden rounded-[2rem] border backdrop-blur-xl transition-all"
           style={{
             boxShadow: `0 0 0 1px var(--border), 0 24px 48px rgba(0,0,0,0.6), 0 0 60px oklch(from ${calGlow} l c h / 0.12)`,
           }}
@@ -120,7 +120,7 @@ export default function TotalMacrosFooter({
           <div className="shimmer-horizontal absolute top-0 right-6 left-6 h-px opacity-30" />
 
           {/* Calorie progress bar — ultra thin */}
-          <div className="absolute top-0 right-0 left-0 h-[3px] overflow-hidden rounded-t-3xl bg-white/[0.04]">
+          <div className="bg-surface-elevated absolute top-0 right-0 left-0 h-[3px] overflow-hidden rounded-t-3xl">
             <div
               className="h-full transition-all duration-1000 ease-out"
               style={{
@@ -152,7 +152,7 @@ export default function TotalMacrosFooter({
                   cy="32"
                   r={R}
                   fill="none"
-                  stroke="rgba(255,255,255,0.04)"
+                  stroke="var(--border)"
                   strokeWidth="5"
                 />
                 <circle
@@ -183,7 +183,7 @@ export default function TotalMacrosFooter({
               <span
                 className="mb-0.5 text-[8px] font-black tracking-[0.2em] uppercase md:text-[9px]"
                 style={{
-                  color: isOver ? "var(--error)" : "rgba(255,255,255,0.3)",
+                  color: isOver ? "var(--error)" : "var(--text-dim)",
                 }}
               >
                 {isOver ? t("overLimit") : t("calories")}
@@ -196,7 +196,7 @@ export default function TotalMacrosFooter({
                 >
                   {formatNumber(totals.calories, locale)}
                 </span>
-                <span className="text-[10px] font-bold text-white/20">
+                <span className="text-text-dim text-[10px] font-bold">
                   /{formatNumber(GOALS.calories, locale)}
                 </span>
               </div>
@@ -211,7 +211,7 @@ export default function TotalMacrosFooter({
             </div>
 
             {/* Divider */}
-            <div className="mx-0.5 h-8 w-px shrink-0 bg-white/5 md:mx-1 md:h-12" />
+            <div className="bg-border mx-0.5 h-8 w-px shrink-0 md:mx-1 md:h-12" />
 
             {/* ── Macro rings ── */}
             <div className="flex flex-1 items-center justify-around gap-2 overflow-hidden md:gap-4">
@@ -251,8 +251,8 @@ export default function TotalMacrosFooter({
             </div>
 
             {/* ── CTA button ── */}
-            <div className="group-hover:bg-primary/20 flex size-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition-all duration-200 md:size-11 md:rounded-2xl">
-              <ChevronRight className="group-hover:text-primary size-4 text-white/40 transition-all group-hover:translate-x-0.5 md:size-5" />
+            <div className="group-hover:bg-primary/20 border-border bg-surface-elevated flex size-9 shrink-0 items-center justify-center rounded-xl border transition-all duration-200 md:size-11 md:rounded-2xl">
+              <ChevronRight className="group-hover:text-primary text-text-dim size-4 transition-all group-hover:translate-x-0.5 md:size-5" />
             </div>
           </div>
         </div>
