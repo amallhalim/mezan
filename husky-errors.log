@@ -160,3 +160,15 @@
     Please run 'npm test' locally and fix the failing tests.
 🚫 ================================================================= 🚫
 
+
+🚫 ================================================================= 🚫
+    ERROR: Invalid Commit Message Format
+    Please check the specific error message from commitlint above.
+
+    💡 Remember the rules:
+    1. Start with a type (feat:, fix:, chore:, etc.)
+    2. Keep the first line under 200 characters.
+
+    ✅ CORRECT: git commit -m "feat: setup husky hooks"
+🚫 ================================================================= 🚫
+
