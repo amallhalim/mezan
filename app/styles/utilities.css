@@ -38,7 +38,7 @@
 
   /* Card container – combines several Tailwind utilities */
   .card-container {
-    @apply relative overflow-hidden rounded-3xl cursor-pointer active:scale-[0.98] transition-transform duration-150 select-none border border-white/5;
+    @apply relative cursor-pointer overflow-hidden rounded-3xl border border-white/5 transition-transform duration-150 select-none active:scale-[0.98];
     background: linear-gradient(
       135deg,
       var(--surface) 0%,

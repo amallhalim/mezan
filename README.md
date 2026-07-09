@@ -1,61 +1,111 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ⚖️ Mizan Health Suite
 
-## 🌍 Localization
+Welcome to the **Mizan Health Suite**, a modern, high-performance, and fully internationalized health web application built on **Next.js** (App Router).
 
-This project is fully internationalized. Please refer to the [Localization Guide](./LOCALIZATION.md) for details on how to add new translations and manage localized routes.
+Mizan is engineered with strict production standards, complete with local and remote quality gates, automated testing, error boundaries, and real-time health telemetry.
 
-## 🛡️ Code Quality & Git Hooks
+---
 
-This project uses **Husky** and **lint-staged** as a "Quality Gate" to automatically format and lint your code before every commit. This ensures a consistent codebase and catches errors early.
+## 🛠️ The Tech Stack
 
-- [🐕 Husky Setup Guide](./docs/HUSKY_SETUP.md)
-- [✨ Code Quality Guidelines](./docs/code-quality.md)
+- **Framework:** Next.js 16 (React 19 App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS 4 & Vanilla CSS for premium micro-animations
+- **State Management:** Zustand
+- **Internationalization:** `next-intl` (fully localized routing)
+- **Error Tracking & Monitoring:** Sentry
+- **Testing Suite:** Vitest (Unit) & Cypress (E2E)
+- **Automation:** Husky, `lint-staged`, CommitLint, & GitHub Actions CI
 
-If you have a work-in-progress commit and urgently need to bypass the checks, you can use the bypass script:
+---
+
+## 📖 Developer Documentation Hub
+
+All technical aspects of the application are extensively documented. Explore our guidebooks below:
+
+| Guide                                | Description                                                       | Path / Link                                                        |
+| :----------------------------------- | :---------------------------------------------------------------- | :----------------------------------------------------------------- |
+| **🤝 Contributing Guidelines**       | Git Workflow, branch naming, commits, review checklist.           | [CONTRIBUTING.md](./CONTRIBUTING.md)                               |
+| **📖 Project Overview**              | Architecture, Error boundaries, Sentry telemetry, security model. | [docs/project-overview.md](./docs/project-overview.md)             |
+| **🌐 Online Mintlify Documentation** | The official hosted user and developer guide portal.              | [Mintlify Portal](https://amal-13ec13d1.mintlify.app/introduction) |
+| **🧪 Testing Guide**                 | Testing specifications for Vitest and Cypress.                    | [docs/testing.md](./docs/testing.md)                               |
+| **🌐 Localization Guide**            | Adding new locales, translating pages, managing keys.             | [docs/LOCALIZATION.md](./docs/LOCALIZATION.md)                     |
+| **🐕 Husky Setup**                   | The git hook bodyguard and local validation steps.                | [docs/HUSKY_SETUP.md](./docs/HUSKY_SETUP.md)                       |
+| **⚙️ Scripts Guide**                 | Package.json commands and CLI options.                            | [docs/SCRIPTS.md](./docs/SCRIPTS.md)                               |
+
+---
+
+## 🚀 Getting Started
+
+Follow these steps to run the application locally.
+
+### 1. Prerequisites
+
+- **Node.js:** version 20 or higher is recommended.
+- **Package Manager:** `npm` (configured with package lock file).
+
+### 2. Installation
+
+Install all dependencies (this will automatically initialize Husky git hooks on local machines):
+
+```bash
+npm install
+```
+
+### 3. Run Development Server
+
+Start the development server with Hot Module Replacement (Turbopack enabled):
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
+
+---
+
+## 🛡️ Quality Gates & Automation
+
+We run strict automated checks to keep the codebase clean, stable, and bug-free.
+
+### Local Gate (Husky + lint-staged)
+
+Every time you run `git commit`, Husky intercepts the command and executes:
+
+1. `npm run type-check` — Strict TypeScript checking across the whole project.
+2. `npx lint-staged` — ESLint (`eslint --fix`) and Prettier formatting (`prettier --write`) on modified files.
+3. Secret scanning — Prevents pushing AWS, Stripe, or frontend `NEXT_PUBLIC_` secrets.
+4. Branch name validation — Enforces prefixes (`feature/`, `bugfix/`, etc.).
+
+#### Bypassing checks (Urgently)
+
+If you need to commit a WIP branch and bypass the pre-commit checks:
 
 ```bash
 npm run commit:skip -m "Your commit message"
 ```
 
-## Getting Started
+### Remote Gate (GitHub Actions CI)
 
-Check out our documentation in the [docs/](./docs) folder:
+Upon pushing to remote or opening a Pull Request to `develop` or `main`, [GitHub Actions CI](./.github/workflows/ci.yml) will trigger:
 
-- [📖 Project Overview](./docs/project-overview.md)
-- [🌐 Online Documentation (Mintlify)](https://amal-13ec13d1.mintlify.app/introduction)
-- [🧪 Testing Guide](./docs/testing.md)
-- [🛠️ Tech Stack](./docs/tech-stack.md)
-- [⚙️ Scripts Guide](./docs/SCRIPTS.md)
+1. Linting & Formatting validation (`prettier:check` and `eslint`).
+2. Type checking compiler (`type-check`).
+3. Unit test execution via Vitest (`test`).
+4. End-to-End browser tests via headless Cypress (`cypress-e2e`).
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ⚙️ Core Command Reference
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Command              | Action                                     |
+| :------------------- | :----------------------------------------- |
+| `npm run dev`        | Starts next.js development server.         |
+| `npm run build`      | Compiles the production build bundle.      |
+| `npm run start`      | Launches production built server.          |
+| `npm run type-check` | Runs TypeScript compiler validation.       |
+| `npm run lint`       | Runs ESLint logic check.                   |
+| `npm run format`     | Runs Prettier auto-formatter on all files. |
+| `npm run test`       | Executes Vitest unit tests.                |
+| `npm run cy:run`     | Executes Cypress E2E tests headlessly.     |
+| `npm run clean`      | Deletes the `.next` compilation cache.     |
