@@ -1,14 +1,26 @@
 import React from "react";
 import { Scale } from "lucide-react";
 
+/**
+ * Props for the WeightInput component.
+ */
 interface WeightInputProps {
+  /** The current numeric weight amount. */
   amount: number;
+  /** The unit of measurement (e.g., 'g', 'kg'). Defaults to 'g'. */
   unit?: string;
+  /** The label displayed above the input. Defaults to 'Custom'. */
   label?: string;
+  /** Callback fired when a valid numeric value is entered. */
   onChange: (amount: number) => void;
+  /** Optional additional CSS classes. */
   className?: string;
 }
 
+/**
+ * A specialized numeric input component for weight measurements.
+ * Features an integrated scale icon, unit suffix, and automatic value capping.
+ */
 export default function WeightInput({
   amount,
   unit = "g",

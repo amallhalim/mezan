@@ -21,7 +21,6 @@ export default function TestComp({
 
   return (
     <div className="mt-10" onClick={handleClick}>
-      <Button>88888 ghost</Button>
       <div> hello 1</div>
       {productList?.map((p) => (
         <div key={p.name} className="bg-primary">

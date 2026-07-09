@@ -1,8 +1,14 @@
 import React from "react";
 
+/**
+ * Props for the Badge component.
+ */
 interface BadgeProps {
+  /** The content to display inside the badge. */
   children: React.ReactNode;
+  /** The semantic color variant of the badge. */
   variant?: "primary" | "success" | "warning" | "error" | "outline";
+  /** The size of the badge. */
   size?: "sm" | "md";
 }
 
