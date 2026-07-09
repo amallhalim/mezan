@@ -180,6 +180,22 @@ Reviewers (and authors conducting self-reviews) should check the following areas
 
 ---
 
+## 📝 Code Documentation Guidelines
+
+To keep the codebase maintainable, self-explanatory, and editor-friendly, contributors must follow our code documentation rules.
+
+For the full detailed instructions, JSDoc conventions, TypeScript typing guidelines, and ESLint rule setups, please read the [Code Documentation Guidelines](file:///e:/my-projects/mezan/docs/code-documentation.md).
+
+### Key Highlights:
+
+1. **Prioritize Clean Code Over Comments**: Write self-explanatory code with clear names.
+2. **Comment the "Why", Not the "What"**: Inline comments should only explain complex logic, edge cases, or business decisions.
+3. **Use JSDoc**: Document components, hooks, public/utility functions, and props with JSDoc blocks to enable rich editor hover details.
+4. **Strong Types (No `any`)**: Leverage interfaces, type unions, enums, and generics to self-document data contracts.
+5. **Keep Comments Synchronized**: Keep comments and code fully updated; remove or rewrite outdated comments immediately.
+
+---
+
 ## 🛠️ Code Style & Quality Configuration
 
 We enforce high code standards automatically. The configuration details are below:
