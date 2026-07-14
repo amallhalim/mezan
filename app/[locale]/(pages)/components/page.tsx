@@ -1,21 +1,14 @@
+"use client";
 import React from "react";
 import Button from "@/app/components/common/Button";
 import Badge from "@/app/components/common/Badge";
 import WeightInput from "@/app/components/common/WeightInput";
-import { setRequestLocale } from "next-intl/server";
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ArrowLeft, Home } from "lucide-react";
 
-export default async function ComponentsPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  setRequestLocale(locale);
-
-  const t = await getTranslations("HomePage");
+export default function ComponentsPage() {
+  const t = useTranslations("HomePage");
 
   return (
     <div className="min-h-screen bg-zinc-950 text-white selection:bg-emerald-500/30">
