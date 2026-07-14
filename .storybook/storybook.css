@@ -1,5 +1,6 @@
 @import "../app/globals.css";
 
+/* Only override background so the canvas is white for isolation */
 :root {
   --background: #ffffff;
 }

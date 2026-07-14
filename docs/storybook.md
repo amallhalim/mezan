@@ -85,14 +85,16 @@ Two files control the Storybook environment:
 
 | File                       | Purpose                                                                                                                         |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `.storybook/storybook.css` | Imports Tailwind + app design tokens, then forces `:root { --background: #ffffff }` to override the dark green from `dark.css`. |
-| `.storybook/preview.tsx`   | Imports `storybook.css`, sets background presets, adds Storybook addons.                                                        |
+| `.storybook/storybook.css` | Imports `globals.css`, then applies light theme variables on `:root` so components render with dark text on a light background. |
+| `.storybook/preview.tsx`   | Imports `storybook.css`, sets background presets (default: white), registers addons.                                            |
 
 Together they ensure:
 
 1. All Tailwind utilities, CSS variables, and design tokens are available.
-2. The canvas background is white (`--background: #ffffff`) by default.
+2. The canvas background is white by default.
 3. Toggle between white, light, surface, and dark via the toolbar (Backgrounds addon).
+
+> **Note:** If a component has hardcoded dark-only colors (e.g. `text-white`, `bg-white/5`), fix the component itself to use theme variables (`text-foreground`, `bg-surface`, etc.) rather than overriding in Storybook.
 
 ---
 

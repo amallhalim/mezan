@@ -30,12 +30,12 @@ export default function WeightInput({
 }: WeightInputProps) {
   return (
     <div className={`flex-1 space-y-1.5 ${className}`}>
-      <label className="ml-1 text-[9px] font-black tracking-[0.15em] text-gray-500 uppercase">
+      <label className="text-text-dim ml-1 text-[9px] font-black tracking-[0.15em] uppercase">
         {label}
       </label>
       <div className="relative h-10">
         <div className="pointer-events-none absolute inset-y-0 left-3 flex items-center">
-          <Scale className="size-3.5 text-gray-500" />
+          <Scale className="text-text-dim size-3.5" />
         </div>
         <input
           type="number"
@@ -50,10 +50,10 @@ export default function WeightInput({
               onChange(val);
             }
           }}
-          className="focus:border-primary/50 h-full w-full rounded-xl border border-white/5 bg-white/5 pr-8 pl-9 text-xs font-bold text-white transition-all outline-none"
+          className="focus:border-primary/50 border-border bg-surface text-foreground h-full w-full rounded-xl border pr-8 pl-9 text-xs font-bold transition-all outline-none"
         />
         <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
-          <span className="text-[9px] font-bold text-gray-500 uppercase">
+          <span className="text-text-dim text-[9px] font-bold uppercase">
             {unit}
           </span>
         </div>
