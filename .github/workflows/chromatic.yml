@@ -32,9 +32,5 @@ jobs:
       - name: Publish to Chromatic
         uses: chromaui/action@latest
         with:
-          # Your Chromatic project token — add this to GitHub repo Secrets:
-          # Settings → Secrets & variables → Actions → New repository secret
-          # Name: CHROMATIC_PROJECT_TOKEN
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           # Exit with success even if there are visual changes (don't block CI)
           exitOnceUploaded: true
