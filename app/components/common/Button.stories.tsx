@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import { fn } from "storybook/test";
 import Button from "./Button";
 import { ArrowRight } from "lucide-react";
 import React from "react";
@@ -11,6 +12,10 @@ const meta = {
   },
   tags: ["autodocs"],
   argTypes: {
+    // onClick is wired to the Actions panel — every click is logged automatically
+    onClick: { action: "clicked" },
+    onFocus: { action: "focused" },
+    onBlur: { action: "blurred" },
     variant: {
       control: "select",
       options: ["primary", "secondary", "outline", "category"],
@@ -23,6 +28,8 @@ const meta = {
     isSelected: { control: "boolean" },
     disabled: { control: "boolean" },
   },
+  // fn() spy — logs every call with arguments to the Actions panel
+  args: { onClick: fn() },
 } satisfies Meta<typeof Button>;
 
 export default meta;
