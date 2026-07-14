@@ -1,0 +1,6 @@
+# Build outputs — not user code
+.next/
+out/
+build/
+storybook-static/
+

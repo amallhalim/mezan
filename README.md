@@ -32,6 +32,7 @@ All technical aspects of the application are extensively documented. Explore our
 | **🌐 Localization Guide**            | Adding new locales, translating pages, managing keys.             | [docs/LOCALIZATION.md](./docs/LOCALIZATION.md)                     |
 | **🐕 Husky Setup**                   | The git hook bodyguard and local validation steps.                | [docs/HUSKY_SETUP.md](./docs/HUSKY_SETUP.md)                       |
 | **⚙️ Scripts Guide**                 | Package.json commands and CLI options.                            | [docs/SCRIPTS.md](./docs/SCRIPTS.md)                               |
+| **🎨 Storybook Guide**               | Viewing and creating UI component stories.                        | [docs/storybook.md](./docs/storybook.md)                           |
 
 ---
 
@@ -98,14 +99,16 @@ Upon pushing to remote or opening a Pull Request to `develop` or `main`, [GitHub
 
 ## ⚙️ Core Command Reference
 
-| Command              | Action                                     |
-| :------------------- | :----------------------------------------- |
-| `npm run dev`        | Starts next.js development server.         |
-| `npm run build`      | Compiles the production build bundle.      |
-| `npm run start`      | Launches production built server.          |
-| `npm run type-check` | Runs TypeScript compiler validation.       |
-| `npm run lint`       | Runs ESLint logic check.                   |
-| `npm run format`     | Runs Prettier auto-formatter on all files. |
-| `npm run test`       | Executes Vitest unit tests.                |
-| `npm run cy:run`     | Executes Cypress E2E tests headlessly.     |
-| `npm run clean`      | Deletes the `.next` compilation cache.     |
+| Command                   | Action                                      |
+| :------------------------ | :------------------------------------------ |
+| `npm run dev`             | Starts next.js development server.          |
+| `npm run build`           | Compiles the production build bundle.       |
+| `npm run start`           | Launches production built server.           |
+| `npm run type-check`      | Runs TypeScript compiler validation.        |
+| `npm run lint`            | Runs ESLint logic check.                    |
+| `npm run format`          | Runs Prettier auto-formatter on all files.  |
+| `npm run test`            | Executes Vitest unit tests.                 |
+| `npm run cy:run`          | Executes Cypress E2E tests headlessly.      |
+| `npm run clean`           | Deletes the `.next` compilation cache.      |
+| `npm run storybook`       | Launches the local Storybook environment.   |
+| `npm run build-storybook` | Builds Storybook for production deployment. |
