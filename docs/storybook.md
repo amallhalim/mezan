@@ -79,13 +79,20 @@ All reusable components have complete story coverage. Stories live **beside** th
 | `@storybook/addon-vitest`  | Run Vitest tests inside Storybook              |
 | `@chromatic-com/storybook` | Chromatic integration for visual testing       |
 
-### Global Setup (`.storybook/preview.tsx`)
+### Global Setup (`storybook.css` + `preview.tsx`)
 
-The preview file does three things for every story automatically:
+Two files control the Storybook environment:
 
-1. **Imports `globals.css`** — all Tailwind utilities, design tokens, and CSS variables work exactly as in the app.
-2. **Dark theme decorator** — wraps every story in the app's real dark background (`#030a06`).
-3. **Macro CSS variables** — injects `--protein`, `--carbs`, `--fat` color variables needed by `MacroPieChart`.
+| File                       | Purpose                                                                                                                         |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `.storybook/storybook.css` | Imports Tailwind + app design tokens, then forces `:root { --background: #ffffff }` to override the dark green from `dark.css`. |
+| `.storybook/preview.tsx`   | Imports `storybook.css`, sets background presets, adds Storybook addons.                                                        |
+
+Together they ensure:
+
+1. All Tailwind utilities, CSS variables, and design tokens are available.
+2. The canvas background is white (`--background: #ffffff`) by default.
+3. Toggle between white, light, surface, and dark via the toolbar (Backgrounds addon).
 
 ---
 
