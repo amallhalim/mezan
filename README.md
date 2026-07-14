@@ -23,16 +23,18 @@ Mizan is engineered with strict production standards, complete with local and re
 
 All technical aspects of the application are extensively documented. Explore our guidebooks below:
 
-| Guide                                | Description                                                       | Path / Link                                                        |
-| :----------------------------------- | :---------------------------------------------------------------- | :----------------------------------------------------------------- |
-| **🤝 Contributing Guidelines**       | Git Workflow, branch naming, commits, review checklist.           | [CONTRIBUTING.md](./CONTRIBUTING.md)                               |
-| **📖 Project Overview**              | Architecture, Error boundaries, Sentry telemetry, security model. | [docs/project-overview.md](./docs/project-overview.md)             |
-| **🌐 Online Mintlify Documentation** | The official hosted user and developer guide portal.              | [Mintlify Portal](https://amal-13ec13d1.mintlify.app/introduction) |
-| **🧪 Testing Guide**                 | Testing specifications for Vitest and Cypress.                    | [docs/testing.md](./docs/testing.md)                               |
-| **🌐 Localization Guide**            | Adding new locales, translating pages, managing keys.             | [docs/LOCALIZATION.md](./docs/LOCALIZATION.md)                     |
-| **🐕 Husky Setup**                   | The git hook bodyguard and local validation steps.                | [docs/HUSKY_SETUP.md](./docs/HUSKY_SETUP.md)                       |
-| **⚙️ Scripts Guide**                 | Package.json commands and CLI options.                            | [docs/SCRIPTS.md](./docs/SCRIPTS.md)                               |
-| **🎨 Storybook Guide**               | Viewing and creating UI component stories.                        | [docs/storybook.md](./docs/storybook.md)                           |
+| Guide                                | Description                                                       | Path / Link                                                              |
+| :----------------------------------- | :---------------------------------------------------------------- | :----------------------------------------------------------------------- |
+| **🤝 Contributing Guidelines**       | Git Workflow, branch naming, commits, review checklist.           | [CONTRIBUTING.md](./CONTRIBUTING.md)                                     |
+| **📖 Project Overview**              | Architecture, Error boundaries, Sentry telemetry, security model. | [docs/project-overview.md](./docs/project-overview.md)                   |
+| **🌐 Online Mintlify Documentation** | The official hosted user and developer guide portal.              | [Mintlify Portal](https://amal-13ec13d1.mintlify.app/introduction)       |
+| **🧪 Testing Guide**                 | Testing specifications for Vitest and Cypress.                    | [docs/testing.md](./docs/testing.md)                                     |
+| **🌐 Localization Guide**            | Adding new locales, translating pages, managing keys.             | [docs/LOCALIZATION.md](./docs/LOCALIZATION.md)                           |
+| **🐕 Husky Setup**                   | The git hook bodyguard and local validation steps.                | [docs/HUSKY_SETUP.md](./docs/HUSKY_SETUP.md)                             |
+| **⚙️ Scripts Guide**                 | Package.json commands and CLI options.                            | [docs/SCRIPTS.md](./docs/SCRIPTS.md)                                     |
+| **🎨 Storybook Guide**               | Full technical reference (decorators, actions, parameters).       | [docs/storybook.md](./docs/storybook.md)                                 |
+| **🎭 Storybook Workflow**            | When to add stories, how to write them, when to build.            | [docs/storybook-workflow.md](./docs/storybook-workflow.md)               |
+| **🎭 Chromatic (Live Storybook)**    | Published Storybook with visual regression testing.               | [Chromatic Portal](https://main--67ad74c52428834f8fa0bb36.chromatic.com) |
 
 ---
 
@@ -112,3 +114,15 @@ Upon pushing to remote or opening a Pull Request to `develop` or `main`, [GitHub
 | `npm run clean`           | Deletes the `.next` compilation cache.      |
 | `npm run storybook`       | Launches the local Storybook environment.   |
 | `npm run build-storybook` | Builds Storybook for production deployment. |
+
+---
+
+## 🎨 Storybook — UI Component Development
+
+We use **Storybook** to develop, document, and visually test every reusable UI component in isolation. The published Storybook is hosted on **Chromatic** and automatically updated on every push to `main`.
+
+> **Live Storybook:** [Chromatic Portal](https://main--67ad74c52428834f8fa0bb36.chromatic.com)
+
+For the complete workflow guidance — including **when to add a story**, **how to write one**, **when a new build is needed**, and a quick-start template — see [docs/storybook-workflow.md](./docs/storybook-workflow.md).
+
+For the full technical reference (decorators, actions, parameters, configuration, best practices), see [docs/storybook.md](./docs/storybook.md).
