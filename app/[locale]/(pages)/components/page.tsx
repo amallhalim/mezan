@@ -28,7 +28,7 @@ export default function ComponentsPage() {
               {t("backHome", { fallback: "Back to Home" })}
             </Link>
           </div>
-          <h1 className="bg-gradient-to-br from-white to-white/50 bg-clip-text text-4xl font-black tracking-tight text-transparent lg:text-6xl">
+          <h1 className="bg-linear-to-br from-white to-white/50 bg-clip-text text-4xl font-black tracking-tight text-transparent lg:text-6xl">
             Component Library
           </h1>
           <p className="text-lg text-zinc-400">
@@ -46,7 +46,7 @@ export default function ComponentsPage() {
                 Primary action elements with variants for hierarchy and states.
               </p>
             </div>
-            <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-8 backdrop-blur-xl">
+            <div className="rounded-3xl border border-white/10 bg-white/2 p-8 backdrop-blur-xl">
               <h3 className="mb-4 text-xs font-black tracking-widest text-zinc-500 uppercase">
                 Variants
               </h3>
@@ -116,7 +116,7 @@ export default function ComponentsPage() {
                 Compact metadata display with semantic colors.
               </p>
             </div>
-            <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-8 backdrop-blur-xl">
+            <div className="rounded-3xl border border-white/10 bg-white/2 p-8 backdrop-blur-xl">
               <h3 className="mb-4 text-xs font-black tracking-widest text-zinc-500 uppercase">
                 Variants
               </h3>
@@ -152,7 +152,7 @@ export default function ComponentsPage() {
                 Numeric input specialized for weights and measurements.
               </p>
             </div>
-            <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-8 backdrop-blur-xl">
+            <div className="rounded-3xl border border-white/10 bg-white/2 p-8 backdrop-blur-xl">
               <div className="max-w-xs">
                 {/* We use a mocked onChange for the static playground */}
                 <WeightInput amount={150} onChange={() => {}} />
