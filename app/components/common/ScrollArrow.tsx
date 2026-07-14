@@ -1,11 +1,21 @@
 import { useLocale } from "next-intl";
 
+/**
+ * Props for the ScrollArrow component.
+ */
 interface ScrollArrowProps {
+  /** The direction the arrow should point and scroll. */
   direction: "left" | "right";
+  /** If true, the arrow is visible and interactable. */
   visible: boolean;
+  /** Callback fired when the arrow is clicked. */
   onClick: () => void;
 }
 
+/**
+ * A navigational arrow component used for horizontal scrolling containers.
+ * Automatically flips its visual direction in RTL layouts.
+ */
 export default function ScrollArrow({
   direction,
   visible,

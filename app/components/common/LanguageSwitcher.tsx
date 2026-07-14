@@ -3,6 +3,10 @@
 import { useLocale } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/navigation";
 
+/**
+ * A client component that toggles the application language between Arabic and English.
+ * Automatically updates the URL locale segment using next-intl routing.
+ */
 export default function LanguageSwitcher() {
   const router = useRouter();
   const pathname = usePathname();

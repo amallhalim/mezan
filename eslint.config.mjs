@@ -1,3 +1,6 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+import storybook from "eslint-plugin-storybook";
+
 import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
@@ -9,13 +12,11 @@ const eslintConfig = defineConfig([
   ...nextTs,
   eslintConfigPrettier,
   // Dedicated configuration block for Cypress E2E testing files.
-  // We use eslint-plugin-cypress to apply Cypress-specific linting rules 
+  // We use eslint-plugin-cypress to apply Cypress-specific linting rules
   // because Cypress uses a different environment and different global variables (like cy) than Next.js.
   {
     files: ["cypress/**/*.ts", "cypress/**/*.js", "cypress.config.ts"],
-    extends: [
-      pluginCypress.configs.recommended,
-    ],
+    extends: [pluginCypress.configs.recommended],
     rules: {
       // Cypress heavily relies on expressions like `expect(val).to.be.true` which triggers this rule.
       "@typescript-eslint/no-unused-expressions": "off",
@@ -23,7 +24,7 @@ const eslintConfig = defineConfig([
       "@typescript-eslint/no-namespace": "off",
       // Cypress configuration files often define parameters (like `on`, `config`) that aren't immediately used.
       "@typescript-eslint/no-unused-vars": "off",
-    }
+    },
   },
   // Override default ignores of eslint-config-next.
   globalIgnores([
@@ -32,7 +33,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Storybook compiled output — not user code, ignore entirely
+    "storybook-static/**",
   ]),
+  ...storybook.configs["flat/recommended"]
 ]);
 
 export default eslintConfig;

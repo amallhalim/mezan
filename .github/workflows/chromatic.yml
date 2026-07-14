@@ -1,0 +1,36 @@
+name: Publish Storybook to Chromatic
+
+on:
+  # Publish on every push to main
+  push:
+    branches:
+      - main
+  # Also publish when a GitHub Release is created
+  release:
+    types: [published]
+
+jobs:
+  chromatic:
+    name: Run Chromatic
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Chromatic needs full git history for change detection
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Publish to Chromatic
+        uses: chromaui/action@latest
+        with:
+          # Exit with success even if there are visual changes (don't block CI)
+          exitOnceUploaded: true

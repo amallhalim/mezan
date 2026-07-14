@@ -1,26 +1,50 @@
 "use client";
 import React from "react";
 
+/**
+ * Defines the visual style variations available for buttons.
+ */
 export type ButtonTypes =
   | "primary"
   | "secondary"
   | "outline"
   | "ghost"
   | "category";
+
+/**
+ * Defines the available size scales for buttons.
+ */
 export type buttonSizes = "sm" | "md" | "lg" | "xl";
-type NoGhost = Exclude<ButtonTypes, "ghost">;
 
+type NoGhost = Exclude<ButtonTypes, "noghost" | "ghost">;
+
+/**
+ * Props for the Button component.
+ * Extends standard HTML button attributes.
+ */
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  /** The visual style variant of the button. */
   variant?: NoGhost;
+  /** The size of the button, controlling padding and text size. */
   size?: buttonSizes;
+  /** If true, shows a loading spinner and disables the button. */
   isLoading?: boolean;
-
+  /** Optional icon to display before the text. */
   leftIcon?: React.ReactNode;
+  /** Optional icon to display after the text. */
   rightIcon?: React.ReactNode;
+  /** Used primarily for 'category' variant to show active state. */
   isSelected?: boolean;
+  /** The text content of the button. */
   children: string;
 }
 
+/**
+ * Reusable Button component for user actions.
+ *
+ * Supports various visual styles, sizes, and states (loading, disabled).
+ * Automatically applies accessible contrast and hover effects based on the theme.
+ */
 export default function Button({
   children,
   variant = "primary",

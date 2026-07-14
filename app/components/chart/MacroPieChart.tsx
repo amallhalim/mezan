@@ -24,10 +24,10 @@ export default function MacroPieChart({
   if (totalKcal === 0)
     return (
       <div
-        className="flex items-center justify-center rounded-full border border-white/10 bg-white/5"
+        className="border-border bg-surface flex items-center justify-center rounded-full border"
         style={{ width: size, height: size }}
       >
-        <span className="text-[10px] font-black text-gray-600 uppercase">
+        <span className="text-text-dim text-[10px] font-black uppercase">
           Empty
         </span>
       </div>
@@ -92,7 +92,7 @@ export default function MacroPieChart({
             className="size-1.5 rounded-full"
             style={{ backgroundColor: "var(--protein)" }}
           />
-          <span className="text-[8px] font-black tracking-tighter text-gray-500 uppercase">
+          <span className="text-text-dim text-[8px] font-black tracking-tighter uppercase">
             Prot {Math.round(pPerc)}%
           </span>
         </div>
@@ -101,7 +101,7 @@ export default function MacroPieChart({
             className="size-1.5 rounded-full"
             style={{ backgroundColor: "var(--carbs)" }}
           />
-          <span className="text-[8px] font-black tracking-tighter text-gray-500 uppercase">
+          <span className="text-text-dim text-[8px] font-black tracking-tighter uppercase">
             Carb {Math.round(cPerc)}%
           </span>
         </div>
@@ -110,7 +110,7 @@ export default function MacroPieChart({
             className="size-1.5 rounded-full"
             style={{ backgroundColor: "var(--fat)" }}
           />
-          <span className="text-[8px] font-black tracking-tighter text-gray-500 uppercase">
+          <span className="text-text-dim text-[8px] font-black tracking-tighter uppercase">
             Fat {Math.round(fPerc)}%
           </span>
         </div>

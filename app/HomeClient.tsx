@@ -65,7 +65,10 @@ export default function HomeClient() {
               {t("mode")}: {theme}
             </button>
           </div>
-          <h1 className="bg-gradient-to-br from-white via-white to-white/40 bg-clip-text text-5xl font-bold tracking-tight text-transparent lg:text-7xl">
+          <h1
+            suppressHydrationWarning
+            className="bg-gradient-to-br from-white via-white to-white/40 bg-clip-text text-5xl font-bold tracking-tight text-transparent lg:text-7xl"
+          >
             {t(getGreetingKey())}
           </h1>
         </header>
@@ -183,7 +186,10 @@ export default function HomeClient() {
                   <span className="text-[9px] font-black tracking-widest text-gray-500 uppercase">
                     {t("currentTime")}
                   </span>
-                  <span className="text-sm font-black text-white tabular-nums">
+                  <span
+                    suppressHydrationWarning
+                    className="text-sm font-black text-white tabular-nums"
+                  >
                     {format.dateTime(now, {
                       hour: "numeric",
                       minute: "numeric",
@@ -204,7 +210,10 @@ export default function HomeClient() {
                   <span className="text-[9px] font-black tracking-widest text-gray-500 uppercase">
                     {t("currentDate")}
                   </span>
-                  <span className="text-sm font-black text-white">
+                  <span
+                    suppressHydrationWarning
+                    className="text-sm font-black text-white"
+                  >
                     {format.dateTime(now, {
                       month: "short",
                       day: "numeric",
