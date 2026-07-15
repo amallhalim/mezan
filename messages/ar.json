@@ -87,7 +87,8 @@
     "toastUpdated": "تم تحديث {name}",
     "goalOf": "/ {goal}",
     "plateEmpty": "صحنك فارغ",
-    "share": "مشاركة"
+    "share": "مشاركة",
+    "backHome": "العودة للرئيسية"
   },
   "about": {
     "kcal": "سعرة",
