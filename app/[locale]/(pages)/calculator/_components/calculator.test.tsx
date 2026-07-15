@@ -1,4 +1,5 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
+import { render } from "@/app/tests/test-utils";
 import { expect, test, vi, beforeEach, describe } from "vitest";
 import CalculatorPage from "../page";
 import userEvent from "@testing-library/user-event";
@@ -39,6 +40,9 @@ test("full calculator workflow: search, add, and verify", async () => {
   await user.click(addBtn);
 
   rerender(<CalculatorPage />);
+  // Open the cart to see the added food
+  const cartBtn = screen.getByRole("button", { name: /1/i });
+  await user.click(cartBtn);
   expect(screen.getAllByText(/yourPlate/i).length).toBeGreaterThan(0);
 });
 
@@ -187,7 +191,7 @@ describe("UI & Attributes Verification", () => {
     expect(input).toHaveAttribute("aria-label", "searchPlaceholder");
 
     // 2. Check CSS Classes (Tailwind)
-    expect(input).toHaveClass("bg-white/[0.04]");
+    expect(input).toHaveClass("bg-surface");
     expect(input).toHaveClass("rounded-2xl");
   });
 

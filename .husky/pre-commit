@@ -3,10 +3,33 @@
 # It prevents "broken" code from being saved to Git.
 npm run type-check
 
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "  🧪 STAGE 1: UNIT TESTS"
+echo "  Running all unit tests to verify logic correctness..."
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
+
 # 🧪 TEST RUNNER: Verify logic correctness
 # Why: This ensures all unit tests pass before code is committed.
 # It prevents regressions from entering the codebase.
-#npm test
+npm test
+
+# Exit if tests fail
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "🚫 ================================================================= 🚫"
+  echo "    ERROR: Unit tests failed! Fix the tests before committing."
+  echo "🚫 ================================================================= 🚫"
+  exit 1
+fi
+
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "  🎨 STAGE 2: FORMAT & LINT"
+echo "  Running lint-staged (eslint --fix + prettier --write)..."
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo ""
 
 # 🧹 AUTO-FORMAT & LINT: Clean up the code
 npx lint-staged

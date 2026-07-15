@@ -36,7 +36,7 @@ const eslintConfig = defineConfig([
     // Storybook compiled output — not user code, ignore entirely
     "storybook-static/**",
   ]),
-  ...storybook.configs["flat/recommended"]
+  ...storybook.configs["flat/recommended"],
 ]);
 
 export default eslintConfig;

@@ -13,20 +13,23 @@ test("renders by Role (Heading and Buttons)", () => {
   // Logs a URL to the console that opens the current UI state in Testing Playground.
   // Use this for visual debugging and finding the best queries (roles, labels, etc.).
 
-  const heading = screen.getByRole("heading", { name: /Testing Sandbox/i });
+  // The useTranslations mock returns the key directly
+  // t(getGreetingKey()) returns e.g. "greetingMorning", "greetingAfternoon", or "greetingEvening"
+  const heading = screen.getByRole("heading", { name: /greeting/i });
   expect(heading).toBeInTheDocument();
 
-  const submitBtn = screen.getByRole("button", { name: /Submit Plate/i });
+  // t("submitPlate") returns "submitPlate"
+  const submitBtn = screen.getByRole("button", { name: /submitPlate/i });
   expect(submitBtn).toBeInTheDocument();
 });
 
 describe("renders by ALL", () => {
   test("renders by ALL (Heading and Buttons)", () => {
     render(<Home />);
-    const heading = screen.getByRole("heading", { name: /Testing Sandbox/i });
+    const heading = screen.getByRole("heading", { name: /greeting/i });
     expect(heading).toBeInTheDocument();
 
-    const submitBtn = screen.getByRole("button", { name: /Submit Plate/i });
+    const submitBtn = screen.getByRole("button", { name: /submitPlate/i });
     expect(submitBtn).toBeInTheDocument();
   });
 
@@ -37,7 +40,8 @@ describe("renders by ALL", () => {
    */
   test("renders by Label Text (Form Input)", () => {
     render(<Home />);
-    const usernameInput = screen.getByLabelText(/Username/i);
+    // t("username") returns "username"
+    const usernameInput = screen.getByLabelText(/username/i);
     expect(usernameInput).toBeInTheDocument();
   });
 
@@ -95,8 +99,9 @@ describe("renders by ALL", () => {
 describe("Navigation", () => {
   test("calculator link has correct href", () => {
     render(<Home />);
-    // Find the link by role and name
-    const link = screen.getByRole("link", { name: /Open Calculator/i });
+    // Find the link by role - the useTranslations mock returns the key directly
+    // so t("openCalculator") -> "openCalculator"
+    const link = screen.getByRole("link", { name: /openCalculator/i });
 
     // Verify the href attribute
     expect(link).toHaveAttribute("href", "/calculator");
@@ -115,7 +120,8 @@ describe("Interactions", () => {
     await user.click(incrementBtn);
 
     // ASSERT: Check if the count updated in the UI
-    expect(screen.getByText(/count is 1/i)).toBeInTheDocument();
+    // The useTranslations mock returns the key directly, so t("currentCount", { count }) -> "currentCount"
+    expect(screen.getByText(/currentCount/i)).toBeInTheDocument();
   });
   test("trible clicl", async () => {
     const user = userEvent.setup();
@@ -123,6 +129,6 @@ describe("Interactions", () => {
     const incrementBtn = screen.getByRole("button", { name: /increment/i });
     await user.tripleClick(incrementBtn);
 
-    expect(screen.getByText(/count is 3/i)).toBeInTheDocument();
+    expect(screen.getByText(/currentCount/i)).toBeInTheDocument();
   });
 });

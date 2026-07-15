@@ -87,7 +87,8 @@
     "toastUpdated": "Updated {name}",
     "goalOf": "/ {goal}",
     "plateEmpty": "Your plate is empty",
-    "share": "Share"
+    "share": "Share",
+    "backHome": "Back Home"
   },
   "about": {
     "kcal": "kcal",

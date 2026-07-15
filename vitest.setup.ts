@@ -42,6 +42,18 @@ vi.mock("next-intl", () => ({
   // Returns translation key directly instead of loading translations
   useTranslations: () => (key: string) => key,
 
+  // Mock formatter - returns a simple date/time formatter
+  useFormatter: () => ({
+    dateTime: (date: Date, options?: Intl.DateTimeFormatOptions) => {
+      if (options?.hour !== undefined) {
+        return date.toLocaleTimeString("en-US", options);
+      }
+      return date.toLocaleDateString("en-US", options);
+    },
+    number: (value: number) => String(value),
+    relativeTime: (_date: Date) => "now",
+  }),
+
   // Mock provider wrapper
   NextIntlClientProvider: ({ children }: { children: React.ReactNode }) =>
     children,

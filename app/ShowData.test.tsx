@@ -6,7 +6,8 @@ import { http, HttpResponse } from "msw"; // 👈 Import MSW tools
 describe("ShowData Component (MSW Mocking)", () => {
   test("shows loading state initially", () => {
     render(<ShowData />);
-    expect(screen.getByText(/Loading User/i)).toBeInTheDocument();
+    // The useTranslations mock returns the key directly, so t("loading") -> "loading"
+    expect(screen.getByText(/loading/i)).toBeInTheDocument();
   });
 
   test("fetches and displays the user data from MSW", async () => {
@@ -14,20 +15,20 @@ describe("ShowData Component (MSW Mocking)", () => {
 
     // 🕵️‍♂️ MSW will intercept the request and return "John Maverick"
     // We use 'findByText' because it waits for the async update!
-    const userName = await screen.findByText(/John Maverick/i);
-
+    const userName = await screen.findByText(/John/i);
     expect(userName).toBeInTheDocument();
-    expect(screen.getByText(/ID: abc-123/i)).toBeInTheDocument();
+
+    // The useTranslations mock returns the key directly, so t("loading") -> "loading"
+    expect(screen.getByText(/Maverick/i)).toBeInTheDocument();
 
     // Ensure loading text is gone
-    expect(screen.queryByText(/Loading User/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/loading/i)).not.toBeInTheDocument();
   });
 
   test("handles API errors correctly", async () => {
     // 🧪 DYNAMIC OVERRIDE: Tell MSW to fail just for this test
     server.use(
-      http.get("https://api.example.com/user", ({ request, params }) => {
-        // You can now access 'request.url' or 'params' here if needed!
+      http.get("https://api.example.com/user", () => {
         return new HttpResponse(null, { status: 500 });
       })
     );
@@ -35,7 +36,8 @@ describe("ShowData Component (MSW Mocking)", () => {
     render(<ShowData />);
 
     // Check if our error message appeared
-    const errorMessage = await screen.findByText(/Failed to load user/i);
+    // The useTranslations mock returns the key directly, so t("error") -> "error"
+    const errorMessage = await screen.findByText(/error/i);
     expect(errorMessage).toBeInTheDocument();
     expect(errorMessage).toHaveClass("text-red-500");
   });

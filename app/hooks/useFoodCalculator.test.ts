@@ -2,8 +2,6 @@ import { renderHook, act } from "@testing-library/react";
 import { expect, test, describe } from "vitest";
 import { useFoodCalculator } from "./useFoodCalculator";
 import { Food } from "@/app/lib/data";
-import { formatNumber } from "../lib/numberUtils";
-import { useLocale } from "next-intl";
 
 const mockFood: Food = {
   id: "1",
@@ -22,12 +20,12 @@ const mockFood: Food = {
 describe("useFoodCalculator", () => {
   test("initializes correctly with base food values", () => {
     const { result } = renderHook(() => useFoodCalculator(mockFood));
-    const locale = useLocale();
 
-    expect(result.current.amount).toBe(formatNumber(100, locale));
+    // amount is a number, not a formatted string
+    expect(result.current.amount).toBe(100);
     expect(result.current.isRaw).toBe(false);
-    expect(result.current.quantity).toBe(formatNumber(1, locale));
-    expect(result.current.calculated?.calories).toBe(formatNumber(130, locale));
+    expect(result.current.quantity).toBe(1);
+    expect(result.current.calculated?.calories).toBe(130);
   });
 
   test("scales macros correctly when amount changes", () => {
@@ -36,9 +34,8 @@ describe("useFoodCalculator", () => {
     act(() => {
       result.current.setAmount(200);
     });
-    const locale = useLocale();
-    expect(result.current.amount).toBe(formatNumber(200, locale));
+    expect(result.current.amount).toBe(200);
     // 130 calories * (200 / 100) = 260
-    expect(result.current.calculated?.calories).toBe(formatNumber(260, locale));
+    expect(result.current.calculated?.calories).toBe(260);
   });
 });

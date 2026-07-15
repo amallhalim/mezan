@@ -70,7 +70,7 @@ describe("Button Component", () => {
     let button = screen.getByRole("button", { name: "Category Unselected" });
 
     // Should have the unselected style for category
-    expect(button).toHaveClass("bg-primary/20", "text-gray-300");
+    expect(button).toHaveClass("bg-primary/20", "text-foreground");
     expect(button).not.toHaveClass("ring-2"); // Should NOT have rings
 
     // Re-render as selected
